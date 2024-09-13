@@ -1,1 +1,33 @@
-<p>header works!</p>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="logo">
+      <img routerLink="/" src="assets/logo/trip-tales-logo.png" alt="Trip Tales Logo" height="32">
+    </span>
+
+    <div class="button-container">
+      <button mat-button class="mat-button" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</button>
+      <button mat-button class="mat-button" routerLink="/review" routerLinkActive="active">Review</button>
+      <button mat-button class="mat-button" routerLink="planning" routerLinkActive="active">Planning</button>
+    </div>
+
+    <button mat-icon-button>
+      <mat-icon class="material-symbols-outlined">notifications</mat-icon>
+    </button>
+
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="user-button">
+        <div class="user-info">
+          <img src="https://img.freepik.com/premium-vector/astronaut-cute-cat-white-background-avartar-icon-style-illustration_43969-6634.jpg" alt="User Avatar" class="user-avatar">
+        </div>
+      </button>
+    </div>
+    <div class="user-name">Naruebeth</div>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item>Logout</button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>

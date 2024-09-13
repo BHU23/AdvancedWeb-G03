@@ -12,6 +12,9 @@ import { PlaningFormComponent } from './components/planing-form/planing-form.com
 import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 import { PlaningTableComponent } from './components/planing-table/planing-table.component';
 
+import { MaterialModule } from './material/material.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +29,8 @@ import { PlaningTableComponent } from './components/planing-table/planing-table.
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MaterialModule,
   ],
   providers: [
     provideClientHydration()

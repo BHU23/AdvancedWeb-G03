@@ -3,7 +3,7 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import {
   HttpClientModule,
   provideHttpClient,

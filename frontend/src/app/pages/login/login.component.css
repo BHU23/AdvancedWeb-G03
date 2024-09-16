@@ -9,8 +9,7 @@
 }
 
  .login-from {
-    padding-top:5rem ;
-     height: 90vh;
+    min-height: 87vh;
      display: flex;
      align-items: center;
      justify-content: center;

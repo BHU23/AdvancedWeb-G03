@@ -14,70 +14,76 @@
 
       <!-- Form Section -->
       <div
-        class="shadow h-100  bg-body rounded col-12 col-md-6 d-flex justify-content-center align-items-center"
+        class="shadow h-100 bg-body rounded col-12 col-md-6 d-flex justify-content-center align-items-center"
       >
         <div class="w-100 p-3 p-md-5">
           <h2 class="text-center mb-4">Sign Up</h2>
           <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-            <div class="w-100 mb-3 d-flex gap-3 flex-wrap">
-                <div class="w-100 w-md-55 d-flex gap-3">
-              <div class="w-5 w-md-10 ">
-                <label for="title" class="form-label">Title</label>
-                <select class="form-select" id="title" formControlName="title" [ngClass]="{
-                    'is-invalid':
+            <div class="w-100 mb-3 d-flex gap-3 flex-wrap flex-lg-nowrap">
+              <div class="w-100 w-md-55 d-flex gap-3">
+                <div class="w-5 w-md-10">
+                  <label for="title" class="form-label">Title</label>
+                  <select
+                    class="form-select"
+                    id="title"
+                    formControlName="title"
+                    [ngClass]="{
+                      'is-invalid':
+                        f['title'].invalid &&
+                        (f['title'].dirty || f['title'].touched)
+                    }"
+                  >
+                    <option value="" disabled>Select Title</option>
+                    <option value="Mr">Mr.</option>
+                    <option value="Mrs">Mrs.</option>
+                    <option value="Ms">Ms.</option>
+                    <option value="Dr">Dr.</option>
+                    <option value="Prof">Prof.</option>
+                    <option value="LtCol">Lt. Col.</option>
+                    <option value="Gen">Gen.</option>
+                    <option value="Lord">Lord</option>
+                    <option value="Lady">Lady</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <div
+                    *ngIf="
                       f['title'].invalid &&
                       (f['title'].dirty || f['title'].touched)
-                  }">
-                  <option value="" disabled>Select Title</option>
-                  <option value="Mr">Mr.</option>
-                  <option value="Mrs">Mrs.</option>
-                  <option value="Ms">Ms.</option>
-                  <option value="Dr">Dr.</option>
-                  <option value="Prof">Prof.</option>
-                  <option value="LtCol">Lt. Col.</option>
-                  <option value="Gen">Gen.</option>
-                  <option value="Lord">Lord</option>
-                  <option value="Lady">Lady</option>
-                  <option value="Other">Other</option>
-                </select>
-                <div
-                  *ngIf="
-                    f['title'].invalid &&
-                    (f['title'].dirty || f['title'].touched)
-                  "
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f['title'].errors?.['required']">
-                    Title is required.
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['title'].errors?.['required']">
+                      Title is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="w-100 w-md-45">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    formControlName="firstName"
+                    [ngClass]="{
+                      'is-invalid':
+                        f['firstName'].invalid &&
+                        (f['firstName'].dirty || f['firstName'].touched)
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      f['firstName'].invalid &&
+                      (f['firstName'].dirty || f['firstName'].touched)
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['firstName'].errors?.['required']">
+                      First name is required.
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="w-90 w-md-45 ">
-                <label for="firstName" class="form-label">First Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="firstName"
-                  formControlName="firstName"
-                  [ngClass]="{
-                    'is-invalid':
-                      f['firstName'].invalid &&
-                      (f['firstName'].dirty || f['firstName'].touched)
-                  }"
-                />
-                <div
-                  *ngIf="
-                    f['firstName'].invalid &&
-                    (f['firstName'].dirty || f['firstName'].touched)
-                  "
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f['firstName'].errors?.['required']">
-                    First name is required.
-                  </div>
-                </div>
-              </div></div>
-              <div class="w-100 w-sm-45">
+              <div class="w-100 w-md-40">
                 <label for="lastName" class="form-label">Last Name</label>
                 <input
                   type="text"

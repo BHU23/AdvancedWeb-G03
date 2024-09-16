@@ -1,11 +1,17 @@
 <div class="container">
-  <h1>แผนการท่องเที่ยว</h1>
   <div class="row">
-    <div class="col-md-6">
-      <app-planing-form></app-planing-form>
+    <!-- Left Section: Planning Form -->
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="p-4 rounded custom-shadow bg-light custom-scrollbar" style="height: 90vh; overflow-y: auto;">
+        <app-planing-form></app-planing-form>
+      </div>
     </div>
-    <div class="col-md-6">
-      <app-planing-list></app-planing-list>
+
+    <!-- Right Section: Planning List with Scrollable Content -->
+    <div class="col-lg-6 col-md-12">
+      <div class="p-4 rounded custom-shadow bg-light custom-scrollbar" style="height: 90vh; overflow-y: auto;">
+        <app-planing-list></app-planing-list>
+      </div>
     </div>
   </div>
 </div>

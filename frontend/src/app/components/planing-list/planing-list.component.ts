@@ -32,6 +32,27 @@ export class PlaningListComponent {
       status: 'Planning',
       imageUrl: 'https://image.makewebeasy.net/makeweb/m_1920x0/oDgJmY2kJ/DefaultData/%E0%B8%AB%E0%B8%B2%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%88%E0%B9%80%E0%B8%A5%E0%B8%A2%E0%B9%8C_.png'
     },
-    // เพิ่มข้อมูลตัวอย่างเพิ่มเติมตามต้องการ
+    {
+      title: 'Travel Title 2',
+      dateRange: '20-10-67 To 25-10-67',
+      budget: '100k-150k Baht',
+      description: 'Another travel plan description. This one without an image to demonstrate the placeholder.',
+      status: 'Planning',
+      imageUrl: 'https://image.makewebeasy.net/makeweb/m_1920x0/oDgJmY2kJ/DefaultData/%E0%B8%AB%E0%B8%B2%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%88%E0%B9%80%E0%B8%A5%E0%B8%A2%E0%B9%8C_.png'
+    },{
+      title: 'Travel Title 2',
+      dateRange: '20-10-67 To 25-10-67',
+      budget: '100k-150k Baht',
+      description: 'Another travel plan description. This one without an image to demonstrate the placeholder.',
+      status: 'Planning',
+      imageUrl: 'https://image.makewebeasy.net/makeweb/m_1920x0/oDgJmY2kJ/DefaultData/%E0%B8%AB%E0%B8%B2%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%88%E0%B9%80%E0%B8%A5%E0%B8%A2%E0%B9%8C_.png'
+    },{
+      title: 'Travel Title 2',
+      dateRange: '20-10-67 To 25-10-67',
+      budget: '100k-150k Baht',
+      description: 'Another travel plan description. This one without an image to demonstrate the placeholder.',
+      status: 'Planning',
+      imageUrl: 'https://image.makewebeasy.net/makeweb/m_1920x0/oDgJmY2kJ/DefaultData/%E0%B8%AB%E0%B8%B2%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%88%E0%B9%80%E0%B8%A5%E0%B8%A2%E0%B9%8C_.png'
+    },
   ];
 }

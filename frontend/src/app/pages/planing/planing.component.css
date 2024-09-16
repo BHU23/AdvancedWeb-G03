@@ -1,0 +1,30 @@
+/* Custom shadow */
+.custom-shadow {
+  box-shadow: 0 4px 8px rgba(0, 128, 255, 0.2); /* Blue shadow */
+}
+
+/* Scrollbar Styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #e0f7fa;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #0288d1;
+  border-radius: 10px;
+  border: 3px solid #e0f7fa;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #03a9f4;
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #0288d1 #e0f7fa;
+}

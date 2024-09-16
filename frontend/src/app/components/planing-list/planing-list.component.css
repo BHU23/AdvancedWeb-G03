@@ -58,3 +58,8 @@
   font-size: 0.9em;
   color: #666;
 }
+
+.no-border {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 128, 255, 0.2); /* Optional: Custom shadow */
+}

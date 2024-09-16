@@ -1,0 +1,24 @@
+.no-border {
+  border: none;
+}
+
+/* Customize icon color */
+.text-primary {
+  color: #0288d1; /* Custom blue color */
+}
+
+/* Flexbox alignment for icon and text */
+.d-flex {
+  display: flex;
+  align-items: center; /* Vertically center items */
+}
+
+/* Space between icon and text */
+.me-3 {
+  margin-right: 1rem; /* Space to the right of the icon */
+}
+
+/* Ensure heading does not have extra margins */
+.card h2 {
+  margin-bottom: 0; /* Remove default bottom margin */
+}

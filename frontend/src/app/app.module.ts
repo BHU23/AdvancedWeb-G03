@@ -15,6 +15,7 @@ import { PlaningTableComponent } from './components/planing-table/planing-table.
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SignupComponent } from './pages/signup/signup.component';
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()

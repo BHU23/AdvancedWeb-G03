@@ -1,1 +1,36 @@
-<p>planing-list works!</p>
+<div class="card">
+  <div class="travel-plans">
+    <div class="header">
+      <h2>รายการแผนการท่องเที่ยว</h2>
+      <div class="filter">
+        <label for="category-select">หมวดหมู่</label>
+      </div>
+      <div>
+        <select id="category-select" class="form-select">
+          <option value="">ทั้งหมด</option>
+          <option value="planned">วางแผนแล้ว</option>
+          <option value="visited">เที่ยวแล้ว</option>
+          <option value="cancelled">ยกเลิก</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="plan-list">
+      <div *ngFor="let plan of travelPlans" class="plan-item">
+        <div class="plan-image" [style.backgroundImage]="'url(' + plan.imageUrl + ')'">
+          <span *ngIf="!plan.imageUrl">ใส่รูป</span>
+        </div>
+        <div class="plan-details">
+          <h4>{{ plan.title }}</h4>
+          <p>{{ plan.dateRange }}</p>
+          <p>{{ plan.description }}</p>
+          <div class="plan-actions">
+            <button class="btn btn-sm btn-outline-primary">View Detail</button>
+            <span class="budget">Budget: {{ plan.budget }}</span>
+            <span class="status">{{ plan.status }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

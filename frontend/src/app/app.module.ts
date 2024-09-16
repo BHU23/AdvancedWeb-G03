@@ -25,7 +25,7 @@ import { MaterialModule } from './material/material.module';
     PlaningListComponent,
     PlaningFormComponent,
     SubPlaningComponent,
-    PlaningTableComponent
+    PlaningTableComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,22 @@
+.owl-carousel {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.owl-carousel .owl-stage {
+  display: flex;
+  flex-direction: row;
+}
+
+.owl-carousel .owl-item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

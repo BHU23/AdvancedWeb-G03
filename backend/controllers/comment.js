@@ -1,6 +1,5 @@
 const Comment = require('../models/comment');
 
-// Get all comments
 exports.getAllComments = async (req, res) => {
   try {
     const comments = await Comment.find().populate('userID reviewID parentCommentID');

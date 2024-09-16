@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.markAllAsTouched();
+
     if (this.loginForm.invalid) {
       return;
     }
@@ -49,7 +50,10 @@ export class LoginComponent implements OnInit {
           ? localStorage
           : sessionStorage;
         storage.setItem('token', response.token);
-        this.router.navigate(['/']);
+
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
       },
       (error: any) => {
         this.errorMessage = error.error?.message || 'Login failed';

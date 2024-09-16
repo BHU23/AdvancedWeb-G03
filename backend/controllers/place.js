@@ -39,7 +39,7 @@ exports.createPlace = async (req, res) => {
       rating
     } = req.body;
 
-    const newPlace = new Place({
+    const newPlace = new Place({ 
       name,
       description,
       address,

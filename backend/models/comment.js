@@ -33,13 +33,12 @@ const commentSchema = new mongoose.Schema({
         required: true
     },
     parentCommentID: {
-        type: Number, // Reference to the parent comment (for nested comments)
+        type: Number, 
         ref: 'Comment',
         required: false
     }
 }, { timestamps: { createdAt: 'createAt', updatedAt: 'updateAt' } });
 
-// Apply auto-increment to commentID field
 commentSchema.plugin(AutoIncrement, { inc_field: 'commentID' });
 
 const Comment = mongoose.model('Comment', commentSchema);

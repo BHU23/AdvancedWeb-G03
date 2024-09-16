@@ -23,7 +23,7 @@ const planningSchema = new mongoose.Schema({
         required: false
     },
     budget: {
-        type: Number, // Use Number for float values in Mongoose
+        type: Number,
         required: true
     },
     status: {
@@ -45,7 +45,6 @@ const planningSchema = new mongoose.Schema({
     }
 }, { timestamps: { createdAt: 'createAt', updatedAt: 'updateAt' } });
 
-// Apply auto-increment to tripID field
 planningSchema.plugin(AutoIncrement, { inc_field: 'tripID' });
 
 const Planning = mongoose.model('Planning', planningSchema);

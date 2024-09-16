@@ -43,7 +43,7 @@ const placeSchema = new mongoose.Schema({
         required: false,
         min: 0,
         max: 5,
-        set: v => Math.round(v * 10) / 10 // Round to one decimal place
+        set: v => Math.round(v * 10) / 10 
     },
     createAt: {
         type: Date,
@@ -55,7 +55,6 @@ const placeSchema = new mongoose.Schema({
     }
 }, { timestamps: { createdAt: 'createAt', updatedAt: 'updateAt' } });
 
-// Apply auto-increment to placeID field
 placeSchema.plugin(AutoIncrement, { inc_field: 'placeID' });
 
 const Place = mongoose.model('Place', placeSchema);

@@ -13,7 +13,6 @@ interface LoginResponse {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-  
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup; // Define loginForm as a FormGroup
   submitted = false;
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    this.markAllAsTouched();
     if (this.loginForm.invalid) {
       return;
     }
@@ -50,11 +49,20 @@ export class LoginComponent implements OnInit {
           ? localStorage
           : sessionStorage;
         storage.setItem('token', response.token);
-        this.router.navigate(['/']); 
+        this.router.navigate(['/']);
       },
       (error: any) => {
         this.errorMessage = error.error?.message || 'Login failed';
       }
     );
+  }
+  private markAllAsTouched(): void {
+    Object.keys(this.loginForm.controls).forEach((key) => {
+      const control = this.loginForm.get(key);
+      if (control) {
+        control.markAsTouched();
+        control.updateValueAndValidity();
+      }
+    });
   }
 }

@@ -37,6 +37,9 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // Mark all controls as touched to trigger validation messages
+    this.markAllAsTouched();
+
     if (this.signupForm.invalid) {
       return;
     }
@@ -54,5 +57,15 @@ export class SignupComponent implements OnInit {
           error.error.message || 'An error occurred during sign up';
       }
     );
+  }
+
+  private markAllAsTouched(): void {
+    Object.keys(this.signupForm.controls).forEach((key) => {
+      const control = this.signupForm.get(key);
+      if (control) {
+        control.markAsTouched();
+        control.updateValueAndValidity();
+      }
+    });
   }
 }

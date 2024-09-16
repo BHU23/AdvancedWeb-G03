@@ -30,7 +30,7 @@
                         <input type="checkbox" class="form-check-input" id="rememberMe" formControlName="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
                     <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
                 </form>
                 <div class="text-center mt-3">

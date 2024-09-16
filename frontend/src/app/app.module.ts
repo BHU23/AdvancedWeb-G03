@@ -13,7 +13,8 @@ import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 import { PlaningTableComponent } from './components/planing-table/planing-table.component';
 
 import { MaterialModule } from './material/material.module';
-
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { MaterialModule } from './material/material.module';
     PlaningFormComponent,
     SubPlaningComponent,
     PlaningTableComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

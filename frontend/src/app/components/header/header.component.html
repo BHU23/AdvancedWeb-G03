@@ -1,33 +1,221 @@
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+<!-- <nav class="navbar navbar-expand-lg shadow-sm fixed-top bg-white">
+  <div class="container-fluid d-flex justify-between">
+    <div class="d-flex gap-3">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-<mat-toolbar color="primary" class="shadow-sm fixed-top bg-white">
-  <mat-toolbar-row>
-    <span class="logo">
-      <img routerLink="/" src="assets/logo/trip-tales-logo.png" alt="Trip Tales Logo" height="32">
-    </span>
-
-    <div class="button-container">
-      <button mat-button class="mat-button" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</button>
-      <button mat-button class="mat-button" routerLink="/login" routerLinkActive="active">Review</button>
-      <button mat-button class="mat-button" routerLink="planning" routerLinkActive="active">Planning</button>
+      <a class="navbar-brand" href="#">
+        <img
+          src="assets/logo/trip-tales-logo.png"
+          alt="Trip Tales Logo"
+          height="32"
+        />
+      </a>
     </div>
-
-    <button mat-icon-button>
-      <mat-icon class="material-symbols-outlined">notifications</mat-icon>
-    </button>
-
-    <div>
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="user-button">
-        <div class="user-info">
-          <img src="https://img.freepik.com/premium-vector/astronaut-cute-cat-white-background-avartar-icon-style-illustration_43969-6634.jpg" alt="User Avatar" class="user-avatar">
-        </div>
+    <div class="button-container d-none d-lg-flex justify-content-center">
+      <button
+        mat-button
+        class="mat-button"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Home
+      </button>
+      <button
+        mat-button
+        class="mat-button"
+        routerLink="/login"
+        routerLinkActive="active"
+      >
+        Review
+      </button>
+      <button
+        mat-button
+        class="mat-button"
+        routerLink="/planning"
+        routerLinkActive="active"
+      >
+        Planning
       </button>
     </div>
-    <div class="user-name">Naruebeth</div>
+    <div class="d-flex align-items-center justify-content-end gap-3">
+      <a class="nav-link" href="#">
+        <i class="material-symbols-outlined">notifications</i>
+      </a>
 
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>Profile</button>
-      <button mat-menu-item>Logout</button>
-    </mat-menu>
-  </mat-toolbar-row>
-</mat-toolbar>
+      <div class="dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img
+            src="https://img.freepik.com/premium-vector/astronaut-cute-cat-white-background-avartar-icon-style-illustration_43969-6634.jpg"
+            alt="User Avatar"
+            class="rounded-circle"
+            width="32"
+          />
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="d-lg-none  p-3 pt-2"
+    id="navbarNav"
+  >
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          aria-current="page"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">
+          Review
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/planning" routerLinkActive="active">
+          Planning
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav> -->
+<nav class="navbar navbar-expand-lg shadow-sm fixed-top bg-white">
+  <div class="container-fluid d-flex justify-between">
+    <div class="d-flex gap-3">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <a class="navbar-brand" href="#">
+        <img
+          src="assets/logo/trip-tales-logo.png"
+          alt="Trip Tales Logo"
+          height="32"
+        />
+      </a>
+    </div>
+
+    <div
+      *ngIf="isLoggedIn"
+      class="button-container d-none d-lg-flex justify-content-center"
+    >
+      <button
+        mat-button
+        class="mat-button"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Home
+      </button>
+      <button
+        mat-button
+        class="mat-button"
+        routerLink="/review"
+        routerLinkActive="active"
+      >
+        Review
+      </button>
+      <button
+        mat-button
+        class="mat-button"
+        routerLink="/planning"
+        routerLinkActive="active"
+      >
+        Planning
+      </button>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end gap-3">
+      <ng-container *ngIf="isLoggedIn; else loggedOut">
+        <a class="nav-link" href="#">
+          <i class="bi bi-bell-fill"></i>
+        </a>
+
+        <div class="dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="https://img.freepik.com/premium-vector/astronaut-cute-cat-white-background-avartar-icon-style-illustration_43969-6634.jpg"
+              alt="User Avatar"
+              class="rounded-circle"
+              width="32"
+            />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </div>
+      </ng-container>
+
+      <ng-template #loggedOut>
+        <a class="btn btn-primary px-3" routerLink="/login"
+          >Login <i class="bi bi-box-arrow-in-right"></i>
+        </a>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="d-lg-none p-3 pt-2" id="navbarNav">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          aria-current="page"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/review" routerLinkActive="active">
+          Review
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/planning" routerLinkActive="active">
+          Planning
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

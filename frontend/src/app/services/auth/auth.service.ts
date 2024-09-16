@@ -13,4 +13,9 @@ export class AuthService {
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post<any>(this.apiUrl, credentials);
   }
+
+  isLoggedIn(): boolean {
+    return !!(localStorage.getItem('token') || sessionStorage.getItem('token'));
+  }
 }
+

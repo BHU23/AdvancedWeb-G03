@@ -1,18 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+
+interface Destination {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-
-export class HomeComponent {
-
-  images = [
-    { imageUrl: 'https://www.takemetour.com/amazing-thailand-go-local/wp-content/uploads/2018/04/03-Lamai-Beach-Koh-Samui-1-e1525774776516.jpg' },
-    { imageUrl: 'https://ik.imagekit.io/tvlk/blog/2024/04/7EVaSTlB-image9.png?tr=dpr-2,w-675' },
-    { imageUrl: 'https://www.treehouse-villas.com/wp-content/uploads/2024/03/%E0%B8%94%E0%B8%B3%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A0%E0%B8%B9%E0%B9%80%E0%B8%81%E0%B9%87%E0%B8%95-2.webp' },
-    { imageUrl: 'https://res.klook.com/image/upload/q_85/c_fill,w_563/activities/lz5jf8kg4kfbiakkkvzc.jpg' },
-    { imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWqjjQgXRlGwU_77KW_vsY_3up1HhY8z7VkA&s' },
+export class HomeComponent implements OnInit {
+  featuredDestinations: Destination[] = [
+    { id: 1, name: 'เกาะสมุย', description: 'เกาะสวรรค์แห่งอ่าวไทย', imageUrl: 'https://blog.amari.com/wp-content/uploads/2017/08/shutterstock_169949093.jpg' },
+    { id: 2, name: 'เชียงใหม่', description: 'เมืองแห่งวัฒนธรรมล้านนา', imageUrl: 'https://www.maehongsongreentravel.com/images/editor/Chiang%20Mai/%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88.jpg' },
+    { id: 3, name: 'กรุงเทพมหานคร', description: 'มหานครแห่งความหลากหลาย', imageUrl: 'https://www.b2hotel.com/wp-content/uploads/2023/01/Bangkok-1024x683.jpg' },
+    { id: 4, name: 'ภูเก็ต', description: 'ไข่มุกแห่งอันดามัน', imageUrl: 'https://blog.bangkokair.com/wp-content/uploads/2024/04/phuket-scaled.jpeg' }
   ];
+
+  carouselItems = [
+    {
+      imageUrl: 'https://travel.mthai.com/app/uploads/2014/12/814740-topic-ix-10.jpg',
+      title: 'วัฒธรรมอันสวยงาม',
+      text: 'เที่ยวชมสุดยอดวัฒนธรรมอันสวยงาม วัดที่สวยที่สุดในประเทศไทย'
+    },
+    {
+      imageUrl: 'https://thethaiger.com/wp-content/uploads/2023/07/thai-tourism.jpg',
+      title: 'สถานที่ท่องเที่ยวสุดฮิต',
+      text: 'ไปเที่ยวแล้วถ่ายรูปกันกับเพื่อนๆ และสาวๆ ของคุณ!'
+    },
+    {
+      imageUrl: 'https://www.wonderfulpackage.com/uploads/moxie/Article/Inbound/Content_Inbound/002_Article/002_Picture_Safe.jpg',
+      title: 'เรียนรู้จากการท่องเที่ยว',
+      text: 'ค้นหาแหล่งวัฒนธรรมโบราณอันสวยงาม ที่มีอยู่ในประเทศไทย'
+    }
+  ];
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 }
+

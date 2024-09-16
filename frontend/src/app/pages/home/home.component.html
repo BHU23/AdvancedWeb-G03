@@ -1,3 +1,81 @@
-<p>
-  Start editing to see some magic happen
-</p>
+<main>
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1>ค้นพบความมหัศจรรย์แห่งประเทศไทย</h1>
+          <p>สัมผัสประสบการณ์ท่องเที่ยวที่น่าจดจำในดินแดนแห่งรอยยิ้ม</p>
+          <a href="#" class="btn btn-primary btn-lg">ค้นหาจุดหมายปลายทาง</a>
+        </div>
+
+        <div class="col-md-6">
+          <div id="carouselExampleCaptions" class="carousel slide">
+            <div class="carousel-indicators">
+              <button
+                *ngFor="let item of carouselItems; let i = index"
+                type="button"
+                [attr.data-bs-target]="'#carouselExampleCaptions'"
+                [attr.data-bs-slide-to]="i"
+                [class.active]="i === 0"
+                [attr.aria-current]="i === 0 ? 'true' : null"
+                [attr.aria-label]="'Slide ' + (i + 1)">
+              </button>
+            </div>
+            <div class="carousel-inner">
+              <div
+                *ngFor="let item of carouselItems; let i = index"
+                class="carousel-item"
+                [class.active]="i === 0">
+                <img [src]="item.imageUrl" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>{{ item.title }}</h5>
+                  <p>{{ item.text }}</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-destinations">
+    <div class="container"> <hr class="section-divider">
+      <div class="d-flex align-items-center mb-4">
+        <h2 class="text-space-left2 mb-0 font-weight-bold">สถานที่ท่องเที่ยวที่กำลังมาแรง</h2>
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" fill="red" class="bi bi-geo-alt-fill ml-2" viewBox="0 0 16 16">
+          <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+        </svg>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-3 mb-4" *ngFor="let destination of featuredDestinations">
+          <div class="card">
+            <img [src]="destination.imageUrl" class="card-img-top" [alt]="destination.name">
+            <div class="card-body">
+              <h5 class="card-title">{{ destination.name }}</h5>
+              <p class="card-text">{{ destination.description }}</p>
+              <a href="#" class="btn btn-outline-primary">ดูรายละเอียด</a>
+            </div>
+          </div>
+        </div>
+      </div> <hr class="section-divider">
+    </div>
+  </section>
+
+  <section class="cta-section py-5">
+    <div class="container text-center">
+      <h2>พร้อมที่จะเริ่มการผจญภัยของคุณแล้วหรือยัง?</h2>
+      <p>ค้นหาสถานที่ท่องเที่ยวและวางแผนของคุณ</p>
+      <a href="/planning" class="btn btn-success btn-lg">วางแผนการท่องเที่ยวเลย</a>
+    </div>
+  </section>
+</main>

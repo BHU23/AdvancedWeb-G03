@@ -1,0 +1,18 @@
+/* Make sure the image takes full height on large screens */
+.bg-light {
+    background: url('/assets/login-image.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.signup-form {
+    padding-top: 5rem;
+    height: auto;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

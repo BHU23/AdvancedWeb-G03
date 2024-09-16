@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   };
-
+console.log(payload)
   try {
     const result = await findUser(payload.email);
     if (!result) {
@@ -94,7 +94,7 @@ exports.signup = async (req, res) => {
       phoneNumber,
       avatar,
     };
-
+console.log(payload)
     const newUser = new Customer(payload);
     const result = await newUser.save();
 

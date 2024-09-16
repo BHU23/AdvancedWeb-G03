@@ -1,5 +1,14 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withFetch,
+} from '@angular/common/http'; // Import necessary modules
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +20,6 @@ import { PlaningListComponent } from './components/planing-list/planing-list.com
 import { PlaningFormComponent } from './components/planing-form/planing-form.component';
 import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 import { PlaningTableComponent } from './components/planing-table/planing-table.component';
-
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
@@ -29,17 +37,19 @@ import { ReactiveFormsModule } from '@angular/forms';
     SubPlaningComponent,
     PlaningTableComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule, // Ensure HttpClientModule is imported
   ],
   providers: [
-    provideClientHydration()
+    provideHttpClient(withFetch()), // Configure HttpClient to use fetch API
+    provideClientHydration(),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

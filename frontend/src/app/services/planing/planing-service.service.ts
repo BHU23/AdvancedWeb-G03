@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Planning} from '../../components/planing-form/planing-form.component';
 import { AuthService } from '../auth/auth.service';
 import { of } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { switchMap, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,22 @@ export class PlaningService {
   ) { }
 
   getAllPlannings(): Observable<Planning[]> {
-    return this.http.get<Planning[]>(`${this.apiUrl}/plannings`);
+    const token = sessionStorage.getItem('token') || '';
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    console.log('Headers:', headers);
+
+    return this.http.get<Planning[]>(`${this.apiUrl}/plannings`, { headers })
+      .pipe(
+        tap(data => {
+          // Log data if needed
+          console.log('Fetched data:', data);
+        })
+      );
   }
+
 
   getPlanningById(id: number): Observable<Planning> {
     return this.http.get<Planning>(`${this.apiUrl}/planning/${id}`);

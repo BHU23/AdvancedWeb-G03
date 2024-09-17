@@ -17,13 +17,10 @@
 
     <div class="plan-list">
       <div *ngFor="let plan of travelPlans" class="plan-item">
-        <div class="plan-image" [style.backgroundImage]="'url(' + plan.imageUrl + ')'">
-          <span *ngIf="!plan.imageUrl">ใส่รูป</span>
-        </div>
         <div class="plan-details">
-          <h4>{{ plan.title }}</h4>
-          <p>{{ plan.dateRange }}</p>
-          <p>{{ plan.description }}</p>
+          <h4>{{ plan.tripName }}</h4>
+          <p>{{ plan.startDate | date:'dd-MM-yyyy' }} - {{ plan.endDate | date:'dd-MM-yyyy' }}</p>
+          <p>{{ plan.description || 'No description available' }}</p>
           <div class="plan-actions">
             <button class="btn btn-sm btn-outline-primary">View Detail</button>
             <span class="budget">Budget: {{ plan.budget }}</span>

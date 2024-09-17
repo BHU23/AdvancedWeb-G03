@@ -23,7 +23,7 @@ const planningSchema = new mongoose.Schema({
         required: false
     },
     budget: {
-        type: Number,
+        type: String,
         required: true
     },
     status: {

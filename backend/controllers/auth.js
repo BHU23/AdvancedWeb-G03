@@ -39,14 +39,19 @@ console.log(payload)
     if (!result) {
       return res.status(404).json({ error: "User not found" });
     }
-
+    console.log(result);
+    
     const loginStatus = await compareHash(payload.password, result.password);
     const status = loginStatus.status;
 
+    console.log(status);
+    
     if (status) {
       const token = jwt.sign({ id: result._id, email: result.email }, key, {
         expiresIn: "6h",
       });
+      console.log(token);
+      
       res.status(200).json({ result, token, status });
     } else {
       res.status(401).json({ status: false, message: "Invalid password" });

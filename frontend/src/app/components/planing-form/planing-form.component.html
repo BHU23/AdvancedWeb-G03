@@ -14,9 +14,9 @@
   <div class="card-body">
     <form [formGroup]="planingForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label for="tripTitle" class="form-label">Trip Title</label>
-        <input type="text" class="form-control" id="tripTitle" formControlName="tripTitle" placeholder="กรุณากรอกชื่อทริป">
-        <div *ngIf="planingForm.get('tripTitle')?.invalid && planingForm.get('tripTitle')?.touched" class="text-danger">
+        <label for="tripName" class="form-label">Trip Title</label>
+        <input type="text" class="form-control" id="tripName" formControlName="tripName" placeholder="กรุณากรอกชื่อทริป">
+        <div *ngIf="planingForm.get('tripName')?.invalid && planingForm.get('tripName')?.touched" class="text-danger">
           กรุณากรอกชื่อทริป
         </div>
       </div>
@@ -63,6 +63,14 @@
         <button type="submit" class="btn btn-primary me-2" [disabled]="planingForm.invalid">บันทึก</button>
         <button type="button" class="btn btn-secondary" (click)="resetForm()">รีเซ็ต</button>
       </div>
+      <br>
+      <div class="alert alert-success" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
     </form>
   </div>
 </div>

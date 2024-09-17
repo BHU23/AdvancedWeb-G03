@@ -1,6 +1,9 @@
+import { jwtDecode } from 'jwt-decode';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +19,15 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!(localStorage.getItem('token') || sessionStorage.getItem('token'));
+
+  }
+
+  getCurrentUserId(): Observable<number | null> {
+    const userId = 1;
+    if (userId) {
+      return of(Number(userId));
+    }
+    return of(null);
   }
 }
 

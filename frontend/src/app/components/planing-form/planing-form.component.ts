@@ -1,5 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PlaningService } from '../../services/planing/planing-service.service';
+
+export interface Planning {
+  tripID: number;
+  tripName: string;
+  startDate: Date;
+  endDate: Date;
+  description?: string;
+  budget: string;
+  status: string;
+  userID: Number;
+}
 
 @Component({
   selector: 'app-planing-form',
@@ -9,28 +21,52 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PlaningFormComponent implements OnInit {
   planingForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private PlaningService: PlaningService
+  ) {}
 
   ngOnInit() {
     this.initForm();
   }
 
+  successMessage: string = '';
+  errorMessage: string = '';
+
+
   initForm() {
     this.planingForm = this.fb.group({
-      tripTitle: ['', Validators.required],
+      tripName: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       budget: ['', Validators.required],
-      description: ['']
+      description: [''],
     });
   }
 
   onSubmit() {
     if (this.planingForm.valid) {
-      console.log(this.planingForm.value);
-      // Here you would typically save the form data or emit an event to the parent component
+      const planningData: Planning = this.planingForm.value;
+      this.PlaningService.createPlanning(planningData).subscribe(
+        (response) => {
+          if (response) {
+            console.log('Planning created successfully', response);
+            this.successMessage = 'บันทึกข้อมูลการวางแผนท่องเที่ยวสำเร็จ';
+            this.errorMessage = '';
+            this.resetForm();
+          } else {
+            // Handle the case where response is null
+            this.errorMessage = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+            this.successMessage = '';
+          }
+        },
+        (error) => {
+          console.error('Error creating planning', error);
+          this.errorMessage = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+          this.successMessage = '';
+        }
+      );
     } else {
-      // Mark all fields as touched to trigger validation messages
       Object.keys(this.planingForm.controls).forEach(field => {
         const control = this.planingForm.get(field);
         control?.markAsTouched({ onlySelf: true });
@@ -40,7 +76,5 @@ export class PlaningFormComponent implements OnInit {
 
   resetForm() {
     this.planingForm.reset();
-    // Optionally, you can reinitialize the form to its default state
-    // this.initForm();
   }
 }

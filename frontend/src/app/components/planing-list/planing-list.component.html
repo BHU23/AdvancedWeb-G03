@@ -6,7 +6,7 @@
         <label for="category-select">หมวดหมู่</label>
       </div>
       <div>
-        <select id="category-select" class="form-select">
+        <select id="category-select" class="form-select" (change)="onCategoryChange($event)">
           <option value="">ทั้งหมด</option>
           <option value="planned">วางแผนแล้ว</option>
           <option value="visited">เที่ยวแล้ว</option>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="plan-list">
-      <div *ngFor="let plan of travelPlans" class="plan-item">
+      <div *ngFor="let plan of filteredPlans" class="plan-item">
         <div class="plan-details">
           <h4>{{ plan.tripName }}</h4>
           <p>{{ plan.startDate | date:'dd-MM-yyyy' }} - {{ plan.endDate | date:'dd-MM-yyyy' }}</p>

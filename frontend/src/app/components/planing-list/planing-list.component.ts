@@ -128,7 +128,7 @@ export class PlaningListComponent implements OnInit {
         endDate: new Date('1967-10-25'),
         budget: '100k-150k Baht',
         description: 'Another travel plan description. This one without an image to demonstrate the placeholder.',
-        status: 'Planning',
+        status: 'cancelled',
         tripID: 0,
         userID: 1
       },
@@ -156,6 +156,22 @@ export class PlaningListComponent implements OnInit {
         }
       }
     );
+  }
+
+  filteredPlans = [...this.travelPlans]; // Initialize with all plans
+  selectedCategory = ''; // This will be used to filter plans
+
+  onCategoryChange(event: any) {
+    this.selectedCategory = event.target.value;
+    this.filterPlans();
+  }
+
+  filterPlans() {
+    if (this.selectedCategory === '') {
+      this.filteredPlans = [...this.travelPlans];
+    } else {
+      this.filteredPlans = this.travelPlans.filter(plan => plan.status.toLowerCase() === this.selectedCategory.toLowerCase());
+    }
   }
 
 }

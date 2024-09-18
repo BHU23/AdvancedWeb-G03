@@ -10,8 +10,9 @@ export interface Planning {
   description?: string;
   budget: string;
   status: string;
-  userID: Number;
+  userID?: number | string;
 }
+
 
 @Component({
   selector: 'app-planing-form',
@@ -20,19 +21,18 @@ export interface Planning {
 })
 export class PlaningFormComponent implements OnInit {
   planingForm!: FormGroup;
+  successMessage: string = '';
+  errorMessage: string = '';
+  isSubmitting: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    private PlaningService: PlaningService
+    private planingService: PlaningService
   ) {}
 
   ngOnInit() {
     this.initForm();
   }
-
-  successMessage: string = '';
-  errorMessage: string = '';
-
 
   initForm() {
     this.planingForm = this.fb.group({
@@ -46,35 +46,43 @@ export class PlaningFormComponent implements OnInit {
 
   onSubmit() {
     if (this.planingForm.valid) {
-      const planningData: Planning = this.planingForm.value;
-      this.PlaningService.createPlanning(planningData).subscribe(
+      this.isSubmitting = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+
+
+      const planningData: Partial<Planning> = this.planingForm.value;
+      this.planingService.createPlanning(planningData).subscribe(
         (response) => {
-          if (response) {
-            console.log('Planning created successfully', response);
-            this.successMessage = 'บันทึกข้อมูลการวางแผนท่องเที่ยวสำเร็จ';
-            this.errorMessage = '';
-            this.resetForm();
-          } else {
-            // Handle the case where response is null
-            this.errorMessage = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
-            this.successMessage = '';
-          }
+          console.log('Planning created successfully', response);
+          this.successMessage = 'บันทึกข้อมูลการวางแผนท่องเที่ยวสำเร็จ';
+          this.resetForm();
+          this.isSubmitting = false;
         },
         (error) => {
           console.error('Error creating planning', error);
-          this.errorMessage = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
-          this.successMessage = '';
+          this.errorMessage = error;
+          this.isSubmitting = false;
         }
       );
     } else {
-      Object.keys(this.planingForm.controls).forEach(field => {
-        const control = this.planingForm.get(field);
-        control?.markAsTouched({ onlySelf: true });
-      });
+      this.markFormGroupTouched(this.planingForm);
+      this.errorMessage = 'กรุณากรอกข้อมูลให้ครบถ้วน';
     }
   }
 
   resetForm() {
     this.planingForm.reset();
+    this.successMessage = '';
+    this.errorMessage = '';
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 }

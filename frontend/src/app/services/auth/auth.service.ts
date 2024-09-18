@@ -1,9 +1,11 @@
-import { jwtDecode } from 'jwt-decode';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
-
+import { Observable, of } from 'rxjs';
+import {jwtDecode} from 'jwt-decode';
+interface DecodedToken {
+  userID?: number; // to match the provided data structure
+  id?: string;    // fallback to ObjectId if userID is not present
+}
 
 @Injectable({
   providedIn: 'root',
@@ -18,16 +20,51 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!(localStorage.getItem('token') || sessionStorage.getItem('token'));
-
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      return !!this.getToken();
+    }
+    return false;
   }
 
-  getCurrentUserId(): Observable<number | null> {
-    const userId = 1;
-    if (userId) {
-      return of(Number(userId));
+  logout(): void {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      sessionStorage.removeItem('token');
+    }
+  }
+
+  getToken(): string | null {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      return sessionStorage.getItem('token');
+    }
+    return null;
+  }
+
+  setToken(token: string): void {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      sessionStorage.setItem('token', token);
+    }
+  }
+
+  getCurrentUserId(): Observable<number | string | null> {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const decodedToken = jwtDecode<DecodedToken>(token);
+        console.log('Decoded token:', decodedToken);
+
+        const userID = decodedToken.id;
+        if (userID !== undefined) {
+          console.log('Current user ID:', userID);
+          return of(userID);
+        } else {
+          console.log('User ID not found in token');
+        }
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    } else {
+      console.log('No token found');
     }
     return of(null);
   }
 }
-

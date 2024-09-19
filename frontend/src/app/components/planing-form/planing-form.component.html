@@ -9,15 +9,16 @@
 </div>
 
 
-
 <div class="card mt-4 no-border">
   <div class="card-body">
     <form [formGroup]="planingForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label for="tripName" class="form-label">Trip Title</label>
         <input type="text" class="form-control" id="tripName" formControlName="tripName" placeholder="กรุณากรอกชื่อทริป">
-        <div *ngIf="planingForm.get('tripName')?.invalid && planingForm.get('tripName')?.touched" class="text-danger">
-          กรุณากรอกชื่อทริป
+        <div *ngIf="tripName?.invalid && (tripName?.dirty || tripName?.touched)" class="text-danger">
+          <small *ngIf="tripName?.errors?.['required']">กรุณากรอกชื่อทริป</small>
+          <small *ngIf="tripName?.errors?.['minlength']">ชื่อทริปต้องมีความยาวอย่างน้อย 3 ตัวอักษร</small>
+          <small *ngIf="tripName?.errors?.['maxlength']">ชื่อทริปต้องมีความยาวไม่เกิน 100 ตัวอักษร</small>
         </div>
       </div>
 
@@ -25,15 +26,17 @@
         <div class="col-md-6">
           <label for="startDate" class="form-label">Start Date</label>
           <input type="date" class="form-control" id="startDate" formControlName="startDate">
-          <div *ngIf="planingForm.get('startDate')?.invalid && planingForm.get('startDate')?.touched" class="text-danger">
-            กรุณาเลือกวันที่เริ่มต้น
+          <div *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)" class="text-danger">
+            <small *ngIf="startDate?.errors?.['required']">กรุณาเลือกวันที่เริ่มต้น</small>
+            <small *ngIf="startDate?.errors?.['pastDate']">วันที่เริ่มต้นต้องไม่เป็นวันในอดีต</small>
           </div>
         </div>
         <div class="col-md-6">
           <label for="endDate" class="form-label">End Date</label>
           <input type="date" class="form-control" id="endDate" formControlName="endDate">
-          <div *ngIf="planingForm.get('endDate')?.invalid && planingForm.get('endDate')?.touched" class="text-danger">
-            กรุณาเลือกวันที่สิ้นสุด
+          <div *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)" class="text-danger">
+            <small *ngIf="endDate?.errors?.['required']">กรุณาเลือกวันที่สิ้นสุด</small>
+            <small *ngIf="endDate?.errors?.['pastDate']">วันที่สิ้นสุดต้องไม่เป็นวันในอดีต</small>
           </div>
         </div>
       </div>
@@ -49,28 +52,39 @@
           <option value="50001-100000">50,001 - 100,000 บาท</option>
           <option value="100001+">100,001 บาทขึ้นไป</option>
         </select>
-        <div *ngIf="planingForm.get('budget')?.invalid && planingForm.get('budget')?.touched" class="text-danger">
-          กรุณาเลือกช่วงงบประมาณ
+        <div *ngIf="budget?.invalid && (budget?.dirty || budget?.touched)" class="text-danger">
+          <small *ngIf="budget?.errors?.['required']">กรุณาเลือกช่วงงบประมาณ</small>
         </div>
       </div>
 
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="กรอกรายละเอียดเพิ่มเติม (ถ้ามี)"></textarea>
+        <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="text-danger">
+          <small *ngIf="description?.errors?.['maxlength']">รายละเอียดต้องมีความยาวไม่เกิน 500 ตัวอักษร</small>
+        </div>
       </div>
+
+      <!-- Start Date, End Date, Budget, Description Fields -->
 
       <div class="d-flex justify-content-center mt-4">
-        <button type="submit" class="btn btn-primary me-2" [disabled]="planingForm.invalid">บันทึก</button>
-        <button type="button" class="btn btn-secondary" (click)="resetForm()">รีเซ็ต</button>
+        <button type="submit" class="btn btn-primary me-2" >
+          บันทึก
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()" [disabled]="isSubmitting">รีเซ็ต</button>
       </div>
-      <br>
-      <div class="alert alert-success" *ngIf="successMessage">
-        {{ successMessage }}
-      </div>
-      <div class="alert alert-danger" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </div>
-
     </form>
-  </div>
+
+    <!-- Alerts for Success and Error -->
+     
+    <div class="mt-3">
+      <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ successMessage }}
+        <button type="button" class="btn-close" (click)="closeAlert('success')" aria-label="Close"></button>
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ errorMessage }}
+        <button type="button" class="btn-close" (click)="closeAlert('error')" aria-label="Close"></button>
+      </div>
+    </div>
 </div>

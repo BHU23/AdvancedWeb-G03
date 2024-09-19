@@ -21,7 +21,7 @@ exports.getPlanningByID = async (req, res) => {
     res.status(200).json(planning);
   } catch (err) {
     console.error('Error fetching planning by ID:', err);
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Error fetching planning', error: err.message });
   }
 };
 

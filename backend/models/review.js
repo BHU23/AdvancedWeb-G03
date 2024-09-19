@@ -63,7 +63,7 @@ const reviewSchema = new mongoose.Schema({
     },
     userID: {
         type: mongoose.Schema.Types.ObjectId, // Foreign key referencing User
-        ref: 'User',
+        ref: 'Customer',
         required: true
     }
 }, { timestamps: { createdAt: 'createAt', updatedAt: 'updateAt' } });

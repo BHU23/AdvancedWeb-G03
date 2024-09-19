@@ -13,7 +13,6 @@ export interface Planning {
   userID?: number | string;
 }
 
-
 @Component({
   selector: 'app-planing-form',
   templateUrl: './planing-form.component.html',
@@ -36,13 +35,19 @@ export class PlaningFormComponent implements OnInit {
 
   initForm() {
     this.planingForm = this.fb.group({
-      tripName: ['', Validators.required],
+      tripName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       budget: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.maxLength(500)],
     });
   }
+
+  get tripName() { return this.planingForm.get('tripName'); }
+  get startDate() { return this.planingForm.get('startDate'); }
+  get endDate() { return this.planingForm.get('endDate'); }
+  get budget() { return this.planingForm.get('budget'); }
+  get description() { return this.planingForm.get('description'); }
 
   onSubmit() {
     if (this.planingForm.valid) {
@@ -80,9 +85,14 @@ export class PlaningFormComponent implements OnInit {
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
-      }
     });
+  }
+
+  closeAlert(type: string) {
+    if (type === 'success') {
+      this.successMessage = '';
+    } else if (type === 'error') {
+      this.errorMessage = '';
+    }
   }
 }

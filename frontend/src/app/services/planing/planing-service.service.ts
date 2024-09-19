@@ -59,7 +59,7 @@ export class PlaningService {
                 return throwError(() => new Error('User not authenticated'));
             }
 
-            const completeData = { ...planningData, userID: userID.toString(), status: 'active' };
+            const completeData = { ...planningData, userID: userID.toString(), status: 'Planned' };
             console.log('Complete data to be sent:', completeData);
 
             return this.http.post(`${this.apiUrl}/planning`, completeData, { headers }).pipe(

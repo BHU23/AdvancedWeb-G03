@@ -24,6 +24,8 @@ import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReviewComponent } from './pages/review/review.component';
 
 @NgModule({
   declarations: [
@@ -38,12 +40,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     PlaningTableComponent,
     LoginComponent,
     SignupComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    CommonModule ,
     HttpClientModule, // Ensure HttpClientModule is imported
   ],
   providers: [

@@ -5,6 +5,7 @@ import { PlaningComponent } from './pages/planing/planing.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ReviewComponent } from './pages/review/review.component';
+import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 
 // const routes: Routes = [];
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'planning', component: PlaningComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'planning/subplanning', component: SubPlaningComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

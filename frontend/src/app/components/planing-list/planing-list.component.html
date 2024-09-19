@@ -1,5 +1,6 @@
 <div class="travel-plans">
   <div class="header">
+    <i class="bi bi-flag-fill"></i>
     <h2>รายการแผนการท่องเที่ยว</h2>
     <div class="filter">
       <label for="category-select"></label>
@@ -22,7 +23,7 @@
         <p>{{ plan.startDate | date:'dd-MM-yyyy' }} - {{ plan.endDate | date:'dd-MM-yyyy' }}</p>
         <p class="plan-description">{{ plan.description || 'No description available' }}</p>
         <div class="plan-actions">
-          <button class="btn btn-sm btn-outline-primary">View Detail</button>
+          <button class="btn btn-sm btn-outline-primary" routerLink="/planning/subplanning" routerLinkActive="active" >View Detail</button>
           <div class="budgetStatus">
             <span class="budget">Budget: {{ plan.budget }}</span>
             <span class="status">{{ plan.status }}</span>

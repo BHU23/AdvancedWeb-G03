@@ -47,13 +47,15 @@ export class AuthService {
 
   getCurrentUserId(): Observable<number | string | null> {
     const token = this.getToken();
+    console.log('Retrieved token:', token);
+
     if (token) {
       try {
         const decodedToken = jwtDecode<DecodedToken>(token);
         console.log('Decoded token:', decodedToken);
 
         const userID = decodedToken.id;
-        if (userID !== undefined) {
+        if (userID) {
           console.log('Current user ID:', userID);
           return of(userID);
         } else {
@@ -65,6 +67,8 @@ export class AuthService {
     } else {
       console.log('No token found');
     }
+
     return of(null);
   }
+
 }

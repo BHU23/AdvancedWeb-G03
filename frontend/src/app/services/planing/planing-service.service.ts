@@ -18,30 +18,33 @@ export class PlaningService {
 
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
+    if (token) {
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      });
+    } else {
+      console.error('Token not found in getHeaders');
+      return new HttpHeaders({ 'Content-Type': 'application/json' });
+    }
   }
 
-  getAllPlannings(): Observable<any> {
-    const headers = this.getHeaders();
-    console.log('Headers:', headers);
 
-    return this.http.get(`${this.apiUrl}/plannings`, { headers })
-      .pipe(
-        tap(data => {
-          console.log('Fetched data:', data);
-        }),
-        catchError(this.handleError)
-      );
+  getUserPlannings(): Observable<Planning[]> {
+    return this.authService.getCurrentUserId().pipe(
+      tap(userID => console.log('This is Current User ID:', userID)),
+      switchMap(userID => {
+        if (userID === null) {
+          throw new Error('User not authenticated');
+        }
+
+        const headers = this.getHeaders();
+        return this.http.get<Planning[]>(`${this.apiUrl}/planning/${userID}`, { headers });
+      }),
+      catchError(this.handleError)
+    );
   }
 
-  getPlanningById(id: number): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.get(`${this.apiUrl}/planning/${id}`, { headers })
-      .pipe(catchError(this.handleError));
-  }
 
   createPlanning(planningData: Partial<Planning>): Observable<any> {
     console.log('Creating planning with data:', planningData);
@@ -49,31 +52,31 @@ export class PlaningService {
     console.log('Headers:', headers);
 
     return this.authService.getCurrentUserId().pipe(
-      tap(userID => console.log('Current User ID:', userID)),
-      switchMap(userID => {
-        if (userID === null) {
-          console.error('User not authenticated');
-          throw new Error('User not authenticated');
-        }
-
-        const completeData = { ...planningData, userID: userID.toString(), status: 'active' };
-        console.log('Complete data to be sent:', completeData);
-
-        return this.http.post(`${this.apiUrl}/planning`, completeData, { headers }).pipe(
-          tap(response => console.log('API Response:', response)),
-          catchError(error => {
-            console.error('Error from API:', error);
-            if (error instanceof HttpErrorResponse) {
-              console.error('Status:', error.status);
-              console.error('Error body:', error.error);
+        tap(userID => console.log('This is Current User ID:', userID)),
+        switchMap(userID => {
+            if (userID === null) {
+                console.error('User not authenticated');
+                return throwError(() => new Error('User not authenticated'));
             }
-            return throwError(() => error);
-          })
-        );
-      }),
-      catchError(this.handleError)
+
+            const completeData = { ...planningData, userID: userID.toString(), status: 'active' };
+            console.log('Complete data to be sent:', completeData);
+
+            return this.http.post(`${this.apiUrl}/planning`, completeData, { headers }).pipe(
+                tap(response => console.log('API Response:', response)),
+                catchError(error => {
+                    console.error('Error from API:', error);
+                    if (error instanceof HttpErrorResponse) {
+                        console.error('Status:', error.status);
+                        console.error('Error body:', error.error);
+                    }
+                    return throwError(() => error);
+                })
+            );
+        }),
+        catchError(this.handleError)
     );
-  }
+}
 
   updatePlanning(id: number, planningData: Planning): Observable<any> {
     const headers = this.getHeaders();

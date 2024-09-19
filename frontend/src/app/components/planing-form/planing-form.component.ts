@@ -4,6 +4,7 @@ import { PlaningService } from '../../services/planing/planing-service.service';
 import { PlanningNotificationService } from '../../services/shareServices/plannig-noti.service';
 
 export interface Planning {
+  _id: string;
   tripID: number;
   tripName: string;
   startDate: Date;

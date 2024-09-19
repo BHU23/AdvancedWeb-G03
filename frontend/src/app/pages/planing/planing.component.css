@@ -1,9 +1,27 @@
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+}
+
+.col {
+  flex: 1;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
 /* Custom shadow */
 .custom-shadow {
-  box-shadow: 0 4px 8px rgba(0, 128, 255, 0.2); /* Blue shadow */
+  box-shadow: 0 4px 8px rgba(0, 128, 255, 0.2);
 }
 
 /* Scrollbar Styles */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #0288d1 #e0f7fa;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 12px;
 }
@@ -23,8 +41,19 @@
   background: #03a9f4;
 }
 
-/* For Firefox */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #0288d1 #e0f7fa;
+/* Responsive Styles */
+@media (max-width: 1300px) {
+  .col {
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+}
+
+/* Component Styles */
+.section {
+  height: 90vh;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
 }

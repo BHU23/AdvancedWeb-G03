@@ -7,11 +7,11 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap; /* เพื่อให้สามารถยืดหยุ่นบนหน้าจอขนาดเล็ก */
 }
 
 .filter {
-  display: flex;
-  align-items: center;
+  margin-top: 10px;
 }
 
 .form-select {
@@ -26,11 +26,12 @@
 
 .plan-item {
   display: flex;
+  flex-direction: row;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .plan-image {
@@ -38,11 +39,13 @@
   width: 200px;
   height: 200px;
 }
+
 .plan-image img {
   width: 100%;
   height: 150%;
   object-fit: cover;
 }
+
 .plan-details {
   padding: 15px;
   flex-grow: 1;
@@ -72,28 +75,10 @@ h5 {
   align-items: center;
   margin-top: 10px;
 }
-
-.btn {
-  padding: 6px 12px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
+.budgetStatus {
+  margin-left: auto;
+  margin-right: 10px;
 }
-
-.btn:hover {
-  background-color: #0056b3; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-}
-
-.btn:focus {
-  outline: none;
-}
-
 .budget, .status {
   font-size: 14px;
   font-weight: bold;
@@ -109,23 +94,59 @@ h5 {
 .status {
   color: #ffc107;
   background-color: #fff3cd;
+  margin-left: 10px;
 }
 
-.budget, .status {
-  display: inline-block;
+.btn {
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+.btn:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-.btn btn-delete {
-  border-radius: 4px;
+.btn:focus {
+  outline: none;
 }
 
 .btn-delete {
   color: #fff;
   background-color: #dc3545;
-  border:none;
+  border: none;
 }
 
 .btn-delete:hover {
   background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+  .plan-item {
+    flex-direction: column; /* เมื่อหน้าจอเล็ก ให้คอมโพเนนต์เรียงกันในแนวตั้ง */
+  }
+
+  .plan-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .form-select {
+    margin-left: 0;
+  }
+
+  .filter {
+    width: 100%;
+  }
+
+  .header {
+    flex-direction: column; /* จัดให้ header เรียงแนวตั้งในหน้าจอเล็ก */
+  }
 }

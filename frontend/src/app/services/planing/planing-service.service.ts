@@ -82,13 +82,13 @@ export class PlaningService {
     );
 }
 
-  updatePlanning(id: number, planningData: Planning): Observable<any> {
+  updatePlanning(id: string, planningData: Planning): Observable<any> {
     const headers = this.getHeaders();
     return this.http.put(`${this.apiUrl}/planning/${id}`, planningData, { headers })
       .pipe(catchError(this.handleError));
   }
 
-  deletePlanning(id: number): Observable<any> {
+  deletePlanning(id: string): Observable<any> {
     const headers = this.getHeaders();
     return this.http.delete(`${this.apiUrl}/planning/${id}`, { headers })
       .pipe(catchError(this.handleError));

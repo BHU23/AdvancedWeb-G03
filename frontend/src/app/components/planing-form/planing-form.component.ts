@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlaningService } from '../../services/planing/planing-service.service';
+import { PlanningNotificationService } from '../../services/shareServices/plannig-noti.service';
 
 export interface Planning {
   tripID: number;
@@ -11,6 +12,7 @@ export interface Planning {
   budget: string;
   status: string;
   userID?: number | string;
+  createdAt: Date;
 }
 
 @Component({
@@ -26,7 +28,8 @@ export class PlaningFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private planingService: PlaningService
+    private planingService: PlaningService,
+    private planningNotificationService: PlanningNotificationService // Inject the service
   ) {}
 
   ngOnInit() {
@@ -55,12 +58,15 @@ export class PlaningFormComponent implements OnInit {
       this.errorMessage = '';
       this.successMessage = '';
 
-
       const planningData: Partial<Planning> = this.planingForm.value;
       this.planingService.createPlanning(planningData).subscribe(
         (response) => {
           console.log('Planning created successfully', response);
           this.successMessage = 'บันทึกข้อมูลการวางแผนท่องเที่ยวสำเร็จ';
+
+          // Notify other components about the update
+          this.planningNotificationService.notifyPlansUpdated();
+
           this.resetForm();
           this.isSubmitting = false;
         },

@@ -47,7 +47,6 @@ export class AuthService {
 
   getCurrentUserId(): Observable<number | string | null> {
     const token = this.getToken();
-    console.log('Retrieved token:', token);
 
     if (token) {
       try {
@@ -65,7 +64,6 @@ export class AuthService {
         console.error('Error decoding token:', error);
       }
     } else {
-      console.log('No token found');
     }
 
     return of(null);

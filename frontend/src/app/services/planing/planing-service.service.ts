@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { Planning } from '../../components/planing-form/planing-form.component';
 import { AuthService } from '../auth/auth.service';
-import { switchMap, catchError, tap } from 'rxjs/operators';
+import { switchMap, catchError, tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -30,16 +30,20 @@ export class PlaningService {
   }
 
 
-  getUserPlannings(): Observable<Planning[]> {
+  getUserPlannings(): Observable<any[]> {
     return this.authService.getCurrentUserId().pipe(
       tap(userID => console.log('This is Current User ID:', userID)),
-      switchMap(userID => {
-        if (userID === null) {
-          throw new Error('User not authenticated');
+      switchMap(currentUserID => {
+        if (currentUserID === null) {
+          return throwError(() => new Error('User not authenticated'));
         }
 
         const headers = this.getHeaders();
-        return this.http.get<Planning[]>(`${this.apiUrl}/planning/${userID}`, { headers });
+        // Get all plannings
+        return this.http.get<any[]>(`${this.apiUrl}/plannings`, { headers }).pipe(
+          map(plannings => plannings.filter(planning => planning.userID._id === currentUserID)),
+          tap(filteredPlannings => console.log('Filtered Plannings:', filteredPlannings))
+        );
       }),
       catchError(this.handleError)
     );
@@ -92,11 +96,13 @@ export class PlaningService {
 
   private handleError(error: HttpErrorResponse) {
     console.error('An error occurred:', error);
-    if (error.error instanceof ErrorEvent) {
+    if (error.error instanceof Error) {
       console.error('Client-side error:', error.error.message);
     } else {
       console.error('Server-side error:', error.status, error.error);
     }
+    // Use a generic error message
     return throwError(() => new Error('Something went wrong; please try again later.'));
   }
+
 }

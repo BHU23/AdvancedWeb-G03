@@ -12,8 +12,15 @@ export interface Planning {
   description?: string;
   budget: string;
   status: string;
-  userID?: number | string;
-  createdAt: Date;
+  userID: {
+    _id: string;
+    title: string | number;
+    firstName: string | number;
+    lastName: string | number;
+    gender: string | number;
+  };
+  createAt: string;
+  updateAt: string;
 }
 
 @Component({

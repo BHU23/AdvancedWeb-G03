@@ -49,6 +49,11 @@ export class PlaningService {
     );
   }
 
+  getPlanningByID(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/planning/${id}`, { headers })
+      .pipe(catchError(this.handleError));
+  }
 
   createPlanning(planningData: Partial<Planning>): Observable<any> {
     console.log('Creating planning with data:', planningData);

@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'planning', component: PlaningComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'planning/subplanning', component: SubPlaningComponent}
+  { path: 'planning/:id', component: SubPlaningComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

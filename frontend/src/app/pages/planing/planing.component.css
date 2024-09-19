@@ -19,7 +19,7 @@
 /* Scrollbar Styles */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #0288d1 #e0f7fa;
+  scrollbar-color: #b2e6fa #e0f7fa;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -37,9 +37,7 @@
   border: 3px solid #e0f7fa;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #03a9f4;
-}
+
 
 /* Responsive Styles */
 @media (max-width: 1300px) {

@@ -1,31 +1,33 @@
-<div>
-  <div class="travel-plans">
-    <div class="header">
-      <h2>รายการแผนการท่องเที่ยว</h2>
-      <div class="filter">
-        <label for="category-select">หมวดหมู่</label>
-      </div>
-      <div>
-        <select id="category-select" class="form-select" (change)="onCategoryChange($event)">
-          <option value="">ทั้งหมด</option>
-          <option value="planned">วางแผนแล้ว</option>
-          <option value="visited">เที่ยวแล้ว</option>
-          <option value="cancelled">ยกเลิก</option>
-        </select>
-      </div>
+<div class="travel-plans">
+  <div class="header">
+    <h2>รายการแผนการท่องเที่ยว</h2>
+    <div class="filter">
+      <label for="category-select"></label>
+      <select id="category-select" class="form-select" (change)="onCategoryChange($event)">
+        <option value="">ทั้งหมด</option>
+        <option value="planned">วางแผนแล้ว</option>
+        <option value="visited">เที่ยวแล้ว</option>
+        <option value="cancelled">ยกเลิก</option>
+      </select>
     </div>
+  </div>
 
-    <div class="plan-list">
-      <div *ngFor="let plan of filteredPlans" class="plan-item">
-        <div class="plan-details">
-          <h4>{{ plan.tripName }}</h4>
-          <p>{{ plan.startDate | date:'dd-MM-yyyy' }} - {{ plan.endDate | date:'dd-MM-yyyy' }}</p>
-          <p>{{ plan.description || 'No description available' }}</p>
-          <div class="plan-actions">
-            <button class="btn btn-sm btn-outline-primary">View Detail</button>
-            <span class="budget">Budget: {{ plan.budget }}</span>
-            <span class="status">{{ plan.status }}</span>
-          </div>
+  <div class="plan-list">
+    <div *ngFor="let plan of filteredPlans" class="plan-item">
+      <div class="plan-image">
+        <img src="https://www.crownasia.com.ph/wp-content/uploads/2024/01/revenge-travel-scaled.jpg" alt="Travel Plan Image" />
+      </div>
+      <div class="plan-details">
+        <h5>{{ plan.tripName }}</h5>
+        <p>{{ plan.startDate | date:'dd-MM-yyyy' }} - {{ plan.endDate | date:'dd-MM-yyyy' }}</p>
+        <p class="plan-description">{{ plan.description || 'No description available' }}</p>
+        <div class="plan-actions">
+          <button class="btn btn-sm btn-outline-primary">View Detail</button>
+          <span class="budget">Budget: {{ plan.budget }}</span>
+          <span class="status">{{ plan.status }}</span>
+          <button class="btn btn-sm btn-delete">
+            <i class="bi bi-trash3"></i>
+          </button>
         </div>
       </div>
     </div>

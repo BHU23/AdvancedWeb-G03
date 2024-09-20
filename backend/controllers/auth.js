@@ -94,7 +94,7 @@ exports.signup = async (req, res) => {
       phoneNumber,
       avatar,
     };
-console.log(payload)
+    console.log(payload)
     const newUser = new Customer(payload);
     const result = await newUser.save();
 

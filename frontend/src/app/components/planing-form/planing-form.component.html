@@ -1,3 +1,4 @@
+<!--
 <div class="card no-border p-3">
   <div class="d-flex align-items-center">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-luggage me-3 text-primary" viewBox="0 0 16 16">
@@ -75,7 +76,7 @@
         </div>
       </div>
 
-      <!-- Start Date, End Date, Budget, Description Fields -->
+
 
       <div class="d-flex justify-content-end mt-4">
         <button type="button" class="btn btn-secondary custom-width" (click)="resetForm()" [disabled]="isSubmitting">
@@ -88,7 +89,6 @@
 
     </form>
 
-    <!-- Alerts for Success and Error -->
 
     <div class="mt-3">
       <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -101,3 +101,70 @@
       </div>
     </div>
 </div>
+-->
+
+<mat-card class="trip-planning-card">
+  <mat-card-header>
+    <i class="bi bi-luggage-fill"></i>
+    <h2 class="mb-0">วางแผนการท่องเที่ยว</h2>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="planingForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width form-field-spacing">
+        <mat-label>Trip Title</mat-label>
+        <input matInput formControlName="tripName" placeholder="กรุณากรอกชื่อทริป">
+        <mat-error *ngIf="tripName?.errors?.['required']">กรุณากรอกชื่อทริป</mat-error>
+        <mat-error *ngIf="tripName?.errors?.['minlength']">ชื่อทริปต้องมีความยาวอย่างน้อย 3 ตัวอักษร</mat-error>
+        <mat-error *ngIf="tripName?.errors?.['maxlength']">ชื่อทริปต้องมีความยาวไม่เกิน 100 ตัวอักษร</mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" class="date-fields-container">
+        <mat-form-field appearance="outline" fxFlex="calc(50% - 10px)" fxFlex.lt-md="100%">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+          <mat-error *ngIf="startDate?.errors?.['required']">กรุณาเลือกวันที่เริ่มต้น</mat-error>
+          <mat-error *ngIf="startDate?.errors?.['pastDate']">วันที่เริ่มต้นต้องไม่เป็นวันในอดีต</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" fxFlex="calc(50% - 10px)" fxFlex.lt-md="100%" class="endDate">
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+          <mat-error *ngIf="endDate?.errors?.['required']">กรุณาเลือกวันที่สิ้นสุด</mat-error>
+          <mat-error *ngIf="endDate?.errors?.['pastDate']">วันที่สิ้นสุดต้องไม่เป็นวันในอดีต</mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width form-field-spacing">
+        <mat-label>Budget</mat-label>
+        <mat-select formControlName="budget">
+          <mat-option value="">เลือกช่วงงบประมาณ</mat-option>
+          <mat-option value="0-5000">0 - 5,000 บาท</mat-option>
+          <mat-option value="5001-10000">5,001 - 10,000 บาท</mat-option>
+          <mat-option value="10001-20000">10,001 - 20,000 บาท</mat-option>
+          <mat-option value="20001-50000">20,001 - 50,000 บาท</mat-option>
+          <mat-option value="50001-100000">50,001 - 100,000 บาท</mat-option>
+          <mat-option value="100001+">100,001 บาทขึ้นไป</mat-option>
+        </mat-select>
+        <mat-error *ngIf="budget?.errors?.['required']">กรุณาเลือกช่วงงบประมาณ</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width form-field-spacing">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="3" formControlName="description" placeholder="กรอกรายละเอียดเพิ่มเติม (ถ้ามี)"></textarea>
+        <mat-error *ngIf="description?.errors?.['maxlength']">รายละเอียดต้องมีความยาวไม่เกิน 500 ตัวอักษร</mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" class="btn-containner">
+        <button mat-raised-button class="action-button reset-btn" type="button" (click)="resetForm()" [disabled]="isSubmitting">รีเซ็ต</button>
+        <button mat-raised-button class="action-button save-btn" type="submit">บันทึก</button>
+      </div>
+
+    </form>
+    
+  </mat-card-content>
+</mat-card>

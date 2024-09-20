@@ -42,13 +42,13 @@
     <button class="btn-card btn-back" routerLink="/planning">
       <i class="bi bi-arrow-left"></i> Back
     </button>
-    <button class="btn-card btn-complete">
+    <button class="btn-card btn-complete" (click)="updateStatusToCompleted()" [disabled]="planningDetails?.status === 'completed'">
       <i class="bi bi-check-circle"></i> Complete
     </button>
-    <button class="btn-card btn-cancel">
+    <button class="btn-card btn-cancel" (click)="updateStatusToCanceled()" [disabled]="planningDetails?.status === 'canceled'">
       <i class="bi bi-x-circle"></i> Cancel
     </button>
-    <button class="btn-card btn-edit">
+    <button class="btn-card btn-edit" (click)="openEditDialog(planningDetails)">
       <i class="bi bi-pencil"></i> Edit
     </button>
   </div>
@@ -60,5 +60,7 @@
     <div class="spinner"></div>
     <p>กำลังโหลดข้อมูลแผนการท่องเที่ยว...</p>
   </div>
-
+</div>
+<div class="planningTable">
+  <app-planing-table></app-planing-table>
 </div>

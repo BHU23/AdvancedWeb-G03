@@ -89,4 +89,18 @@ export class PlaningListComponent implements OnInit {
       );
     }
   }
+  planningDetails: Planning | null = null;
+
+  getStatusClass(status: string) {
+    switch (status) {
+      case 'planned':
+        return 'status-planned';
+      case 'completed':
+        return 'status-completed';
+      case 'canceled':
+        return 'status-canceled';
+      default:
+        return 'status-default';
+    }
+  }
 }

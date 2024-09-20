@@ -93,6 +93,18 @@ export class PlaningService {
       .pipe(catchError(this.handleError));
   }
 
+  updatePlanningStatusComplete(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put(`${this.apiUrl}/planning/${id}`, { status: 'completed' }, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  updatePlanningStatusCancel(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put(`${this.apiUrl}/planning/${id}`, { status: 'canceled' }, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
   deletePlanning(id: string): Observable<any> {
     const headers = this.getHeaders();
     return this.http.delete(`${this.apiUrl}/planning/${id}`, { headers })

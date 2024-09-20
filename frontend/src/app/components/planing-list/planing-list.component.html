@@ -8,7 +8,7 @@
         <option value="">ทั้งหมด</option>
         <option value="planned">วางแผนแล้ว</option>
         <option value="completed">เที่ยวแล้ว</option>
-        <option value="cancelled">ยกเลิก</option>
+        <option value="canceled">ยกเลิก</option>
       </select>
     </div>
   </div>
@@ -23,10 +23,10 @@
         <p>{{ plan.startDate | date:'dd-MM-yyyy' }} - {{ plan.endDate | date:'dd-MM-yyyy' }}</p>
         <p class="plan-description">{{ plan.description || 'No description available' }}</p>
         <div class="plan-actions">
-          <button class="btn btn-sm btn-outline-primary" [routerLink]="['/planning', plan._id]">View Detail</button>
+          <button class="btn btn-sm btn-outline-primary" [routerLink]="['/planning', plan._id]">View</button>
           <div class="budgetStatus">
             <span class="budget">Budget: {{ plan.budget }}</span>
-            <span class="status">{{ plan.status }}</span>
+            <span class="status" [ngClass]="getStatusClass(plan.status)">{{ plan.status }}</span>
           </div>
           <button class="btn btn-sm btn-delete" (click)="deletePlan(plan)">
             <i class="bi bi-trash3"></i>

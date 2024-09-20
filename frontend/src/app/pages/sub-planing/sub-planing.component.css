@@ -1,7 +1,10 @@
 .travel-plan-container {
   display: flex;
   font-family: 'Roboto', sans-serif;
-  gap: 20px;
+  gap: 10px;
+}
+.planningTable {
+  margin-top: 20px;
 }
 
 .image-card {
@@ -117,8 +120,8 @@
   font-weight: 600;
 }
 
-.status-badge.planned { background-color: #4CAF50; }
-.status-badge.in-progress { background-color: #FFC107; }
+.status-badge.planned { background-color: #FFC107; }
+.status-badge.completed { background-color: #4CAF50 ; }
 .status-badge.cancelled { background-color: #F44336; }
 
 .content {

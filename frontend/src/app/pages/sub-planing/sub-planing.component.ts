@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Planning } from '../../components/planing-form/planing-form.component';
 import { ActivatedRoute } from '@angular/router';
 import { PlaningService } from '../../services/planing/planing-service.service';
+import { EditplanningComponent } from '../../components/editplanning/editplanning.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sub-planing',
@@ -13,7 +15,8 @@ export class SubPlaningComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private planingService: PlaningService
+    private planingService: PlaningService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -27,7 +30,6 @@ export class SubPlaningComponent implements OnInit {
 
   loadPlanningDetails(id: string) {
     this.planingService.getPlanningByID(id).subscribe(
-
       (data: Planning) => {
         this.planningDetails = data;
         console.log('Fetched planning details:', data);
@@ -45,14 +47,54 @@ export class SubPlaningComponent implements OnInit {
       case 'in progress':
         return 'in-progress';
       case 'cancelled':
+      case 'canceled':
         return 'cancelled';
+      case 'completed':
+        return 'completed';
       default:
         return '';
     }
   }
 
-
   safeGet(obj: any, path: string): any {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  }
+
+  updateStatusToCompleted() {
+    if (this.planningDetails?._id) {
+      this.planingService.updatePlanningStatusComplete(this.planningDetails._id).subscribe(
+        response => {
+          console.log('Planning status updated to completed', response);
+          this.loadPlanningDetails(this.planningDetails!._id);
+        },
+        error => console.error('Error updating planning status', error)
+      );
+    }
+  }
+
+  updateStatusToCanceled() {
+    if (this.planningDetails?._id) {
+      this.planingService.updatePlanningStatusCancel(this.planningDetails._id).subscribe(
+        response => {
+          console.log('Planning status updated to canceled', response);
+          this.loadPlanningDetails(this.planningDetails!._id);
+        },
+        error => console.error('Error updating planning status', error)
+      );
+    }
+  }
+
+  openEditDialog(planning: Planning) {
+    const dialogRef = this.dialog.open(EditplanningComponent, {
+      width: '500px',
+      data: { planning: planning }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // อัพเดตข้อมูลใน component หลักหลังจาก dialog ปิด
+        this.loadPlanningDetails(planning._id);
+      }
+    });
   }
 }

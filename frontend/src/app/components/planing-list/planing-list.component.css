@@ -11,6 +11,7 @@
 .bi-flag-fill{
   margin-right: 10px;
   color: #007bff;
+  font-size: 30px;
 }
 
 .filter {
@@ -96,9 +97,26 @@ h5 {
 }
 
 .status {
-  color: #ffc107;
-  background-color: #fff3cd;
   margin-left: 10px;
+}
+.status-planned {
+  color: #0d6efd;
+  background-color: #e7f1ff;
+}
+
+.status-completed {
+  color: #198754;
+  background-color: #d1e7dd;
+}
+
+.status-canceled {
+  color: #dc3545;
+  background-color: #f8d7da;
+}
+
+.status-default {
+  color: #0d6efd;
+  background-color: #e7f1ff;
 }
 
 .btn {
@@ -151,6 +169,17 @@ h5 {
   }
 
   .header {
-    flex-direction: column; /* จัดให้ header เรียงแนวตั้งในหน้าจอเล็ก */
+    flex-direction: column;
+  }
+
+  .budgetStatus {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .budget {
+    font-weight: bold;
   }
 }
+

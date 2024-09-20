@@ -52,7 +52,7 @@ const planOntimeSchema = new mongoose.Schema({
     },
     locationID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Location',
+        ref: 'Place',
         required: false
     },
     planningID: {

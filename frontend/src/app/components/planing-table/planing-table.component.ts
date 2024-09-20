@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { SubplanningformComponent } from '../subplanningform/subplanningform.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface PlanOntime {
   planID?: number;
@@ -8,12 +10,10 @@ export interface PlanOntime {
   endTime: Date;
   description?: string;
   budget: number;
-  feeling?: string;
-  rating?: number;
-  image?: Record<string, string>;
+  image: Record<string, string>;
   status: string;
-  reviewID?: string;
-  locationID?: string;
+  reviewID: string;
+  locationID: string;
   planningID: string;
   createAt?: Date;
   updateAt?: Date;
@@ -29,6 +29,7 @@ export interface PlanOntime {
 export class PlaningTableComponent {
   private _formBuilder = inject(FormBuilder);
 
+  constructor(private dialog: MatDialog) {}
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -39,7 +40,16 @@ export class PlaningTableComponent {
 
   searchTerm: string = '';
   openCreatePlanDialog() {
-    // เปิด dialog เพื่อสร้าง PlanOntime ใหม่
-    console.log('Opening Create PlanOntime Dialog');
+    const dialogRef = this.dialog.open(SubplanningformComponent, {
+      width: '500px',
+      data: {} // You can pass initial data here if needed
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('The dialog was closed with result:', result);
+        // Handle the result here (e.g., save to database, update UI)
+      }
+    });
   }
 }

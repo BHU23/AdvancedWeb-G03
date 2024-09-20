@@ -1,0 +1,45 @@
+.subplanning-form {
+  flex-direction: column;
+  gap: 5px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-row > * {
+  flex: 1;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.error-message {
+  color: red;
+}
+
+.mat-dialog-content {
+  padding-bottom: 10px;
+}
+
+.mat-dialog-actions {
+
+  justify-content: flex-end;
+}
+.btn-submitEdit {
+  background-color: #4665f1;
+  color: white;
+  border-radius: 4px;
+}
+
+.btn-cancelEdit {
+  background-color: #f14646;
+  color: white;
+  border-radius: 4px;
+}

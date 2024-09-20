@@ -37,6 +37,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
+import { SubplanningformComponent } from './components/subplanningform/subplanningform.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     LoginComponent,
     SignupComponent,
     ReviewComponent,
-    EditplanningComponent
+    EditplanningComponent,
+    SubplanningformComponent
   ],
   imports: [
     BrowserModule,

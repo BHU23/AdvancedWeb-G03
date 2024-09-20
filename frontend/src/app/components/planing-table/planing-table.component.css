@@ -5,3 +5,33 @@
 .mat-mdc-form-field {
   margin-top: 16px;
 }
+.planontime-container {
+  padding: 20px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-input {
+  width: 80%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.CreatePlanning {
+  min-width: 120px;
+  border-radius: 4px;
+  background-color: #f14646;
+  color: #ffffff;
+  width: 15%;
+}
+
+button[mat-raised-button] {
+  height: 40px;
+}
+

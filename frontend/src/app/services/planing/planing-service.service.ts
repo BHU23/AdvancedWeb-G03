@@ -29,7 +29,6 @@ export class PlaningService {
     }
   }
 
-
   getUserPlannings(): Observable<any[]> {
     return this.authService.getCurrentUserId().pipe(
       tap(userID => console.log('This is Current User ID:', userID)),
@@ -110,6 +109,9 @@ export class PlaningService {
     return this.http.delete(`${this.apiUrl}/planning/${id}`, { headers })
       .pipe(catchError(this.handleError));
   }
+
+
+  // Roadmap
 
   private handleError(error: HttpErrorResponse) {
     console.error('An error occurred:', error);

@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth/auth.service'; // Adjust the pa
 import { Router } from '@angular/router';
 interface LoginResponse {
   token: string;
-  result: any; 
+  result: any;
   status: boolean;
 }
 
@@ -46,8 +46,10 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.loginForm.value).subscribe(
-      (response: LoginResponse) => {
+      (response: any) => {
+        console.log(response);
         const storage = this.loginForm.value.rememberMe
+
           ? localStorage
           : sessionStorage;
         storage.setItem('token', response.token);
@@ -58,6 +60,7 @@ export class LoginComponent implements OnInit {
       },
       (error: any) => {
         this.errorMessage = error.error?.message || 'Login failed';
+        console.log(error);
       }
     );
   }

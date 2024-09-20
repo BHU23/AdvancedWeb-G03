@@ -24,6 +24,19 @@ import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReviewComponent } from './pages/review/review.component';
+import { EditplanningComponent } from './components/editplanning/editplanning.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -38,17 +51,28 @@ import { ReactiveFormsModule } from '@angular/forms';
     PlaningTableComponent,
     LoginComponent,
     SignupComponent,
+    ReviewComponent,
+    EditplanningComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    CommonModule ,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatStepperModule,
     HttpClientModule, // Ensure HttpClientModule is imported
   ],
   providers: [
     provideHttpClient(withFetch()), // Configure HttpClient to use fetch API
-    provideClientHydration(),
+    provideClientHydration(), provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })

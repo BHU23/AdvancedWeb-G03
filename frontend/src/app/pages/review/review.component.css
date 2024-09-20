@@ -1,0 +1,108 @@
+/* Custom shadow */
+.custom-shadow {
+  box-shadow: 0 4px 8px rgba(0, 128, 255, 0.2); /* Blue shadow */
+}
+
+/* Scrollbar Styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #e0f7fa;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #0288d1;
+  border-radius: 10px;
+  border: 3px solid #e0f7fa;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #03a9f4;
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #0288d1 #e0f7fa;
+}
+
+/* Container styles */
+.container {
+  max-width: 1200px; /* Adjust based on your design */
+  margin: 0 auto;
+  padding: 2.5rem 1rem; /* 10px padding on top and bottom, 16px on left and right */
+}
+
+/* Header styles */
+.header {
+  font-size: 2rem; /* 3xl equivalent */
+  font-weight: bold;
+  margin-bottom: 1.5rem; /* 6rem equivalent */
+  text-align: center;
+}
+
+/* Grid container styles */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(250px, 1fr)
+  ); /* 4 columns if space allows, 250px min-width */
+  gap: 1.5rem; /* 6rem gap between items */
+}
+
+/* Card styles */
+.card {
+  background-color: white;
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+/* Card image styles */
+.card-image {
+  width: 100%;
+  height: 200px; /* Adjust as needed */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+/* Card header styles */
+.card-header {
+  padding: 1rem;
+}
+
+/* Card title styles */
+.card-title {
+  font-size: 1.25rem; /* Adjust font size */
+  font-weight: 600; /* Semibold */
+  margin: 0;
+}
+
+/* Card content styles */
+.card-content {
+  padding: 1rem;
+  padding-top: 0; /* Align with header */
+}
+
+/* Rating styles */
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+/* Rating icon styles */
+.rating i {
+  color: #facc15; /* Tailwind yellow-400 */
+  font-size: 1.25rem; /* Adjust icon size */
+}
+
+/* Rating value styles */
+.rating-value {
+  margin-left: 0.5rem; /* 2rem margin left */
+  font-size: 1.125rem; /* Adjust font size */
+  font-weight: 600; /* Semibold */
+}

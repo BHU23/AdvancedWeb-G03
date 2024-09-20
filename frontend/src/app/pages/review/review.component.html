@@ -1,0 +1,17 @@
+<div class="container">
+  <h1 class="header">Reviews</h1>
+  <div class="grid-container">
+    <div *ngFor="let place of places" class="card">
+      <img [src]="place.image" [alt]="place.name" class="card-image" />
+      <div class="card-header">
+        <h2 class="card-title">{{ place.name }}</h2>
+      </div>
+      <div class="card-content">
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <span class="rating-value">{{ place.rating.toFixed(1) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

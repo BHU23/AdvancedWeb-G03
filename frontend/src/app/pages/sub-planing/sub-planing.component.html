@@ -1,1 +1,66 @@
-<p>sub-planing works!</p>
+<div class="travel-plan-container" *ngIf="planningDetails">
+
+  <div class="image-card">
+    <img src="https://moneyandbanking.co.th/wp-content/uploads/2023/10/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand.jpg" alt="รูปการท่องเที่ยว" />
+  </div>
+  <div class="glass-card">
+    <div class="header">
+      <h2>{{ planningDetails.tripName }}</h2>
+      <div class="status-badge" [ngClass]="getStatusClass()">
+        {{ planningDetails.status }}
+      </div>
+    </div>
+    <div class="content">
+      <div class="description">
+        <p>{{ planningDetails.description }}</p>
+      </div>
+      <div class="details">
+        <div class="detail-item" style="margin-right: auto;">
+          <i class="bi bi-calendar-event"></i>
+          <span>กำหนดการเดินทาง {{ planningDetails.startDate | date:'dd MMM' }} - {{ planningDetails.endDate | date:'dd MMM, yyyy' }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="bi bi-cash-coin"></i>
+          <span>งบประมาณทั้งหมด {{ planningDetails.budget }} บาท</span>
+        </div>
+
+      </div>
+    </div>
+    <div class="footer">
+      <div class="timestamp">
+        <i class="bi bi-clock-history"></i>
+        <span>สร้างเมื่อ {{ planningDetails.createAt | date:'dd MMM yyyy' }}</span>
+      </div>
+      <div class="timestamp">
+        <i class="bi bi-arrow-clockwise"></i>
+        <span>อัปเดตล่าสุด {{ planningDetails.updateAt | date:'dd MMM yyyy' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-card-container">
+    <button class="btn-card btn-back" routerLink="/planning">
+      <i class="bi bi-arrow-left"></i> Back
+    </button>
+    <button class="btn-card btn-complete" (click)="updateStatusToCompleted()" [disabled]="planningDetails?.status === 'completed'">
+      <i class="bi bi-check-circle"></i> Complete
+    </button>
+    <button class="btn-card btn-cancel" (click)="updateStatusToCanceled()" [disabled]="planningDetails?.status === 'canceled'">
+      <i class="bi bi-x-circle"></i> Cancel
+    </button>
+    <button class="btn-card btn-edit" (click)="openEditDialog(planningDetails)">
+      <i class="bi bi-pencil"></i> Edit
+    </button>
+  </div>
+</div>
+
+
+<div class="travel-plan-container" *ngIf="!planningDetails">
+  <div class="glass-card loading">
+    <div class="spinner"></div>
+    <p>กำลังโหลดข้อมูลแผนการท่องเที่ยว...</p>
+  </div>
+</div>
+<div class="planningTable">
+  <app-planing-table></app-planing-table>
+</div>

@@ -1,0 +1,67 @@
+.full-width {
+  width: 100%;
+}
+
+.date-fields {
+  display: flex;
+  gap: 16px;
+}
+
+.date-fields > * {
+  flex: 1;
+}
+
+.btn-submitEdit {
+  background-color: #4665f1;
+  color: white;
+  border-radius: 4px;
+}
+
+.btn-cancelEdit {
+  background-color: #f14646;
+  color: white;
+  border-radius: 4px;
+}
+
+.mat-dialog-title {
+  color: #01527e; /* สีฟ้าหัวข้อ */
+  font-size: 1.5rem;
+}
+
+.mat-form-field {
+  background-color: #ffffff; /* พื้นหลังสีขาว */
+  border-radius: 5px;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #0288d1; /* เส้นขอบฟ้าเมื่อโฟกัส */
+}
+
+.mat-datepicker-toggle-active {
+  color: #0288d1; /* ปรับสีปฏิทิน */
+}
+
+.mat-datepicker-content {
+  background-color: #f1f9ff; /* ปฏิทินโทนสีฟ้าอ่อน */
+}
+
+.mat-dialog-actions {
+  padding: 8px;
+}
+
+.mat-button {
+  color: #ff5252; /* สีแดงสำหรับปุ่มยกเลิก */
+}
+
+.mat-raised-button {
+  background-color: #0288d1; /* ปุ่มบันทึกสีฟ้า */
+  color: #ffffff; /* สีตัวอักษรในปุ่มบันทึก */
+}
+
+.mat-raised-button:hover {
+  background-color: #0277bd; /* สีฟ้าเข้มเมื่อ hover */
+}
+
+.mat-form-field.mat-error {
+  color: #d32f2f; /* สีแดงสำหรับข้อความแสดงข้อผิดพลาด */
+}

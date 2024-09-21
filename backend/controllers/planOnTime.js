@@ -11,19 +11,23 @@ exports.getAllPlanOntimes = async (req, res) => {
   }
 };
 
-// Get PlanOntime by ID
-exports.getPlanOntimeByID = async (req, res) => {
+// Get PlanOntime by planningID
+exports.getPlanOntimeByPlanningID = async (req, res) => {
   try {
-    const planOntime = await PlanOntime.findById(req.params.id).populate('reviewID locationID planningID');
-    if (!planOntime) {
-      return res.status(404).json({ message: 'PlanOntime not found' });
+    const planningID = req.params.id;
+    const planOntimes = await PlanOntime.find({ planningID: planningID });
+    
+    if (planOntimes.length === 0) {
+      return res.status(404).json({ message: 'No PlanOntime found for this planningID' });
     }
-    res.status(200).json(planOntime);
+    
+    res.status(200).json(planOntimes);
   } catch (err) {
-    console.error('Error fetching PlanOntime by ID:', err);
+    console.error('Error fetching PlanOntime by planningID:', err);
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // Create a new PlanOntime
 exports.createPlanOntime = async (req, res) => {

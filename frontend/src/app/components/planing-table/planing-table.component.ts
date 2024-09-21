@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { SubplanningformComponent } from '../subplanningform/subplanningform.component';
+import { FormBuilder } from '@angular/forms';
+import { PlanOntime, SubplanningformComponent } from '../subplanningform/subplanningform.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Planning } from '../planing-form/planing-form.component';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { PlaningService } from '../../services/planing/planing-service.service';
 @Component({
   selector: 'app-planing-table',
   templateUrl: './planing-table.component.html',
-  styleUrl: './planing-table.component.css'
+  styleUrls: ['./planing-table.component.css']
 })
 export class PlaningTableComponent implements OnInit {
   private _formBuilder = inject(FormBuilder);
@@ -20,52 +20,74 @@ export class PlaningTableComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-
   searchTerm: string = '';
   currentPlanningId: string = '';
   planningDetails: Planning | null = null;
+  planOntimes: PlanOntime[] = [];
+  places: { [key: string]: { name: string; address: string; rating: number; description: string } } = {};
+
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.currentPlanningId = params['id'];
-        console.log('Initialized currentPlanningId:', this.currentPlanningId);
         this.loadPlanningDetails(this.currentPlanningId);
-      } else {
-        console.error('No id parameter found in the route');
+        this.loadPlanOntimes(this.currentPlanningId);
       }
     });
   }
 
   loadPlanningDetails(id: string) {
-    console.log('Loading planning details for id:', id);
     this.planingService.getPlanningByID(id).subscribe({
       next: (data: Planning) => {
         this.planningDetails = data;
-        console.log('Fetched planning details:', data);
       },
       error: (error) => {
         console.error('Error fetching planning details:', error);
-      },
-      complete: () => {
-        console.log('Fetching planning details completed');
       }
     });
   }
 
-  openSubplanningDialog(): void {
-    console.log('Opening subplanning dialog. Current planning ID:', this.currentPlanningId);
-    if (!this.currentPlanningId) {
-      console.error('No planning ID available');
-      return;
-    }
+  loadPlanOntimes(id: string) {
+    this.planingService.getSubplannigByPlanningID(id).subscribe({
+      next: (data: PlanOntime[]) => {
+        this.planOntimes = data;
+        this.loadPlaces(data); // เรียกฟังก์ชันเพื่อโหลดข้อมูลสถานที่
+      },
+      error: (error) => {
+        console.error('Error fetching PlanOntimes:', error);
+      }
+    });
+  }
 
+  loadPlaces(planOntimes: PlanOntime[]) {
+  const placeIDs = planOntimes.map(p => p.placeID.toString()); // แปลง placeID เป็น string
+    placeIDs.forEach(placeID => {
+      this.planingService.getPlaceByID(placeID).subscribe({
+        next: (place) => {
+          this.places[placeID] = place; // เก็บข้อมูลสถานที่ตาม placeID
+        },
+        error: (error) => {
+          console.error(`Error fetching place with ID ${placeID}:`, error);
+        }
+      });
+    });
+  }
+
+  deletePlanOntime(id: string): void {
+    this.planingService.deletePlanOnTime(id).subscribe({
+      next: () => {
+        this.planOntimes = this.planOntimes.filter(planOntime => planOntime._id !== id);
+        console.log(`Deleted PlanOntime with ID: ${id}`);
+      },
+      error: (error) => {
+        console.error(`Error deleting PlanOntime with ID ${id}:`, error);
+      }
+    });
+  }
+
+
+  openSubplanningDialog(): void {
     const dialogRef = this.dialog.open(SubplanningformComponent, {
       minWidth: '800px',
       maxHeight: '500px',
@@ -73,11 +95,18 @@ export class PlaningTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed. Result:', result);
       if (result) {
-        console.log('Reloading planning details. Current planning ID:', this.currentPlanningId);
-        this.loadPlanningDetails(this.currentPlanningId);
+        this.loadPlanOntimes(this.currentPlanningId);
       }
     });
+  }
+
+  filterPlanOntimes() {
+    if (!this.searchTerm) {
+      return this.planOntimes;
+    }
+    return this.planOntimes.filter(planOntime =>
+      planOntime.planName.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 }

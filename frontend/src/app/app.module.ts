@@ -23,7 +23,7 @@ import { PlaningTableComponent } from './components/planing-table/planing-table.
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReviewComponent } from './pages/review/review.component';
 import { EditplanningComponent } from './components/editplanning/editplanning.component';
@@ -38,6 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SubplanningformComponent } from './components/subplanningform/subplanningform.component';
+import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-ontimes.pipe';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { SubplanningformComponent } from './components/subplanningform/subplanni
     SignupComponent,
     ReviewComponent,
     EditplanningComponent,
-    SubplanningformComponent
+    SubplanningformComponent,
+    FilterPlanOntimesPipe
   ],
   imports: [
     BrowserModule,
@@ -70,6 +72,7 @@ import { SubplanningformComponent } from './components/subplanningform/subplanni
     MatNativeDateModule,
     MatButtonModule,
     MatStepperModule,
+    FormsModule,
     HttpClientModule, // Ensure HttpClientModule is imported
   ],
   providers: [

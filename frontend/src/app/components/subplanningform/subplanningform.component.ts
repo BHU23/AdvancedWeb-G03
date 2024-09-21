@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 export interface PlanOntime {
+  _id: string;
   planID?: number;
   planName: string;
   startTime: Date;
@@ -13,14 +14,14 @@ export interface PlanOntime {
   budget: number;
   image: Record<string, string>;
   status: string;
-  placeID: Object; // Changed to ObjectId
+  placeID: Object;
   planningID: string;
   createAt?: Date;
   updateAt?: Date;
 }
 
 export interface Place {
-  _id: Object; // Changed from placeID to _id
+  _id: Object;
   name: string;
   description?: string;
   address: string;

@@ -1,42 +1,49 @@
 <div class="planontime-container">
-  <!-- ส่วนค้นหาและปุ่มสร้าง PlanOntime -->
   <div class="header-section">
     <mat-form-field class="search-input">
       <mat-label>Search Plan</mat-label>
-      <input matInput placeholder="Search by Plan Name">
+      <input matInput [(ngModel)]="searchTerm" placeholder="Search by Plan Name">
       <button mat-icon-button matSuffix aria-label="Clear" (click)="searchTerm=''">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
 
-
     <button class="btn-card btn-back" (click)="openSubplanningDialog()">
-      <i class="bi bi-plus-circle"></i>ADD MY PLAN
+      <i class="bi bi-plus-circle"></i> ADD MY PLAN
     </button>
-
   </div>
 
-  <!-- Stepper Section -->
-  <mat-stepper orientation="vertical">
-    <mat-step>
-      <ng-template matStepLabel>Step 1</ng-template>
+  <mat-vertical-stepper linear="false" *ngIf="planOntimes.length > 0">
+    <mat-step *ngFor="let planOntime of planOntimes | filterPlanOntimes:searchTerm; let i = index">
+      <ng-template matStepLabel>{{ planOntime.planName }}</ng-template>
       <ng-template matStepContent>
-        <p>This content was rendered lazily</p>
-        <button mat-button matStepperNext>Next</button>
+        <div class="step-content">
+          <div class="left-panel">
+            <h3>{{ planOntime.planName }}</h3>
+            <p><strong>Start Time:</strong> {{ planOntime.startTime | date:'medium' }}</p>
+            <p><strong>End Time:</strong> {{ planOntime.endTime | date:'medium' }}</p>
+            <p><strong>Budget:</strong> {{ planOntime.budget | currency }}</p>
+            <p><strong>Status:</strong> {{ planOntime.status }}</p>
+            <p *ngIf="planOntime.description"><strong>Description:</strong> {{ planOntime.description }}</p>
+            <button mat-button color="warn" (click)="deletePlanOntime(planOntime._id)">Delete</button> <!-- เพิ่มปุ่มลบ -->
+          </div>
+          <div class="right-panel">
+            <h4>Place Details</h4>
+            <p *ngIf="places[planOntime.placeID.toString()]">
+              <strong>Name:</strong> {{ places[planOntime.placeID.toString()].name }}<br>
+              <strong>Address:</strong> {{ places[planOntime.placeID.toString()].address }}<br>
+              <strong>Rating:</strong> {{ places[planOntime.placeID.toString()].rating }}<br>
+              <strong>Description:</strong> {{ places[planOntime.placeID.toString()].description }}
+            </p>
+          </div>
+        </div>
+
+        <button mat-button matStepperPrevious *ngIf="i > 0">Previous</button>
+        <button mat-button matStepperNext *ngIf="i < planOntimes.length - 1">Next</button>
       </ng-template>
     </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Step 2</ng-template>
-      <ng-template matStepContent>
-        <p>This content was also rendered lazily</p>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </ng-template>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Step 3</ng-template>
-      <p>This content was rendered eagerly</p>
-      <button mat-button matStepperPrevious>Back</button>
-    </mat-step>
-  </mat-stepper>
+
+  </mat-vertical-stepper>
+
+  <p *ngIf="planOntimes.length === 0">No plans available. Please add a new plan.</p>
 </div>

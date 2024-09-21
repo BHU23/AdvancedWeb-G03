@@ -71,3 +71,16 @@ button[mat-raised-button] {
   background-color: #351fff;
   transform: translateX(-2px);
 }
+
+.step-content {
+  display: flex;
+}
+
+.left-panel {
+  flex: 1;
+  margin-right: 20px; /* ห่างจาก right panel */
+}
+
+.right-panel {
+  flex: 1;
+}

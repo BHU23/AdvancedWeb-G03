@@ -140,7 +140,23 @@ getLocationData(): Observable<any> {
   return this.http.get<any[]>(`${this.apiUrl}/places`, { headers })
     .pipe(catchError(this.handleError));
 }
+getSubplannigByPlanningID(id: string): Observable<any> {
+  const headers = this.getHeaders();
+  return this.http.get<any[]>(`${this.apiUrl}/planontime/${id}`, { headers })
+    .pipe(catchError(this.handleError));
+}
 
+getPlaceByID(id: string): Observable<any> {
+  const headers = this.getHeaders();
+  return this.http.get<any[]>(`${this.apiUrl}/place/${id}`, { headers })
+    .pipe(catchError(this.handleError));
+}
+
+deletePlanOnTime(id: string): Observable<any> {
+  const headers = this.getHeaders();
+  return this.http.delete(`${this.apiUrl}/planontime/${id}`, { headers })
+    .pipe(catchError(this.handleError));
+}
 
   private handleError(error: HttpErrorResponse) {
     // console.error('An error occurred:', error);

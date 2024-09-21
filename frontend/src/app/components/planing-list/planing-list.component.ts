@@ -12,11 +12,11 @@ export class PlaningListComponent implements OnInit {
   travelPlans: Planning[] = [];
   filteredPlans: Planning[] = [];
   selectedCategory = '';
-  sortOrder: 'asc' | 'desc' = 'desc'; // Default to descending
+  sortOrder: 'asc' | 'desc' = 'desc';
 
   constructor(
     private planingService: PlaningService,
-    private planningNotificationService: PlanningNotificationService // Inject the service
+    private planningNotificationService: PlanningNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +36,6 @@ export class PlaningListComponent implements OnInit {
         console.log('Fetched data:', data);
       },
       error => {
-        console.error('Error fetching travel plans:', error);
         if (error.status === 0) {
           console.error('Network error or CORS issue');
         } else {
@@ -48,8 +47,7 @@ export class PlaningListComponent implements OnInit {
 
   sortPlans(plans: Planning[]): Planning[] {
     return plans.sort((a, b) => {
-      // Adjust sorting logic here as needed
-      const comparison = a.tripID - b.tripID; // Example: Sort by tripID
+      const comparison = a.tripID - b.tripID;
       return this.sortOrder === 'desc' ? -comparison : comparison;
     });
   }

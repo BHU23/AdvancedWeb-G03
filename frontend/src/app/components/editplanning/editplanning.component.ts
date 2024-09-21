@@ -46,17 +46,20 @@ export class EditplanningComponent implements OnInit {
     if (this.editForm.valid) {
       this.isSubmitting = true;
       const updatedPlanning = { ...this.data.planning, ...this.editForm.value };
-      this.planingService.updatePlanning(this.data.planning._id, updatedPlanning).subscribe(
-        response => {
+      this.planingService.updatePlanning(this.data.planning._id, updatedPlanning).subscribe({
+        next: response => {
           this.isSubmitting = false;
           this.dialogRef.close(response);
         },
-        error => {
+        error: error => {
           this.isSubmitting = false;
           this.errorMessage = 'เกิดข้อผิดพลาดในการอัปเดตข้อมูล';
           console.error('Error updating planning:', error);
+        },
+        complete: () => {
+          console.log('Update process completed');
         }
-      );
+      });
     }
   }
 

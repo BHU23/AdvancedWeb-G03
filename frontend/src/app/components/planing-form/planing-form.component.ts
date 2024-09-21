@@ -67,8 +67,8 @@ export class PlaningFormComponent implements OnInit {
       this.successMessage = '';
 
       const planningData: Partial<Planning> = this.planingForm.value;
-      this.planingService.createPlanning(planningData).subscribe(
-        (response) => {
+      this.planingService.createPlanning(planningData).subscribe({
+        next: (response) => {
           console.log('Planning created successfully', response);
           this.successMessage = 'บันทึกข้อมูลการวางแผนท่องเที่ยวสำเร็จ';
 
@@ -78,12 +78,13 @@ export class PlaningFormComponent implements OnInit {
           this.resetForm();
           this.isSubmitting = false;
         },
-        (error) => {
+        error: (error) => {
           console.error('Error creating planning', error);
           this.errorMessage = error;
           this.isSubmitting = false;
         }
-      );
+
+      });
     } else {
       this.markFormGroupTouched(this.planingForm);
       this.errorMessage = 'กรุณากรอกข้อมูลให้ครบถ้วน';
@@ -92,9 +93,10 @@ export class PlaningFormComponent implements OnInit {
 
   resetForm() {
     this.planingForm.reset();
-    this.successMessage = '';
-    this.errorMessage = '';
+    this.planingForm.markAsPristine();
+    this.planingForm.markAsUntouched();
   }
+
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {

@@ -51,14 +51,10 @@ export class AuthService {
     if (token) {
       try {
         const decodedToken = jwtDecode<DecodedToken>(token);
-        console.log('Decoded token:', decodedToken);
-
         const userID = decodedToken.id;
         if (userID) {
-          console.log('Current user ID:', userID);
           return of(userID);
         } else {
-          console.log('User ID not found in token');
         }
       } catch (error) {
         console.error('Error decoding token:', error);

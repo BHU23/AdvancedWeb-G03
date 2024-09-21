@@ -1,35 +1,24 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { SubplanningformComponent } from '../subplanningform/subplanningform.component';
 import { MatDialog } from '@angular/material/dialog';
-
-export interface PlanOntime {
-  planID?: number;
-  planName: string;
-  startTime: Date;
-  endTime: Date;
-  description?: string;
-  budget: number;
-  image: Record<string, string>;
-  status: string;
-  reviewID: string;
-  locationID: string;
-  planningID: string;
-  createAt?: Date;
-  updateAt?: Date;
-}
-
-
+import { Planning } from '../planing-form/planing-form.component';
+import { ActivatedRoute } from '@angular/router';
+import { PlaningService } from '../../services/planing/planing-service.service';
 
 @Component({
   selector: 'app-planing-table',
   templateUrl: './planing-table.component.html',
   styleUrl: './planing-table.component.css'
 })
-export class PlaningTableComponent {
+export class PlaningTableComponent implements OnInit {
   private _formBuilder = inject(FormBuilder);
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private route: ActivatedRoute,
+    private planingService: PlaningService,
+    private dialog: MatDialog
+  ) {}
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -39,16 +28,55 @@ export class PlaningTableComponent {
   });
 
   searchTerm: string = '';
-  openCreatePlanDialog() {
+  currentPlanningId: string = '';
+  planningDetails: Planning | null = null;
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.currentPlanningId = params['id'];
+        console.log('Initialized currentPlanningId:', this.currentPlanningId);
+        this.loadPlanningDetails(this.currentPlanningId);
+      } else {
+        console.error('No id parameter found in the route');
+      }
+    });
+  }
+
+  loadPlanningDetails(id: string) {
+    console.log('Loading planning details for id:', id);
+    this.planingService.getPlanningByID(id).subscribe({
+      next: (data: Planning) => {
+        this.planningDetails = data;
+        console.log('Fetched planning details:', data);
+      },
+      error: (error) => {
+        console.error('Error fetching planning details:', error);
+      },
+      complete: () => {
+        console.log('Fetching planning details completed');
+      }
+    });
+  }
+
+  openSubplanningDialog(): void {
+    console.log('Opening subplanning dialog. Current planning ID:', this.currentPlanningId);
+    if (!this.currentPlanningId) {
+      console.error('No planning ID available');
+      return;
+    }
+
     const dialogRef = this.dialog.open(SubplanningformComponent, {
-      width: '500px',
-      data: {} // You can pass initial data here if needed
+      minWidth: '800px',
+      maxHeight: '500px',
+      data: { planningID: this.currentPlanningId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed. Result:', result);
       if (result) {
-        console.log('The dialog was closed with result:', result);
-        // Handle the result here (e.g., save to database, update UI)
+        console.log('Reloading planning details. Current planning ID:', this.currentPlanningId);
+        this.loadPlanningDetails(this.currentPlanningId);
       }
     });
   }

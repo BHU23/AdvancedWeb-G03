@@ -29,16 +29,20 @@ export class SubPlaningComponent implements OnInit {
   }
 
   loadPlanningDetails(id: string) {
-    this.planingService.getPlanningByID(id).subscribe(
-      (data: Planning) => {
+    this.planingService.getPlanningByID(id).subscribe({
+      next: (data: Planning) => {
         this.planningDetails = data;
         console.log('Fetched planning details:', data);
       },
-      error => {
+      error: (error) => {
         console.error('Error fetching planning details:', error);
+      },
+      complete: () => {
+        console.log('Fetching planning details completed');
       }
-    );
+    });
   }
+
 
   getStatusClass(): string {
     switch (this.planningDetails?.status.toLowerCase()) {
@@ -62,27 +66,39 @@ export class SubPlaningComponent implements OnInit {
 
   updateStatusToCompleted() {
     if (this.planningDetails?._id) {
-      this.planingService.updatePlanningStatusComplete(this.planningDetails._id).subscribe(
-        response => {
+      this.planingService.updatePlanningStatusComplete(this.planningDetails._id).subscribe({
+        next: (response) => {
           console.log('Planning status updated to completed', response);
           this.loadPlanningDetails(this.planningDetails!._id);
         },
-        error => console.error('Error updating planning status', error)
-      );
+        error: (error) => {
+          console.error('Error updating planning status', error);
+        },
+        complete: () => {
+          console.log('Planning status update process completed');
+        }
+      });
     }
   }
 
+
   updateStatusToCanceled() {
     if (this.planningDetails?._id) {
-      this.planingService.updatePlanningStatusCancel(this.planningDetails._id).subscribe(
-        response => {
+      this.planingService.updatePlanningStatusCancel(this.planningDetails._id).subscribe({
+        next: (response) => {
           console.log('Planning status updated to canceled', response);
           this.loadPlanningDetails(this.planningDetails!._id);
         },
-        error => console.error('Error updating planning status', error)
-      );
+        error: (error) => {
+          console.error('Error updating planning status', error);
+        },
+        complete: () => {
+          console.log('Planning status update to canceled process completed');
+        }
+      });
     }
   }
+
 
   openEditDialog(planning: Planning) {
     const dialogRef = this.dialog.open(EditplanningComponent, {

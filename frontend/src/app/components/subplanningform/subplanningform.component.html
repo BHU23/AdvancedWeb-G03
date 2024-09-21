@@ -1,5 +1,4 @@
-
-<h2 mat-dialog-title class="mat-dialog-title">Add-Edit Sub Planning</h2>
+<h2 mat-dialog-title class="mat-dialog-title">เพิ่มแผนย่อย</h2>
 
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="subPlanningForm" class="subplanning-form">
@@ -14,19 +13,19 @@
 
     <div class="form-row">
       <mat-form-field appearance="fill">
-        <mat-label>วันที่เริ่มต้น</mat-label>
-        <input matInput [matDatepicker]="startPicker" formControlName="startDate" placeholder="เลือกวันที่เริ่มต้น">
+        <mat-label>วันและเวลาเริ่มต้น</mat-label>
+        <input matInput [matDatepicker]="startPicker" formControlName="startTime" placeholder="เลือกวันและเวลาเริ่มต้น">
         <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
-        <mat-error *ngIf="subPlanningForm.get('startDate')?.errors?.['required']">กรุณาเลือกวันที่เริ่มต้น</mat-error>
+        <mat-error *ngIf="subPlanningForm.get('startTime')?.errors?.['required']">กรุณาเลือกวันและเวลาเริ่มต้น</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>วันที่สิ้นสุด</mat-label>
-        <input matInput [matDatepicker]="endPicker" formControlName="endDate" placeholder="เลือกวันที่สิ้นสุด">
+        <mat-label>วันและเวลาสิ้นสุด</mat-label>
+        <input matInput [matDatepicker]="endPicker" formControlName="endTime" placeholder="เลือกวันและเวลาสิ้นสุด">
         <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
-        <mat-error *ngIf="subPlanningForm.get('endDate')?.errors?.['required']">กรุณาเลือกวันที่สิ้นสุด</mat-error>
+        <mat-error *ngIf="subPlanningForm.get('endTime')?.errors?.['required']">กรุณาเลือกวันและเวลาสิ้นสุด</mat-error>
       </mat-form-field>
     </div>
 
@@ -45,17 +44,29 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>เลือกสถานที่</mat-label>
-      <mat-select formControlName="locationID">
-        <mat-option value="locationID">Location 1</mat-option>
-        <mat-option value="locationID">Location 2</mat-option>
-        <mat-option value="locationID">Location 3</mat-option>
+      <mat-select formControlName="placeID" (selectionChange)="onPlaceSelected($event.value)">
+        <mat-option *ngFor="let place of places" [value]="place._id.toString()">
+          {{ place.name }}
+        </mat-option>
       </mat-select>
-      <mat-error *ngIf="subPlanningForm.get('locationID')?.errors?.['required']">กรุณาเลือกสถานที่</mat-error>
+      <mat-error *ngIf="subPlanningForm.get('placeID')?.errors?.['required']">กรุณาเลือกสถานที่</mat-error>
     </mat-form-field>
+
+    <div *ngIf="selectedPlace" class="place-details">
+      <h6>รายละเอียดสถานที่</h6>
+      <p><strong>ชื่อ:</strong> {{ selectedPlace.name }}</p>
+      <p><strong>ที่อยู่:</strong> {{ selectedPlace.address }}</p>
+      <p *ngIf="selectedPlace.description"><strong>คำอธิบาย:</strong> {{ selectedPlace.description }}</p>
+      <p><strong>พิกัด:</strong> {{ selectedPlace.latitude }}, {{ selectedPlace.longitude }}</p>
+      <p *ngIf="selectedPlace.category"><strong>หมวดหมู่:</strong> {{ selectedPlace.category }}</p>
+      <p *ngIf="selectedPlace.rating"><strong>คะแนน:</strong> {{ selectedPlace.rating }}</p>
+      <a *ngIf="selectedPlace.googleMapsUrl" [href]="selectedPlace.googleMapsUrl" target="_blank">ดูใน Google Maps</a>
+    </div>
 
     <mat-error *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-error>
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
   <button mat-button class="btn-cancelEdit" color="warn" (click)="onCancel()">ยกเลิก</button>
   <button mat-raised-button class="btn-submitEdit" color="primary" (click)="onSubmit()" [disabled]="subPlanningForm.invalid || isSubmitting">บันทึก</button>

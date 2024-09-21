@@ -45,12 +45,12 @@ const planOntimeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    reviewID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review',
-        required: false
-    },
-    locationID: {
+    // reviewID: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Review',
+    //     required: false
+    // },
+    placeID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Place',
         required: false

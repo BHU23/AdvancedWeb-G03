@@ -22,7 +22,13 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       title: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: [
+        '',
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+        ),
+      ],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phoneNumber: ['', Validators.required],

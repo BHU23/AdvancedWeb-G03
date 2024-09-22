@@ -11,7 +11,6 @@
           class="img-fluid"
         />
       </div>
-      
 
       <!-- Form Section -->
       <div
@@ -159,6 +158,11 @@
               >
                 <div *ngIf="f['password'].errors?.['required']">
                   Password is required.
+                </div>
+                <div *ngIf="f['password'].errors?.['pattern']">
+                  Password must be at least 8 characters long and include at
+                  least one uppercase letter, one number, and one special
+                  character.
                 </div>
               </div>
             </div>

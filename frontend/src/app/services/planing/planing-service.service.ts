@@ -110,8 +110,6 @@ export class PlaningService {
     return this.http.delete(`${this.apiUrl}/planning/${id}`, { headers })
       .pipe(catchError(this.handleError));
   }
-
-
   // Roadmap
 
   createSubPlanning(Subplanning: Partial<PlanOntime>): Observable<any> {
@@ -139,7 +137,8 @@ getLocationData(): Observable<any> {
   const headers = this.getHeaders();
   return this.http.get<any[]>(`${this.apiUrl}/places`, { headers })
     .pipe(catchError(this.handleError));
-}
+  }
+  
 getSubplannigByPlanningID(id: string): Observable<any> {
   const headers = this.getHeaders();
   return this.http.get<any[]>(`${this.apiUrl}/planontime/${id}`, { headers })

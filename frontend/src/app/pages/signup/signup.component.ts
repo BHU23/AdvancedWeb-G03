@@ -12,6 +12,10 @@ export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   errorMessage: string | null = null;
 
+  // Updated regex to include special characters, uppercase, digits, and minimum 8 characters
+  StrongPasswordRegx: RegExp =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
   constructor(
     private fb: FormBuilder,
     private signupService: SignupService,
@@ -24,14 +28,11 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
-        Validators.required,
-        Validators.pattern(
-          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-        ),
+        [Validators.required, Validators.pattern(this.StrongPasswordRegx)],
       ],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', Validators.required], // You can add custom validators here
       address: ['', Validators.required],
       gender: ['', Validators.required],
       avatar: [''],
@@ -43,7 +44,6 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // Mark all controls as touched to trigger validation messages
     this.markAllAsTouched();
 
     if (this.signupForm.invalid) {
@@ -52,12 +52,10 @@ export class SignupComponent implements OnInit {
 
     this.signupService.signup(this.signupForm.value).subscribe(
       (response: any) => {
-        // Handle successful signup
         console.log('Signup successful:', response);
-        this.router.navigate(['/login']); // Redirect to login or another page
+        this.router.navigate(['/login']);
       },
       (error: any) => {
-        // Handle error
         console.error('Signup error:', error);
         this.errorMessage =
           error.error.message || 'An error occurred during sign up';

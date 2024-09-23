@@ -12,7 +12,6 @@ export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   errorMessage: string | null = null;
 
-  // Updated regex to include special characters, uppercase, digits, and minimum 8 characters
   StrongPasswordRegx: RegExp =
     /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 

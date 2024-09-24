@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlaningService } from '../../services/planing/planing-service.service';
-import { PlanningNotificationService } from '../../services/shareServices/plannig-noti.service';
+import { Service } from '../../services/shareServices/plannig-noti.service';
 
 export interface Planning {
   _id: string;
@@ -26,7 +26,7 @@ export interface Planning {
 @Component({
   selector: 'app-planing-form',
   templateUrl: './planing-form.component.html',
-  styleUrls: ['./planing-form.component.css']
+  styleUrls: ['./planing-form.component.css'],
 })
 export class PlaningFormComponent implements OnInit {
   planingForm!: FormGroup;
@@ -37,7 +37,7 @@ export class PlaningFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private planingService: PlaningService,
-    private planningNotificationService: PlanningNotificationService // Inject the service
+    private planningNotificationService: Service // Inject the service
   ) {}
 
   ngOnInit() {
@@ -46,7 +46,14 @@ export class PlaningFormComponent implements OnInit {
 
   initForm() {
     this.planingForm = this.fb.group({
-      tripName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      tripName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+        ],
+      ],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       budget: ['', Validators.required],
@@ -54,11 +61,21 @@ export class PlaningFormComponent implements OnInit {
     });
   }
 
-  get tripName() { return this.planingForm.get('tripName'); }
-  get startDate() { return this.planingForm.get('startDate'); }
-  get endDate() { return this.planingForm.get('endDate'); }
-  get budget() { return this.planingForm.get('budget'); }
-  get description() { return this.planingForm.get('description'); }
+  get tripName() {
+    return this.planingForm.get('tripName');
+  }
+  get startDate() {
+    return this.planingForm.get('startDate');
+  }
+  get endDate() {
+    return this.planingForm.get('endDate');
+  }
+  get budget() {
+    return this.planingForm.get('budget');
+  }
+  get description() {
+    return this.planingForm.get('description');
+  }
 
   onSubmit() {
     if (this.planingForm.valid) {
@@ -82,8 +99,7 @@ export class PlaningFormComponent implements OnInit {
           console.error('Error creating planning', error);
           this.errorMessage = error;
           this.isSubmitting = false;
-        }
-
+        },
       });
     } else {
       this.markFormGroupTouched(this.planingForm);
@@ -97,9 +113,8 @@ export class PlaningFormComponent implements OnInit {
     this.planingForm.markAsUntouched();
   }
 
-
   markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
+    Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
     });
   }

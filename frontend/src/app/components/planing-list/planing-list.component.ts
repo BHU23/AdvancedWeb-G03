@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PlaningService } from '../../services/planing/planing-service.service';
 import { Planning } from '../planing-form/planing-form.component';
-import { PlanningNotificationService } from '../../services/shareServices/plannig-noti.service';
+import { Service } from '../../services/shareServices/plannig-noti.service';
 
 @Component({
   selector: 'app-planing-list',
   templateUrl: './planing-list.component.html',
-  styleUrls: ['./planing-list.component.css']
+  styleUrls: ['./planing-list.component.css'],
 })
 export class PlaningListComponent implements OnInit {
   travelPlans: Planning[] = [];
@@ -16,7 +16,7 @@ export class PlaningListComponent implements OnInit {
 
   constructor(
     private planingService: PlaningService,
-    private planningNotificationService: PlanningNotificationService
+    private planningNotificationService: Service
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class PlaningListComponent implements OnInit {
         this.filteredPlans = [...this.travelPlans];
         console.log('Fetched data:', data);
       },
-      error => {
+      (error) => {
         if (error.status === 0) {
           console.error('Network error or CORS issue');
         } else {
@@ -61,7 +61,10 @@ export class PlaningListComponent implements OnInit {
     if (this.selectedCategory === '') {
       this.filteredPlans = [...this.travelPlans];
     } else {
-      this.filteredPlans = this.travelPlans.filter(plan => plan.status.toLowerCase() === this.selectedCategory.toLowerCase());
+      this.filteredPlans = this.travelPlans.filter(
+        (plan) =>
+          plan.status.toLowerCase() === this.selectedCategory.toLowerCase()
+      );
     }
   }
 
@@ -72,15 +75,17 @@ export class PlaningListComponent implements OnInit {
   }
 
   deletePlan(plan: Planning) {
-    if (confirm(`คุณแน่ใจหรือไม่ว่าต้องการลบแผนการเดินทาง "${plan.tripName}"?`)) {
+    if (
+      confirm(`คุณแน่ใจหรือไม่ว่าต้องการลบแผนการเดินทาง "${plan.tripName}"?`)
+    ) {
       this.planingService.deletePlanning(plan._id).subscribe(
         () => {
           console.log('ลบแผนการเดินทางสำเร็จ');
-          this.travelPlans = this.travelPlans.filter(p => p._id !== plan._id);
+          this.travelPlans = this.travelPlans.filter((p) => p._id !== plan._id);
           this.filterPlans();
           this.planningNotificationService.notifyPlansUpdated();
         },
-        error => {
+        (error) => {
           console.error('เกิดข้อผิดพลาดในการลบแผนการเดินทาง:', error);
           // จัดการข้อผิดพลาด (เช่น แสดงข้อความแจ้งเตือนให้ผู้ใช้)
         }

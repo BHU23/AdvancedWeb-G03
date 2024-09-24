@@ -25,14 +25,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
     this.router.navigate(['/login']).then(() => {
-      window.location.reload();
     });
-  }
-
-  private reloadCurrentRoute(): void {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 }

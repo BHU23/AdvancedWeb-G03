@@ -47,9 +47,24 @@ console.log(payload)
     console.log(status);
     
     if (status) {
-      const token = jwt.sign({ id: result._id, email: result.email }, key, {
-        expiresIn: "6h",
-      });
+      const token = jwt.sign(
+  { 
+    id: result._id,  
+    email: result.email,
+    firstName: result.firstName,
+    lastName: result.lastName,
+    userID: result.userID,
+    gender: result.gender,
+    address: result.address,
+    phoneNumber: result.phoneNumber,
+    avatar: result.avatar,
+    createdAt: result.createdAt,
+    updatedAt: result.updatedAt
+  },
+  key, 
+  { expiresIn: "6h" } 
+);
+
       console.log(token);
       
       res.status(200).json({ result, token, status });

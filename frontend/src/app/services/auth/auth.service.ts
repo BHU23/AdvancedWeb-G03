@@ -2,10 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import {jwtDecode} from 'jwt-decode';
-interface DecodedToken {
-  userID?: number; // to match the provided data structure
-  id?: string;    // fallback to ObjectId if userID is not present
+export interface DecodedToken {
+  userID?: number; // User ID from auto-increment
+  id?: string; // MongoDB Object ID
+  email?: string; // User's email
+  firstName?: string; // User's first name
+  lastName?: string; // User's last name
+  gender?: string; // User's gender
+  address?: string; // User's address
+  phoneNumber?: string; // User's phone number
+  avatar?: string; // Base64 string for the user's avatar
+  createdAt?: Date; // Account creation date
+  updatedAt?: Date; // Last update date
 }
+
 
 @Injectable({
   providedIn: 'root',
@@ -20,27 +30,22 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      return !!this.getToken();
-    }
-    return false;
+    return !!this.getToken();
   }
 
   logout(): void {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      sessionStorage.removeItem('token');
-    }
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 
   getToken(): string | null {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      return sessionStorage.getItem('token');
-    }
-    return null;
+    return localStorage.getItem('token') || sessionStorage.getItem('token');
   }
 
-  setToken(token: string): void {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
+  setToken(token: string, rememberMe: boolean): void {
+    if (rememberMe) {
+      localStorage.setItem('token', token);
+    } else {
       sessionStorage.setItem('token', token);
     }
   }
@@ -51,6 +56,7 @@ export class AuthService {
     if (token) {
       try {
         const decodedToken = jwtDecode<DecodedToken>(token);
+        console.log('decodedToken', decodedToken);
         const userID = decodedToken.id;
         if (userID) {
           return of(userID);
@@ -64,5 +70,20 @@ export class AuthService {
 
     return of(null);
   }
+  getUserdata(): Observable<DecodedToken | null> {
+    const token = this.getToken();
 
+    if (token) {
+      try {
+        const decodedToken = jwtDecode<DecodedToken>(token);
+        console.log('decodedToken', decodedToken);
+        return of(decodedToken); // Return the decoded token as an observable
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+
+    return of(null); // Return null as observable if token is not available
+  }
 }
+

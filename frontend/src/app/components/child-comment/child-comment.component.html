@@ -1,0 +1,18 @@
+<div *ngIf="childComments.length > 0">
+  <div *ngFor="let comment of childComments" class="mb-3">
+    <div class="card-header d-flex align-items-center">
+      <div class="d-flex align-items-center space-x-4">
+        <img src="{{ comment.userID.avatar }}" alt="" class="rounded-circle" />
+        <div>
+          <p class="fw-semibold mb-0">
+            {{ comment.userID.firstName }} {{ comment.userID.lastName }}
+          </p>
+          <p class="text-muted mb-0">{{ formatDate(comment.createAt) }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="text-muted">{{ comment.userComments }}</p>
+    </div>
+  </div>
+</div>

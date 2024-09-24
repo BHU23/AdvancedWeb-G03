@@ -1,4 +1,4 @@
-<div class="container max-w-4xl mx-auto p-6 space-y-8">
+<div *ngIf="review" class="container max-w-4xl mx-auto p-6 space-y-8">
   <header class="text-center">
     <h1 class="h3 font-bold">{{ review.topic || "" }}</h1>
     <div
@@ -79,69 +79,105 @@
 
   <!-- Comments Section -->
   <div class="space-y-4">
-    <h2 class="h5 fw-semibold">Comments</h2>
-
     <!-- Comment Card -->
-    <div class="card">
-      <div class="card-header d-flex align-items-center">
-        <div class="d-flex align-items-center space-x-4">
-          <img
-            src="/placeholder.svg?height=40&width=40"
-            alt="@janedoe"
-            class="rounded-circle"
-          />
-          <div>
-            <p class="fw-semibold mb-0">Jane Doe</p>
-            <p class="text-muted mb-0">2 days ago</p>
+    <div *ngIf="organizedComments.length > 0" class="card">
+      <h2 class="h5 fw-semibold">Comments</h2>
+      <div *ngFor="let commentGroup of organizedComments" class="mb-4">
+        <!-- Parent Comment -->
+        <div class="card-header d-flex align-items-center">
+          <div class="d-flex align-items-center space-x-4">
+            <img
+              src="{{ commentGroup.parent.userID.avatar }}"
+              alt=""
+              class="rounded-circle"
+            />
+            <div>
+              <p class="fw-semibold mb-0">
+                {{ commentGroup.parent.userID.firstName }}
+                {{ commentGroup.parent.userID.lastName }}
+              </p>
+              <p class="text-muted mb-0">
+                {{ formatDate(commentGroup.parent.createAt) }}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-body">
-        <p class="text-muted">
-          Great review! I've been considering visiting the Rocky Mountains, and
-          this retreat sounds perfect...
-        </p>
-      </div>
-    </div>
+        <div class="card-body">
+          <p class="text-muted">{{ commentGroup.parent.userComments }}</p>
+        </div>
 
-    <!-- Comment Card -->
-    <div class="card">
-      <div class="card-header d-flex align-items-center">
-        <div class="d-flex align-items-center space-x-4">
-          <img
-            src="/placeholder.svg?height=40&width=40"
-            alt="@mikebrown"
-            class="rounded-circle"
-          />
-          <div>
-            <p class="fw-semibold mb-0">Mike Brown</p>
-            <p class="text-muted mb-0">1 day ago</p>
+        <!-- Display Child Comments -->
+        <div *ngIf="commentGroup.children.length > 0" class="mt-2">
+            <div *ngFor="let childComment of commentGroup.children" class="mb-2 child-comment"> <!-- Add ms-4 for left margin -->
+                <div class="card-header d-flex align-items-center">
+                  <div class="d-flex align-items-center space-x-4">
+                    <img
+                      src="{{ childComment.userID.avatar }}"
+                      alt=""
+                      class="rounded-circle"
+                    />
+                    <div>
+                      <p class="fw-semibold mb-0">
+                        {{ childComment.userID.firstName }}
+                        {{ childComment.userID.lastName }}
+                      </p>
+                      <p class="text-muted mb-0">
+                        {{ formatDate(childComment.createAt) }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p class="text-muted">{{ childComment.userComments }}</p>
+                </div>
+              </div>
+              
+        </div>
+
+        <!-- Reply Section -->
+        <div class="reply-section mt-3">
+          <h4 class="h6">Reply</h4>
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              placeholder="Write your reply here..."
+              [(ngModel)]="newReply[commentGroup.parent._id]"
+            ></textarea>
           </div>
+          <button
+            class="btn btn-primary ms-2"
+            (click)="submitReply(commentGroup.parent._id)"
+          >
+            Post Reply
+          </button>
         </div>
       </div>
-      <div class="card-body">
-        <p class="text-muted">
-          The natural hot springs sound amazing! Were they private or public?
-        </p>
-      </div>
     </div>
-  </div>
 
-  <!-- Add Comment Section -->
-  <div class="space-y-4">
-    <h2 class="h5 fw-semibold">Add a Comment</h2>
-    <div class="form-group">
-      <textarea
-        class="form-control"
-        placeholder="Write your comment here..."
-      ></textarea>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <input type="text" placeholder="Your name" class="form-control w-50" />
-      <button class="btn btn-primary ms-2">
-        <i class="bi bi-send-fill me-2"></i>
-        Post Comment
-      </button>
+    <!-- Add Comment Section -->
+    <div class="space-y-4">
+      <h2 class="h5 fw-semibold">Add a Comment</h2>
+      <div class="form-group">
+        <textarea
+          class="form-control"
+          placeholder="Write your comment here..."
+          [(ngModel)]="userComment"
+        ></textarea>
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <input
+          type="text"
+          [placeholder]="user.firstName + ' ' + user.lastName"
+          class="form-control w-50"
+          [disabled]="true"
+        />
+
+        <button class="btn btn-primary ms-2" (click)="addComment()">
+          <!-- Bind click event -->
+          <i class="bi bi-send-fill me-2"></i>
+          Post Comment
+        </button>
+      </div>
     </div>
   </div>
 </div>

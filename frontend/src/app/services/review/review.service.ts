@@ -84,4 +84,10 @@ export class ReviewService {
     const url = `${this.apiUrl}/review/${id}/likes`; // New endpoint for like count
     return this.http.patch<any>(url, {}, { headers }); // Send an empty body since we are just incrementing
   }
+
+  getCommentsByReviewID(reviewID: string): Observable<any[]> {
+    const headers = this.getHeaders();
+    const url = `${this.apiUrl}/reviews/${reviewID}/comments`; // Adjust the endpoint as necessary
+    return this.http.get<any[]>(url, {headers});
+  }
 }

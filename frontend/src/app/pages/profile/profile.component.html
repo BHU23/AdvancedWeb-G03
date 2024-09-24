@@ -1,1 +1,144 @@
-<p>profile works!</p>
+<div class="profile-form">
+    <div class="container-fluid h-100">
+        <div class="h-100 w-100 d-flex justify-content-center gap-3">
+            <!-- Form Section -->
+            <div class="shadow h-100 bg-body rounded col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <div class="w-100 p-3 p-md-5">
+                    <h2 class="text-center mb-4">Profile</h2>
+                    <form [formGroup]="profileForm" (ngSubmit)="onUpdate()">
+                        <div class="w-100 mb-3 d-flex gap-3 flex-wrap flex-lg-nowrap">
+                            <div class="w-100 w-md-55 d-flex gap-3">
+                                <div class="w-5 w-md-10">
+                                    <label for="title" class="form-label">Title</label>
+                                    <select class="form-select" id="title" formControlName="title" [ngClass]="{
+                        'is-invalid':
+                          f['title'].invalid &&
+                          (f['title'].dirty || f['title'].touched)
+                      }">
+                                        <option value="" disabled>Select Title</option>
+                                        <option value="Mr">Mr.</option>
+                                        <option value="Mrs">Mrs.</option>
+                                        <option value="Ms">Ms.</option>
+                                        <option value="Dr">Dr.</option>
+                                        <option value="Prof">Prof.</option>
+                                        <option value="LtCol">Lt. Col.</option>
+                                        <option value="Gen">Gen.</option>
+                                        <option value="Lord">Lord</option>
+                                        <option value="Lady">Lady</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <div *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f['title'].errors?.['required']">Title is required.</div>
+                                    </div>
+                                </div>
+                                <div class="w-100 w-md-45">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" formControlName="firstName"
+                                        [ngClass]="{
+                        'is-invalid':
+                          f['firstName'].invalid &&
+                          (f['firstName'].dirty || f['firstName'].touched)
+                      }" />
+                                    <div *ngIf="f['firstName'].invalid && (f['firstName'].dirty || f['firstName'].touched)"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f['firstName'].errors?.['required']">First name is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100 mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                                    [ngClass]="{
+                      'is-invalid':
+                        f['lastName'].invalid &&
+                        (f['lastName'].dirty || f['lastName'].touched)
+                    }" />
+                                <div *ngIf="f['lastName'].invalid && (f['lastName'].dirty || f['lastName'].touched)"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['lastName'].errors?.['required']">Last name is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="{
+                    'is-invalid':
+                      f['email'].invalid &&
+                      (f['email'].dirty || f['email'].touched)
+                  }" />
+                            <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)"
+                                class="invalid-feedback">
+                                <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+                                <div *ngIf="f['email'].errors?.['email']">Invalid email format.</div>
+                            </div>
+                        </div>
+                        <div class="w-100 mb-3 d-flex gap-3">
+                            <div class="w-50">
+                                <label for="phoneNumber" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
+                                    [ngClass]="{
+                      'is-invalid':
+                        f['phoneNumber'].invalid &&
+                        (f['phoneNumber'].dirty || f['phoneNumber'].touched)
+                    }" />
+                                <div *ngIf="f['phoneNumber'].invalid && (f['phoneNumber'].dirty || f['phoneNumber'].touched)"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['phoneNumber'].errors?.['required']">Phone number is required.</div>
+                                </div>
+                            </div>
+                            <div class="w-50">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" id="gender" formControlName="gender" [ngClass]="{
+                      'is-invalid':
+                        f['gender'].invalid &&
+                        (f['gender'].dirty || f['gender'].touched)
+                    }">
+                                    <option value="" disabled>Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div *ngIf="f['gender'].invalid && (f['gender'].dirty || f['gender'].touched)"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f['gender'].errors?.['required']">Gender is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" formControlName="address" [ngClass]="{
+                    'is-invalid':
+                      f['address'].invalid &&
+                      (f['address'].dirty || f['address'].touched)
+                  }" />
+                            <div *ngIf="f['address'].invalid && (f['address'].dirty || f['address'].touched)"
+                                class="invalid-feedback">
+                                <div *ngIf="f['address'].errors?.['required']">Address is required.</div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+                        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                            {{ errorMessage }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+<!-- Image Section: Upload Avatar -->
+<div class="col-md-5 d-flex justify-content-center align-items-center">
+    <div class="upload-avatar text-center">
+        <div class="avatar-preview mt-3">
+            <img *ngIf="avatar" [src]="avatar" alt="Avatar Preview" class="img-fluid rounded-circle" />
+            <span *ngIf="!avatar" class="placeholder">No Image</span> <!-- Placeholder ถ้ายังไม่มีรูป -->
+        </div>
+        <label for="avatarUpload" class="custom-file-upload">
+            <span>Select Image</span>
+        </label>
+        <input type="file" id="avatarUpload" (change)="onFileChange($event)" accept="image/*" />
+    </div>
+</div>
+        </div>
+    </div>
+</div>

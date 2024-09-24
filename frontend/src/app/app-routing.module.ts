@@ -8,6 +8,8 @@ import { ReviewComponent } from './pages/review/review.component';
 import { CreateReviewComponent } from './components/createReview/createReview.component';
 import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 import { SubReviewComponent } from './components/sub-review/sub-review.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+
 
 // const routes: Routes = [];
 
@@ -19,7 +21,9 @@ const routes: Routes = [
   { path: 'planning', component: PlaningComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'planning/:id', component: SubPlaningComponent}
+  { path: 'planning/:id', component: SubPlaningComponent},
+  { path: 'profile', component: ProfileComponent}
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

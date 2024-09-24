@@ -2,11 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignupService } from '../../services/auth/signup.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter', [animate('500ms ease-in')]), // Element entering
+    ]),
+  ],
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
@@ -27,11 +40,11 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
-        // [Validators.required, Validators.pattern(this.StrongPasswordRegx)],
+        [Validators.required, Validators.pattern(this.StrongPasswordRegx)],
       ],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNumber: ['', Validators.required], // You can add custom validators here
+      phoneNumber: ['', Validators.required],
       address: ['', Validators.required],
       gender: ['', Validators.required],
       avatar: [''],

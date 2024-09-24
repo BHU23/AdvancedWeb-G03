@@ -41,7 +41,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { SubplanningformComponent } from './components/subplanningform/subplanningform.component';
 import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-ontimes.pipe';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,14 +60,14 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
     EditplanningComponent,
     SubplanningformComponent,
     FilterPlanOntimesPipe,
-    GoogleMapsComponent
+    GoogleMapsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    CommonModule ,
+    CommonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -79,10 +79,12 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
     FormsModule,
     GoogleMapsModule,
     HttpClientModule, // Ensure HttpClientModule is imported
+    BrowserAnimationsModule,
   ],
   providers: [
     provideHttpClient(withFetch()), // Configure HttpClient to use fetch API
-    provideClientHydration(), provideAnimationsAsync(),
+    provideClientHydration(),
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })

@@ -1,9 +1,9 @@
-<div class="signup-form">
+<div class="signup-form" >
   <div class="container-fluid h-100">
     <div class="h-100 w-100 d-flex justify-content-center gap-3">
       <!-- Image Section -->
       <div
-        class="col-md-5 d-none d-lg-flex justify-content-center align-items-center"
+        class="col-md-5 d-none d-lg-flex justify-content-center align-items-center slide-left"
       >
         <img
           src="../../../assets/signup.jpg"
@@ -14,7 +14,7 @@
 
       <!-- Form Section -->
       <div
-        class="shadow h-100 bg-body rounded col-12 col-md-6 d-flex justify-content-center align-items-center"
+        class="shadow h-100 bg-body rounded col-12 col-md-6 d-flex justify-content-center align-items-center slide-right"
       >
         <div class="w-100 p-3 p-md-5">
           <h2 class="text-center mb-4">Sign Up</h2>
@@ -162,7 +162,7 @@
                 <div *ngIf="f['password'].errors?.['pattern']">
                   Password must be at least 8 characters long and include at
                   least one uppercase letter, one number, and one special
-                  character.
+                  special characters like &#64;, $, %, *, etc..
                 </div>
               </div>
             </div>

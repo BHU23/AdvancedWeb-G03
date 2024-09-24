@@ -5,7 +5,7 @@ import { Service } from '../../services/shareServices/plannig-noti.service';
 import { Router } from '@angular/router';  // Import Router
 
 export interface Planning {
-  _id: string;  // Make sure _id is included in your Planning interface
+  _id: string; 
   tripID: number;
   tripName: string;
   startDate: Date;

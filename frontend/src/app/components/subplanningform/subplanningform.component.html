@@ -93,6 +93,32 @@
       <!-- ... (existing place details remain unchanged) ... -->
     </div>
 
+
+    <!-- ส่วนแสดงรายละเอียดสถานที่ที่เลือก -->
+    <div *ngIf="selectedPlace && !showPlaceSection" class="place-details">
+      <h6>รายละเอียดสถานที่</h6>
+      <p><strong>ชื่อ:</strong> {{ selectedPlace.name }}</p>
+      <p><strong>ที่อยู่:</strong> {{ selectedPlace.address }}</p>
+      <p *ngIf="selectedPlace.description">
+        <strong>คำอธิบาย:</strong> {{ selectedPlace.description }}
+      </p>
+      <p>
+        <strong>พิกัด:</strong> {{ selectedPlace.latitude }},
+        {{ selectedPlace.longitude }}
+      </p>
+      <p *ngIf="selectedPlace.category">
+        <strong>หมวดหมู่:</strong> {{ selectedPlace.category }}
+      </p>
+      <p *ngIf="selectedPlace.rating">
+        <strong>คะแนน:</strong> {{ selectedPlace.rating }}
+      </p>
+      <a
+        *ngIf="selectedPlace.googleMapsUrl"
+        [href]="selectedPlace.googleMapsUrl"
+        target="_blank"
+      >ดูใน Google Maps</a>
+    </div>
+
     <!-- New Place Section -->
     <div *ngIf="subPlanningForm.get('placeSelection')?.value === 'new'" formGroupName="newPlace">
       <h4>Select Location (Map Integration)</h4>

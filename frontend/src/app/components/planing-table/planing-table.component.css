@@ -16,7 +16,7 @@
 }
 
 .search-input {
-  width: 80%;
+  width: 60%;
 }
 
 mat-form-field {
@@ -41,7 +41,7 @@ button[mat-raised-button] {
   border-radius: 5px;
   padding: 15px;
   text-align: center;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s;
   box-shadow: 0 8px 32px 0 rgba(152, 157, 241, 0.37);
@@ -83,4 +83,82 @@ button[mat-raised-button] {
 
 .right-panel {
   flex: 1;
+}
+
+
+/* Responesive */
+
+@media (max-width: 860px) {
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .btn-card {
+    margin-top: 16px;
+  }
+}
+
+@media (min-width: 860px) {
+  .header-section {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 80%;
+  }
+
+  .btn-card {
+    margin-left: 16px;
+  }
+}
+@media (max-width: 860px) {
+  .step-content {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 860px) {
+  .step-content {
+    flex-direction: row;
+  }
+
+  .left-panel {
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 860px) {
+  .btn-card {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  button[mat-raised-button] {
+    height: 36px;
+  }
+}
+
+@media (min-width: 860px) {
+  .btn-card {
+    padding: 15px;
+    font-size: 18px;
+    width: auto;
+  }
+
+  button[mat-raised-button] {
+    height: 40px;
+  }
 }

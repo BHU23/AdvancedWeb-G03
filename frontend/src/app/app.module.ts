@@ -41,6 +41,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { SubplanningformComponent } from './components/subplanningform/subplanningform.component';
 import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-ontimes.pipe';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [

@@ -136,36 +136,44 @@
                 </div>
               </div>
             </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                formControlName="password"
-                [ngClass]="{
-                  'is-invalid':
-                    f['password'].invalid &&
-                    (f['password'].dirty || f['password'].touched)
-                }"
-              />
-              <div
-                *ngIf="
-                  f['password'].invalid &&
-                  (f['password'].dirty || f['password'].touched)
-                "
-                class="invalid-feedback"
-              >
-                <div *ngIf="f['password'].errors?.['required']">
-                  Password is required.
-                </div>
-                <div *ngIf="f['password'].errors?.['pattern']">
-                  Password must be at least 8 characters long and include at
-                  least one uppercase letter, one number, and one special
-                  special characters like &#64;, $, %, *, etc..
-                </div>
-              </div>
-            </div>
+            <div class="mb-3 position-relative">
+  <label for="password" class="form-label">Password</label>
+  <input
+    [type]="isPasswordVisible ? 'text' : 'password'"
+    class="form-control"
+    id="password"
+    formControlName="password"
+    [ngClass]="{
+      'is-invalid':
+        f['password'].invalid &&
+        (f['password'].dirty || f['password'].touched)
+    }"
+  />
+  <i 
+    class="fas"
+    [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'" 
+    (click)="togglePasswordVisibility()" 
+    style="position: absolute; top: 43px; right: 10px; cursor: pointer;"
+  ></i>
+  
+  <div
+    *ngIf="
+      f['password'].invalid &&
+      (f['password'].dirty || f['password'].touched)
+    "
+    class="invalid-feedback"
+  >
+    <div *ngIf="f['password'].errors?.['required']">
+      Password is required.
+    </div>
+    <div *ngIf="f['password'].errors?.['pattern']">
+      Password must be at least 8 characters long and include at
+      least one uppercase letter, one number, and one special
+      special characters like &#64;, $, %, *, etc.
+    </div>
+  </div>
+</div>
+
             <div class="w-100 mb-3 d-flex">
               <div class="w-50 pr-2">
                 <label for="phoneNumber" class="form-label">Phone Number</label>

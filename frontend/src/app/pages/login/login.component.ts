@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup; // Define loginForm as a FormGroup
   submitted = false;
   errorMessage: string | null = null;
-
+  isPasswordVisible: boolean = false;
   constructor(
     private fb: FormBuilder, // Inject FormBuilder
     private authService: AuthService,
@@ -29,14 +29,16 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      rememberMe:['']
+      rememberMe: [''],
     });
   }
 
   get f() {
     return this.loginForm.controls;
   }
-
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
   onSubmit() {
     this.submitted = true;
     this.markAllAsTouched();
@@ -49,7 +51,6 @@ export class LoginComponent implements OnInit {
       (response: any) => {
         console.log(response);
         const storage = this.loginForm.value.rememberMe
-
           ? localStorage
           : sessionStorage;
         storage.setItem('token', response.token);
@@ -64,6 +65,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
   private markAllAsTouched(): void {
     Object.keys(this.loginForm.controls).forEach((key) => {
       const control = this.loginForm.get(key);

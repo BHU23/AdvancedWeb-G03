@@ -9,6 +9,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import Swal from 'sweetalert2';
 
 @Component({ 
   selector: 'app-signup',
@@ -24,6 +25,7 @@ import {
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   errorMessage: string | null = null;
+  isPasswordVisible: boolean = false;
 
   StrongPasswordRegx: RegExp =
     /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -51,6 +53,10 @@ export class SignupComponent implements OnInit {
     });
   }
 
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
   get f() {
     return this.signupForm.controls;
   }
@@ -65,6 +71,7 @@ export class SignupComponent implements OnInit {
     this.signupService.signup(this.signupForm.value).subscribe(
       (response: any) => {
         console.log('Signup successful:', response);
+        this.showSuccessAlert();
         this.router.navigate(['/login']);
       },
       (error: any) => {
@@ -84,4 +91,15 @@ export class SignupComponent implements OnInit {
       }
     });
   }
+
+  private showSuccessAlert(): void {
+    Swal.fire({
+      title: 'สำเร็จ!',
+      text: 'ลงทะเบียนสำเร็จแล้ว!',
+      icon: 'success',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'ตกลง',
+    });
+  }
+
 }

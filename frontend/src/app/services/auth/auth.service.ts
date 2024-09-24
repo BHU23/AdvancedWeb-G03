@@ -88,11 +88,21 @@ export class AuthService {
     return of(null);
   }
 
-  getCurrentUserId(): Observable<number | string | null> {
-    if (this.datatauser) {
-      return of(this.datatauser.id || null);
+  getCurrentUserId(): Observable<number|string | null> {
+    const token = this.getToken();
+
+    if (token) {
+      try {
+        const decodedToken = jwtDecode<DecodedToken>(token);
+        // Assuming the decoded token contains an 'id' property
+        return of(decodedToken?.id || null); 
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return of(null); // Return null if there's an error in decoding
+      }
     }
-    return of(null);
+
+    return of(null); // Return null if there's no token
   }
 
   private clearToken(): void {

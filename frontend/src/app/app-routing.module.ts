@@ -13,27 +13,13 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'review', component: ReviewComponent, canActivate: [AuthGuard] }, 
-  {
-    path: 'review/create',
-    component: CreateReviewComponent,
-    canActivate: [AuthGuard],
-  }, 
-  {
-    path: 'review/:id',
-    component: SubReviewComponent,
-    canActivate: [AuthGuard],
-  },
-  { path: 'planning', component: PlaningComponent, canActivate: [AuthGuard] }, 
+
+  { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  {
-    path: 'planning/:id',
-    component: SubPlaningComponent,
-    canActivate: [AuthGuard],
-  }, // Protect this route
-  { path: 'profile', component: ProfileComponent}
+  { path: 'profile', component: ProfileComponent},
+  { path: 'review', loadChildren: () => import('./pages/review/review.module').then(m => m.ReviewRoutingModule), canActivate: [AuthGuard] },
+  { path: 'planning', loadChildren: () => import('./pages/planing/planing.module').then(m => m.PlanningRoutingModule), canActivate: [AuthGuard] },
 
 ];
 

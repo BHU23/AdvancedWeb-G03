@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
   errorMessage: string | null = null;
   avatarPreview: string | ArrayBuffer | null = null;
+  StrongPhoneRegx: RegExp = /^[0-9]{10}$/;
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +39,7 @@ export class ProfileComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern(this.StrongPhoneRegx)]],
       gender: ['', Validators.required],
       address: ['', Validators.required],
       avatar: ['', Validators.required],
@@ -71,16 +72,18 @@ export class ProfileComponent implements OnInit {
       const userId = '12345'; // ตัวอย่าง userId คุณควรดึง userId ที่เหมาะสมจากที่ใดที่หนึ่ง
 
       // เรียกใช้ updateProfile พร้อมทั้งส่ง profileData และ userId
-      this.profileService.updateProfile(this.profileForm.value, userId).subscribe(
-        (response) => {
-          console.log('Profile updated successfully', response);
-          this.router.navigate(['/profile-success']);
-        },
-        (error) => {
-          console.error('Error updating profile', error);
-          this.errorMessage = 'Failed to update profile. Please try again.';
-        }
-      );
+      this.profileService
+        .updateProfile(this.profileForm.value, userId)
+        .subscribe(
+          (response) => {
+            console.log('Profile updated successfully', response);
+            this.router.navigate(['/profile-success']);
+          },
+          (error) => {
+            console.error('Error updating profile', error);
+            this.errorMessage = 'Failed to update profile. Please try again.';
+          }
+        );
     } else {
       this.errorMessage = 'Please fill all required fields.';
     }

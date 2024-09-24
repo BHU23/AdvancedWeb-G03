@@ -26,9 +26,10 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReviewComponent } from './pages/review/review.component';
+import { CreateReviewComponent } from './components/createReview/createReview.component';
 import { EditplanningComponent } from './components/editplanning/editplanning.component';
+import { GoogleMapsModule } from "@angular/google-maps";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -54,6 +55,7 @@ import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-on
     LoginComponent,
     SignupComponent,
     ReviewComponent,
+    CreateReviewComponent,
     EditplanningComponent,
     SubplanningformComponent,
     FilterPlanOntimesPipe
@@ -73,6 +75,7 @@ import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-on
     MatButtonModule,
     MatStepperModule,
     FormsModule,
+    GoogleMapsModule,
     HttpClientModule, // Ensure HttpClientModule is imported
   ],
   providers: [

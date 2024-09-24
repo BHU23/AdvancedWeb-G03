@@ -1,15 +1,28 @@
-<div class="container">
-  <h1 class="header">Reviews</h1>
-  <div class="grid-container">
-    <div *ngFor="let place of places" class="card">
-      <img [src]="place.image" [alt]="place.name" class="card-image" />
-      <div class="card-header">
-        <h2 class="card-title">{{ place.name }}</h2>
-      </div>
-      <div class="card-content">
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <span class="rating-value">{{ place.rating.toFixed(1) }}</span>
+<div class="container p-2">
+  <div
+    class="d-flex justify-content-center position-relative align-items-center"
+  >
+    <h1 class="text-center mb-0">Reviews</h1>
+    <button
+      class="btn btn-primary position-absolute"
+      style="right: 0"
+      routerLink="/review/create"
+      routerLinkActive="active"
+    >
+      Create Review
+    </button>
+  </div>
+  <div class="row">
+    <div *ngFor="let review of reviews" class="col-md-3 mb-4">
+      <div class="card">
+        <img [src]="review.image" [alt]="review.topic" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">{{ review.topic }}</h5>
+          <p class="card-text">{{ review.description }}</p>
+          <div class="rating d-flex align-items-center">
+            <i class="fa-solid fa-star text-warning"></i>
+            <span class="rating-value ml-2">{{ review.rating.toFixed(1) }}</span>
+          </div>
         </div>
       </div>
     </div>

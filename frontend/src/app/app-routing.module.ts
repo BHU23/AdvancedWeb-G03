@@ -5,6 +5,7 @@ import { PlaningComponent } from './pages/planing/planing.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ReviewComponent } from './pages/review/review.component';
+import { CreateReviewComponent } from './components/createReview/createReview.component';
 import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 
 // const routes: Routes = [];
@@ -12,6 +13,7 @@ import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'review', component: ReviewComponent },
+  { path: 'review/create', component: CreateReviewComponent },
   { path: 'planning', component: PlaningComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },

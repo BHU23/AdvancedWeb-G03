@@ -58,7 +58,6 @@ console.log(payload)
     gender: result.gender,
     address: result.address,
     phoneNumber: result.phoneNumber,
-    avatar: result.avatar,
     createdAt: result.createdAt,
     updatedAt: result.updatedAt
   },

@@ -67,15 +67,16 @@
             aria-expanded="false"
           >
             <img
-              [src]="
-                userData?.avatar
-                  ? userData?.avatar
-                  : 'assets/user_avatar.jpg'
-              "
-              alt="User Avatar"
-              class="rounded-circle"
-              width="32"
-            />
+  [src]="
+    userData?.avatar
+      ? (userData?.avatar?.startsWith('data:') ? userData?.avatar : 'data:image/jpeg;base64,' + userData?.avatar)
+      : 'assets/user_avatar.jpg'
+  "
+  alt="User Avatar"
+  class="rounded-circle"
+  width="32"
+/>
+
           </div>
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="/profile">Profile</a>

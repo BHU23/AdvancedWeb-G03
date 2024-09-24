@@ -8,26 +8,24 @@ const apiRoutes = require("./routes/api");
 const authRoutes = require("./routes/auth");
 const authMiddleware = require("./middleware/auth");
 
-app.use((req, res, next) => {
-	res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200"); // อนุญาตให้เข้าถึงจากโดเมนนี้
-	res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, PATCH, DELETE, OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+// app.use((req, res, next) => {
+// 	res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200"); // อนุญาตให้เข้าถึงจากโดเมนนี้
+// 	res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, PATCH, DELETE, OPTIONS");
+// 	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-	// ถ้าเป็น OPTIONS request ให้ส่งกลับ 204 No Content
-	if (req.method === "OPTIONS") {
-		return res.sendStatus(204);
-	}
+// 	// ถ้าเป็น OPTIONS request ให้ส่งกลับ 204 No Content
+// 	if (req.method === "OPTIONS") {
+// 		return res.sendStatus(204);
+// 	}
 
-	next();
-});
+// 	next();
+// });
 
-app.use(
-	cors({
-		origin: "http://localhost:4200",
-		methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-		allowedHeaders: ["Content-Type", "Authorization"],
-	})
-);
+app.use(cors({
+    origin: "http://localhost:4200", // Allow requests from this origin
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ limit: "5mb", extended: true }));

@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
         .subscribe(
           (response) => {
             console.log('Profile updated successfully', response);
-            this.router.navigate(['/profile-success']);
+            window.location.reload();
           },
           (error) => {
             console.error('Error updating profile', error);

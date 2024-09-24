@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
     // Subscribe to user data from the PlanningNotificationService
     this.service.userData$.subscribe((data) => {
       this.userData = data; // Update userData with the latest value
+      console.log('userData', data?.avatar);
       this.isLoggedIn = !!data; // Update isLoggedIn based on userData
     });
   }

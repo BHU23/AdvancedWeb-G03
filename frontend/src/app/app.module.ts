@@ -42,6 +42,7 @@ import { SubplanningformComponent } from './components/subplanningform/subplanni
 import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-ontimes.pipe';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SubReviewComponent } from './components/sub-review/sub-review.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatRadioModule } from '@angular/material/radio';
 
@@ -60,6 +61,7 @@ import { MatRadioModule } from '@angular/material/radio';
     SignupComponent,
     ReviewComponent,
     CreateReviewComponent,
+    SubReviewComponent,
     EditplanningComponent,
     SubplanningformComponent,
     FilterPlanOntimesPipe,

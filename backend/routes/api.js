@@ -47,6 +47,8 @@ router.get('/reviews', reviewController.getAllReviews);
 router.get('/review/:id', reviewController.getReviewByID);
 router.post('/review', reviewController.createReview);
 router.put('/review/:id', reviewController.updateReview);
+router.patch('/review/:id/views', reviewController.incrementViewCount);
+router.patch('/review/:id/likes', reviewController.incrementLikeCount); 
 router.delete('/review/:id', reviewController.deleteReview);
 
 

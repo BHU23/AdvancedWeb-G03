@@ -15,9 +15,9 @@ import { PlanOntime } from '../../components/subplanningform/subplanningform.com
 })
 export class ReviewService {
   private apiUrl = 'http://localhost:3000/api';
-  
+
   constructor(private http: HttpClient, private authService: AuthService) {}
- 
+
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
     if (token) {
@@ -34,6 +34,11 @@ export class ReviewService {
   getReviews(): Observable<any[]> {
     const headers = this.getHeaders();
     return this.http.get<any[]>(`${this.apiUrl}/reviews`, { headers });
+  }
+
+  getReviewByID(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/review/${id}`, { headers });
   }
 
   createReview(reviewData: any): Observable<any> {
@@ -66,5 +71,17 @@ export class ReviewService {
           );
       })
     );
+  }
+
+  incrementViewCount(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    const url = `${this.apiUrl}/review/${id}/views`; // New endpoint for view count
+    return this.http.patch<any>(url, {}, { headers }); // Send an empty body since we are just incrementing
+  }
+
+  incrementLikeCount(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    const url = `${this.apiUrl}/review/${id}/likes`; // New endpoint for like count
+    return this.http.patch<any>(url, {}, { headers }); // Send an empty body since we are just incrementing
   }
 }

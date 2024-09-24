@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -6,8 +7,12 @@ import { environment } from '../../environments/environment';
   template: '',
 })
 export class GoogleMapsComponent implements OnInit {
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+
   ngOnInit(): void {
-    this.loadGoogleMaps();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadGoogleMaps();
+    }
   }
 
   loadGoogleMaps() {

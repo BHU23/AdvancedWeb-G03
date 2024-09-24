@@ -14,17 +14,21 @@
   </div>
   <div class="row">
     <div *ngFor="let review of reviews" class="col-md-3 mb-4">
-      <div class="card">
-        <img [src]="review.image" [alt]="review.topic" class="card-img-top" />
-        <div class="card-body">
-          <h5 class="card-title">{{ review.topic }}</h5>
-          <p class="card-text">{{ review.description }}</p>
-          <div class="rating d-flex align-items-center">
-            <i class="fa-solid fa-star text-warning"></i>
-            <span class="rating-value ml-2">{{ review.rating.toFixed(1) }}</span>
+      <a (click)="viewReview(review._id)" class="text-decoration-none">
+        <div class="card">
+          <img [src]="review.image" [alt]="review.topic" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title">{{ review.topic }}</h5>
+            <p class="card-text">{{ review.description }}</p>
+            <div class="rating d-flex align-items-center">
+              <i class="fa-solid fa-star text-warning"></i>
+              <span class="rating-value ml-2">{{
+                review.rating.toFixed(1)
+              }}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>

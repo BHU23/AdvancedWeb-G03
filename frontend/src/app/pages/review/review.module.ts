@@ -11,7 +11,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ReviewComponent, CreateReviewComponent, SubReviewComponent],
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })

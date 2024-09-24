@@ -52,6 +52,7 @@ export class SubplanningformComponent implements OnInit {
   markerPosition: { lat: number; lng: number } | null = null;
   isCreatingNewPlace: boolean = false;
   minDate: Date = new Date();
+  showPlaceSection = false;
 
   constructor(
     private fb: FormBuilder,

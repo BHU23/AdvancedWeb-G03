@@ -2,13 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../services/profile/profile.service';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { AuthService, DecodedToken } from '../../services/auth/auth.service';  // Import AuthService
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-profile',
@@ -29,6 +24,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
+    private authService: AuthService,  // Inject AuthService
     private router: Router
   ) {}
 
@@ -43,6 +39,35 @@ export class ProfileComponent implements OnInit {
       address: ['', Validators.required],
       avatar: ['', Validators.required],
     });
+
+    // Load profile data
+    this.loadProfile();
+  }
+
+  loadProfile(): void {
+    this.authService.getUserdata().subscribe(
+      (userData: DecodedToken | null) => {
+        if (userData) {
+          // Patch the form with user data
+          this.profileForm.patchValue({
+            title: userData.title || '',
+            firstName: userData.firstName || '',
+            lastName: userData.lastName || '',
+            email: userData.email || '',
+            phoneNumber: userData.phoneNumber || '',
+            gender: userData.gender || '',
+            address: userData.address || '',
+            avatar: userData.avatar || ''
+          });
+
+          this.avatarPreview = userData.avatar || null;  // Show avatar preview
+        }
+      },
+      (error) => {
+        console.error('Error loading user profile:', error);
+        this.errorMessage = 'Failed to load profile. Please try again.';
+      }
+    );
   }
 
   get f() {
@@ -68,9 +93,8 @@ export class ProfileComponent implements OnInit {
   onUpdate(): void {
     if (this.profileForm.valid) {
       console.log(this.profileForm.value);
-      const userId = '12345'; // ตัวอย่าง userId คุณควรดึง userId ที่เหมาะสมจากที่ใดที่หนึ่ง
+      const userId = '12345'; // Replace with actual userId
 
-      // เรียกใช้ updateProfile พร้อมทั้งส่ง profileData และ userId
       this.profileService.updateProfile(this.profileForm.value, userId).subscribe(
         (response) => {
           console.log('Profile updated successfully', response);

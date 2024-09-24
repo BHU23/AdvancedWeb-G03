@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { PlaningService } from '../../services/planing/planing-service.service';
 import { Service } from '../../services/shareServices/plannig-noti.service';
 import { Router } from '@angular/router';  // Import Router
+import Swal from 'sweetalert2';
 
 export interface Planning {
-  _id: string; 
+  _id: string;
   tripID: number;
   tripName: string;
   startDate: Date;
@@ -116,8 +117,18 @@ export class PlaningFormComponent implements OnInit {
           this.planningNotificationService.notifyPlansUpdated();
           this.isSubmitting = false;
 
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "บันทึกข้อมูลสำเร็จ",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
           // Navigate to the new planning route
-          this.router.navigate(['/planning', response._id]);  // Navigate to /planning/:id
+          setTimeout(() => {
+            this.router.navigate(['/planning', response._id]);
+          }, 2000);  // Navigate to /planning/:id
         },
         error: (error) => {
           console.error('Error creating planning', error);

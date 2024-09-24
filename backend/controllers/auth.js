@@ -76,9 +76,9 @@ exports.signup = async (req, res) => {
       avatar,
     } = req.body;
     // Password validation
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // At least 8 characters, 1 letter, 1 number
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; 
     if (!passwordRegex.test(password)) {
-      return res.status(400).json({ message: "Password must be at least 8 characters long and contain at least one letter and one number" });
+      return res.status(400).json({ message: "Password must be at least 8 characters long and contain at least one letter and one number and @$!%*?&" });
     }
 
     const existingCustomer = await Customer.findOne({ email });

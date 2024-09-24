@@ -1,9 +1,9 @@
-<div class="signup-form">
+<div class="signup-form" >
   <div class="container-fluid h-100">
     <div class="h-100 w-100 d-flex justify-content-center gap-3">
       <!-- Image Section -->
       <div
-        class="col-md-5 d-none d-lg-flex justify-content-center align-items-center"
+        class="col-md-5 d-none d-lg-flex justify-content-center align-items-center slide-left"
       >
         <img
           src="../../../assets/signup.jpg"
@@ -14,17 +14,17 @@
 
       <!-- Form Section -->
       <div
-        class="shadow h-100 bg-body rounded col-12 col-md-6 d-flex justify-content-center align-items-center"
+        class="shadow h-100 bg-body rounded col-12 col-md-6 d-flex justify-content-center align-items-center slide-right"
       >
         <div class="w-100 p-3 p-md-5">
           <h2 class="text-center mb-4">Sign Up</h2>
           <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <div class="w-100 mb-3 d-flex gap-3 flex-wrap flex-lg-nowrap">
               <div class="w-100 w-md-55 d-flex gap-3">
-                <div class="w-5 w-md-10">
+                <div class="w-5 w-md-10 pr-2">
                   <label for="title" class="form-label">Title</label>
                   <select
-                    class="form-select"
+                    class="form-control form-control-md"
                     id="title"
                     formControlName="title"
                     [ngClass]="{
@@ -57,7 +57,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-100 w-md-45">
+                <div class="w-100 w-md-45 pl-2 pr-sm-2">
                   <label for="firstName" class="form-label">First Name</label>
                   <input
                     type="text"
@@ -83,7 +83,7 @@
                   </div>
                 </div>
               </div>
-              <div class="w-100 w-md-40">
+              <div class="w-100 w-md-40 pl-lg-2">
                 <label for="lastName" class="form-label">Last Name</label>
                 <input
                   type="text"
@@ -162,12 +162,12 @@
                 <div *ngIf="f['password'].errors?.['pattern']">
                   Password must be at least 8 characters long and include at
                   least one uppercase letter, one number, and one special
-                  character.
+                  special characters like &#64;, $, %, *, etc..
                 </div>
               </div>
             </div>
-            <div class="w-100 mb-3 d-flex gap-3">
-              <div class="w-50">
+            <div class="w-100 mb-3 d-flex">
+              <div class="w-50 pr-2">
                 <label for="phoneNumber" class="form-label">Phone Number</label>
                 <input
                   type="text"
@@ -192,10 +192,10 @@
                   </div>
                 </div>
               </div>
-              <div class="w-50">
+              <div class="w-50 pl-2">
                 <label for="gender" class="form-label">Gender</label>
                 <select
-                  class="form-select"
+                  class="form-control form-control-md"
                   id="gender"
                   formControlName="gender"
                   [ngClass]="{

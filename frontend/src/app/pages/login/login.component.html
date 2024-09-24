@@ -1,45 +1,96 @@
 <div class="login-from">
-<div class="container-fluid h-100 ">
-<div class="h-100 w-100 d-flex justify-content-center align-items-center gap-3">
-        <div class="shadow  p-3 bg-body rounded col-12 col-md-4 d-flex justify-content-center align-items-center">
-            <div class="w-100 w-md-75 p-3">
-                <h2 class="text-center mb-4">Login</h2>
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" formControlName="email"
-                            [ngClass]="{'is-invalid': f['email'].invalid && (f['email'].dirty || f['email'].touched)}">
-                        <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)"
-                            class="invalid-feedback">
-                            <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
-                            <div *ngIf="f['email'].errors?.['email']">Invalid email format.</div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" formControlName="password"
-                            [ngClass]="{'is-invalid': f['password'].invalid && (f['password'].dirty || f['password'].touched)}">
-                        <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)"
-                            class="invalid-feedback">
-                            <div *ngIf="f['password'].errors?.['required']">Password is required.</div>
-                        </div>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe" formControlName="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-                </form>
-                <div class="text-center mt-3">
-                    <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+  <div class="container-fluid h-100">
+    <div
+      class="h-100 w-100 d-flex justify-content-center align-items-center gap-3"
+    >
+      <div
+        class="shadow p-3 bg-body rounded col-12 col-md-4 d-flex justify-content-center align-items-center slide-left"
+      >
+        <div class="w-100 w-md-75 p-3">
+          <h2 class="text-center mb-4">Login</h2>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                [ngClass]="{
+                  'is-invalid':
+                    f['email'].invalid &&
+                    (f['email'].dirty || f['email'].touched)
+                }"
+              />
+              <div
+                *ngIf="
+                  f['email'].invalid && (f['email'].dirty || f['email'].touched)
+                "
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['email'].errors?.['required']">
+                  Email is required.
                 </div>
+                <div *ngIf="f['email'].errors?.['email']">
+                  Invalid email format.
+                </div>
+              </div>
             </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                [ngClass]="{
+                  'is-invalid':
+                    f['password'].invalid &&
+                    (f['password'].dirty || f['password'].touched)
+                }"
+              />
+              <div
+                *ngIf="
+                  f['password'].invalid &&
+                  (f['password'].dirty || f['password'].touched)
+                "
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['password'].errors?.['required']">
+                  Password is required.
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="rememberMe"
+                formControlName="rememberMe"
+              />
+              <label class="form-check-label" for="rememberMe"
+                >Remember me</label
+              >
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+              {{ errorMessage }}
+            </div>
+          </form>
+          <div class="text-center mt-3">
+            <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+          </div>
         </div>
-        <div class="col-md-4 d-none d-lg-flex justify-content-center align-items-center">
-            <img src="../../../assets/login.jpg" alt="Login Image" class="img-fluid">
-        </div>
-
+      </div>
+      <div
+        class="col-md-4 d-none d-lg-flex justify-content-center align-items-center slide-right"
+      >
+        <img
+          src="../../../assets/login.jpg"
+          alt="Login Image"
+          class="img-fluid"
+        />
+      </div>
     </div>
-</div>
+  </div>
 </div>

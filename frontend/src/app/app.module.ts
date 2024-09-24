@@ -41,8 +41,6 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { SubplanningformComponent } from './components/subplanningform/subplanningform.component';
 import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-ontimes.pipe';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -62,14 +60,14 @@ import { MatRadioModule } from '@angular/material/radio';
     EditplanningComponent,
     SubplanningformComponent,
     FilterPlanOntimesPipe,
-    GoogleMapsComponent
+    GoogleMapsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    CommonModule ,
+    CommonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -83,10 +81,12 @@ import { MatRadioModule } from '@angular/material/radio';
     MatAutocompleteModule,
     MatRadioModule,
     HttpClientModule, // Ensure HttpClientModule is imported
+    BrowserAnimationsModule,
   ],
   providers: [
     provideHttpClient(withFetch()), // Configure HttpClient to use fetch API
-    provideClientHydration(), provideAnimationsAsync(),
+    provideClientHydration(),
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],
 })

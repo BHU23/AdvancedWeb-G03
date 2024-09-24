@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service'; 
 import { DecodedToken } from '../../services/auth/auth.service';
+import Swal from 'sweetalert2';
+
 interface Destination {
   id: number;
   name: string;
@@ -71,8 +73,32 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getUserdata().subscribe((data) => {
-      this.userData = data; 
+      this.userData = data;
       console.log('userData', this.userData);
+    });
+  }
+  handleClick(event: MouseEvent): void {
+    if (!this.userData) {
+      event.preventDefault(); // Prevent default anchor action
+      this.showLoginPopup(); // Show login popup
+    }
+  }
+
+  private showLoginPopup(): void {
+    Swal.fire({
+      title: 'ต้องการเข้าสู่ระบบ?',
+      text: 'กรุณาเข้าสู่ระบบเพื่อเข้าถึงฟีเจอร์นี้',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'เข้าสู่ระบบ',
+      cancelButtonText: 'ยกเลิก',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect to login page or open login modal
+        window.location.href = '/login'; // Change this if you want to open a modal instead
+      }
     });
   }
 }

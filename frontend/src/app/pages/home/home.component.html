@@ -5,7 +5,7 @@
         <div class="col-md-6 slide-left">
           <h1>ค้นพบความมหัศจรรย์แห่งประเทศไทย</h1>
           <p>สัมผัสประสบการณ์ท่องเที่ยวที่น่าจดจำในดินแดนแห่งรอยยิ้ม</p>
-          <a href="#" class="btn btn-primary btn-lg">ค้นหาจุดหมายปลายทาง</a>
+          <a href="/review" class="btn btn-primary btn-lg" (click)="handleClick($event)">ค้นหาจุดหมายปลายทาง</a>
         </div>
 
         <div class="col-md-6 slide-right">
@@ -103,7 +103,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ destination.name }}</h5>
               <p class="card-text">{{ destination.description }}</p>
-              <a href="#" class="btn btn-outline-primary">ดูรายละเอียด</a>
+              <a href="/reivew/id" class="btn btn-outline-primary" (click)="handleClick($event)">ดูรายละเอียด</a>
             </div>
           </div>
         </div>
@@ -116,9 +116,14 @@
     <div class="container text-center">
       <h2>พร้อมที่จะเริ่มการผจญภัยของคุณแล้วหรือยัง?</h2>
       <p>ค้นหาสถานที่ท่องเที่ยวและวางแผนของคุณ</p>
-      <a href="/planning" class="btn btn-success btn-lg"
+      <a href="/planning" class="btn btn-success btn-lg" (click)="handleClick($event)"
         >วางแผนการท่องเที่ยวเลย</a
       >
     </div>
   </section>
+  <ng-template #loggedOut>
+  <p>กรุณาเข้าสู่ระบบเพื่อเข้าถึงฟีเจอร์นี้</p>
+  <!-- You can also add a link to the login page here -->
+  <a href="/login" class="btn btn-info btn-lg">เข้าสู่ระบบ</a>
+</ng-template>
 </main>

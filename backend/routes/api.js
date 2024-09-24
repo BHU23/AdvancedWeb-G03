@@ -17,6 +17,7 @@ router.delete('/customer/:id', customerController.deleteCustomer);
 // comment route
 router.get('/comments', commentController.getAllComments);
 router.get('/comment/:id', commentController.getCommentByID);
+router.get('/comments/parent/:id', commentController.getCommentsByParentId);
 router.post('/comment', commentController.createComment);
 router.put('/comment/:id', commentController.updateComment);
 router.delete('/comment/:id', commentController.deleteComment);
@@ -45,6 +46,7 @@ router.delete('/planontime/:id', planOntimeController.deletePlanOntime);
 // Review Routes
 router.get('/reviews', reviewController.getAllReviews);
 router.get('/review/:id', reviewController.getReviewByID);
+router.get('/reviews/:id/comments', commentController.getCommentsByReviewId);
 router.post('/review', reviewController.createReview);
 router.put('/review/:id', reviewController.updateReview);
 router.patch('/review/:id/views', reviewController.incrementViewCount);

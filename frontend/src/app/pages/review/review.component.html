@@ -3,28 +3,45 @@
     class="d-flex justify-content-center position-relative align-items-center"
   >
     <h1 class="text-center mb-0">Reviews</h1>
-    <button
-      class="btn btn-primary position-absolute"
-      style="right: 0"
-      routerLink="/review/create"
-      routerLinkActive="active"
-    >
-      Create Review
-    </button>
+    <div class="position-absolute" style="right: 0">
+      <button class="btn btn-secondary mr-2" (click)="toggleView()">
+        {{ showMyReviews ? "Show All Reviews" : "Show My Reviews" }}
+      </button>
+
+      <button
+        class="btn btn-primary"
+        routerLink="/review/create"
+        routerLinkActive="active"
+      >
+        Create Review
+      </button>
+    </div>
   </div>
   <div class="row">
-    <div *ngFor="let review of reviews" class="col-md-3 mb-4">
+    <div *ngFor="let review of filteredReviews" class="col-md-3 mb-4">
       <a (click)="viewReview(review._id)" class="text-decoration-none">
         <div class="card">
           <img [src]="review.image" [alt]="review.topic" class="card-img-top" />
           <div class="card-body">
             <h5 class="card-title">{{ review.topic }}</h5>
             <p class="card-text">{{ review.description }}</p>
-            <div class="rating d-flex align-items-center">
-              <i class="fa-solid fa-star text-warning"></i>
-              <span class="rating-value ml-2">{{
-                review.rating.toFixed(1)
-              }}</span>
+            <div
+              class="rating d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <i class="fa-solid fa-star text-warning"></i>
+                <span class="rating-value ml-2">{{
+                  review.rating.toFixed(1)
+                }}</span>
+              </div>
+              <div class="d-flex justify-content-between text-dark">
+                <span class="views-count align-items-center mr-2"
+                  ><i class="fa-solid fa-eye"></i> {{ review.view }}
+                </span>
+                <span class="likes-count align-items-center"
+                  ><i class="fa-solid fa-thumbs-up"></i> {{ review.likeCount }}
+                </span>
+              </div>
             </div>
           </div>
         </div>

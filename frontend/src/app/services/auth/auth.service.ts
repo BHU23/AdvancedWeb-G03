@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
 
 export interface DecodedToken {
+  title: string;
   userID?: number;
   id?: string;
   email?: string;

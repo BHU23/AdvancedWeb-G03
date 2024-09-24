@@ -11,6 +11,7 @@ import {
   transition,
 } from '@angular/animations';
 import { Service } from '../../services/shareServices/plannig-noti.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -97,27 +98,73 @@ export class ProfileComponent implements OnInit {
 
   onUpdate(): void {
     if (this.profileForm.valid) {
-      console.log(this.profileForm.value);
       const userId = String(this.userData?.id);
       console.log('userId', userId);
 
-      // Call the updateProfile method with the correct order of parameters
-      this.profileService
-        .updateProfile(userId, this.profileForm.value)
-        .subscribe(
-          (response) => {
-            console.log('Profile updated successfully', response);
-            window.location.reload();
-          },
-          (error) => {
-            console.error('Error updating profile', error);
-            this.errorMessage =
-              error.error.message ||
-              'Failed to update profile. Please try again.';
-          }
-        );
+      // Show confirmation alert
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to update your profile?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'No, cancel!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Proceed with profile update if confirmed
+          this.profileService
+            .updateProfile(userId, this.profileForm.value)
+            .subscribe(
+              (response) => {
+                console.log('Profile updated successfully', response);
+
+                // Show success alert
+                Swal.fire({
+                  title: 'Success!',
+                  text: 'Profile updated successfully!',
+                  icon: 'success',
+                  timer: 1000, // Alert will close automatically after 3 seconds
+                  showConfirmButton: false,
+                }); 
+
+                setTimeout(() => {
+                   window.location.reload();
+                }, 1000);
+               
+              },
+              (error) => {
+                console.error('Error updating profile', error);
+                const errorMessage =
+                  error.error.message ||
+                  'Failed to update profile. Please try again.';
+
+                // Show error alert
+                Swal.fire({
+                  title: 'Error!',
+                  text: errorMessage,
+                  icon: 'error',
+                  confirmButtonText: 'Close',
+                });
+              }
+            );
+        } else {
+          // Show cancel alert if needed
+          Swal.fire({
+            title: 'Cancelled',
+            text: 'Your profile update has been cancelled.',
+            icon: 'info',
+            confirmButtonText: 'Close',
+          });
+        }
+      });
     } else {
       this.errorMessage = 'Please fill all required fields.';
+      Swal.fire({
+        title: 'Warning!',
+        text: this.errorMessage,
+        icon: 'warning',
+        confirmButtonText: 'Close',
+      });
     }
   }
 }

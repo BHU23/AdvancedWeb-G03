@@ -40,6 +40,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SubplanningformComponent } from './components/subplanningform/subplanningform.component';
 import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-ontimes.pipe';
+import { GoogleMapsComponent } from './google-maps/google-maps.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-on
     CreateReviewComponent,
     EditplanningComponent,
     SubplanningformComponent,
-    FilterPlanOntimesPipe
+    FilterPlanOntimesPipe,
+    GoogleMapsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Planning } from '../planing-form/planing-form.component';
 import { PlaningService } from '../../services/planing/planing-service.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -13,6 +13,7 @@ export class EditplanningComponent implements OnInit {
   editForm!: FormGroup;
   isSubmitting = false;
   errorMessage = '';
+  minDate: Date = new Date();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,8 +33,26 @@ export class EditplanningComponent implements OnInit {
       endDate: [this.data.planning.endDate, [Validators.required, this.pastDateValidator]],
       budget: [this.data.planning.budget, Validators.required],
       description: [this.data.planning.description, Validators.maxLength(500)]
-    });
+    }, { validators: this.dateRangeValidator });
   }
+
+
+  dateRangeValidator(formGroup: FormGroup): ValidationErrors | null {
+    const startDate = formGroup.get('startDate')?.value;
+    const endDate = formGroup.get('endDate')?.value;
+
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+
+      if (start > end) {
+        return { dateRangeInvalid: true }; 
+      }
+    }
+
+    return null;
+  }
+
 
   pastDateValidator(control: AbstractControl): {[key: string]: any} | null {
     const selectedDate = new Date(control.value);

@@ -46,6 +46,7 @@ import { SubReviewComponent } from './components/sub-review/sub-review.component
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatRadioModule } from '@angular/material/radio';
 import { ChildCommentComponent } from './components/child-comment/child-comment.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { ChildCommentComponent } from './components/child-comment/child-comment.
     FilterPlanOntimesPipe,
     GoogleMapsComponent,
     ChildCommentComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

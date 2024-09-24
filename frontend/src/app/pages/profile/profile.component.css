@@ -1,0 +1,79 @@
+/* Make sure the image takes full height on large screens */
+.bg-light {
+    background: url('/assets/login-image.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.signup-form {
+    height: auto;
+    min-height: 87vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Custom file upload button style */
+.upload-avatar {
+    position: relative;
+    padding: 10px; /* ลดค่าของ padding */
+    text-align: center; /* จัดข้อความกลาง */
+    transition: border-color 0.3s; /* เอฟเฟกต์เมื่อเลื่อนเมาส์ */
+}
+
+.avatar-preview {
+    display: flex; /* ใช้ flexbox สำหรับการจัดกลาง */
+    justify-content: center; /* จัดแนวนอนกลาง */
+    align-items: center; /* จัดแนวดิ่งกลาง */
+    margin-bottom: 10px; /* เว้นระยะด้านล่าง */
+    width: 150px; /* ความกว้าง */
+    height: 150px; /* ความสูง */
+    overflow: hidden; /* ซ่อนส่วนที่เกิน */
+    border-radius: 50%; /* ทำให้เป็นรูปวงกลม */
+    background-color: #f0f0f0; /* สีพื้นหลังเมื่อไม่มีรูป */
+    position: relative; /* ทำให้เป็นตำแหน่งอ้างอิง */
+}
+
+.avatar-preview img {
+    position: absolute; /* ตั้งตำแหน่งรูปภาพให้อยู่ในตำแหน่งแน่นอน */
+    top: 0;
+    left: 0;
+    width: 100%; /* ทำให้เต็มพื้นที่ */
+    height: 100%; /* ทำให้เต็มพื้นที่ */
+    object-fit: cover; /* ทำให้รูปภาพไม่เสียสัดส่วน */
+}
+
+.placeholder {
+    display: flex; /* ใช้ flexbox สำหรับการจัดกลาง */
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* ทำให้เต็มพื้นที่ */
+    height: 100%; /* ทำให้เต็มพื้นที่ */
+    color: #b0b3b8; /* สีข้อความ */
+    font-size: 16px; /* ขนาดฟอนต์ */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px; /* ขนาดปุ่ม */
+    cursor: pointer;
+    background-color: #b0b3b8; /* สีพื้นหลังเทาอ่อน */
+    color: #fff; /* สีข้อความ */
+    border-radius: 5px;
+    border: none;
+    font-size: 14px; /* ขนาดฟอนต์ */
+    font-weight: bold; /* ทำให้ข้อความหนาขึ้น */
+    text-align: center;
+    transition: background-color 0.3s; /* เอฟเฟกต์เปลี่ยนแปลง */
+}
+
+.custom-file-upload:hover {
+    background-color: #a8aaae; /* สีเมื่อเลื่อนเมาส์ */
+}
+
+#avatarUpload {
+    display: none; /* ซ่อน input file */
+}

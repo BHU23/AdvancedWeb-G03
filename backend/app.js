@@ -49,6 +49,16 @@ mongoose
 		console.error("Failed to connect to MongoDB:", err);
 	});
 
+process.on("SIGINT", async () => {
+	try {
+		await mongoose.connection.close();
+		console.log("MongoDB connection closed");
+		process.exit(0);
+	} catch (error) {
+		console.error("Error closing MongoDB connection:", error);
+		process.exit(1);
+	}
+});
 const PORT = config.port || 3000;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);

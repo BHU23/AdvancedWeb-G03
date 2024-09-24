@@ -8,19 +8,21 @@ import { ReviewComponent } from './pages/review/review.component';
 import { CreateReviewComponent } from './components/createReview/createReview.component';
 import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 import { SubReviewComponent } from './components/sub-review/sub-review.component';
+import { AuthGuard } from './auth/auth.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
-// const routes: Routes = [];
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'review', component: ReviewComponent },
-  { path: 'review/create', component: CreateReviewComponent },
-  { path: 'review/:id', component: SubReviewComponent },
-  { path: 'planning', component: PlaningComponent },
+
+  { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'planning/:id', component: SubPlaningComponent}
+  { path: 'profile', component: ProfileComponent},
+  { path: 'review', loadChildren: () => import('./pages/review/review.module').then(m => m.ReviewRoutingModule), canActivate: [AuthGuard] },
+  { path: 'planning', loadChildren: () => import('./pages/planing/planing.module').then(m => m.PlanningRoutingModule), canActivate: [AuthGuard] },
+
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

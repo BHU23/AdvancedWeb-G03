@@ -89,7 +89,7 @@ exports.updateCustomer = async (req, res) => {
         email,
         password
       }, 
-      { new: true } // Option to return the updated document
+      { new: true } 
     );
 
     if (!updatedCustomer) {

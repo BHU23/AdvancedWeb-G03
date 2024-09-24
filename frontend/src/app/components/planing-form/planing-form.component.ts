@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { PlaningService } from '../../services/planing/planing-service.service';
 import { Service } from '../../services/shareServices/plannig-noti.service';
+import { Router } from '@angular/router';  // Import Router
 
 export interface Planning {
-  _id: string;
+  _id: string;  // Make sure _id is included in your Planning interface
   tripID: number;
   tripName: string;
   startDate: Date;
@@ -40,7 +41,8 @@ export class PlaningFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private planingService: PlaningService,
-    private planningNotificationService: Service
+    private planningNotificationService: Service,
+    private router: Router  // Inject Router
   ) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
@@ -106,13 +108,16 @@ export class PlaningFormComponent implements OnInit {
       this.successMessage = '';
 
       const planningData: Partial<Planning> = this.planingForm.value;
+
       this.planingService.createPlanning(planningData).subscribe({
-        next: (response) => {
+        next: (response: Planning) => {  // Expect response to be of type Planning
           console.log('Planning created successfully', response);
           this.successMessage = 'บันทึกข้อมูลการวางแผนท่องเที่ยวสำเร็จ';
           this.planningNotificationService.notifyPlansUpdated();
-          this.resetForm();
           this.isSubmitting = false;
+
+          // Navigate to the new planning route
+          this.router.navigate(['/planning', response._id]);  // Navigate to /planning/:id
         },
         error: (error) => {
           console.error('Error creating planning', error);
@@ -127,9 +132,27 @@ export class PlaningFormComponent implements OnInit {
   }
 
   resetForm() {
-    this.planingForm.reset();
-    this.planingForm.markAsPristine();
-    this.planingForm.markAsUntouched();
+    this.planingForm.reset({
+      tripName: '',
+      startDate: '',
+      endDate: '',
+      budget: '',
+      description: ''
+    });
+
+    // Mark all controls as pristine and untouched
+    this.markAllControlsAsPristineAndUntouched(this.planingForm);
+  }
+
+  markAllControlsAsPristineAndUntouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsPristine();
+      control.markAsUntouched();
+
+      if (control instanceof FormGroup) {
+        this.markAllControlsAsPristineAndUntouched(control);
+      }
+    });
   }
 
   markFormGroupTouched(formGroup: FormGroup) {

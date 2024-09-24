@@ -4,7 +4,7 @@
     <h2>Create Review</h2>
 
     <div class="form-group">
-      <label for="topic">Topic</label>
+      <label for="topic">Topic <span style="color: red">*</span></label>
       <input
         type="text"
         id="topic"
@@ -15,29 +15,46 @@
     </div>
 
     <div class="form-group">
-      <label for="image">Upload Image</label>
-      <input
-        type="file"
-        id="image"
-        class="form-control"
-        (change)="onFileChange($event)"
-      />
+      <label for="image" class="form-label">
+        Upload Image <span style="color: red">*</span>
+      </label>
+      <div class="custom-file-upload">
+        <label for="image" class="upload-btn">
+          <i class="fa fa-cloud-upload"></i> Choose a file
+        </label>
+        <input
+          type="file"
+          id="image"
+          (change)="onFileChange($event)"
+          class="file-input"
+        />
+        <span class="file-name" *ngIf="fileName">{{ fileName }}</span>
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="rating">Rating</label>
-      <input
-        type="number"
-        id="rating"
-        formControlName="rating"
-        class="form-control"
-        min="1"
-        max="5"
-      />
+      <label for="rating">Rating <span style="color: red">*</span></label>
+      <div class="star-rating">
+        <input type="radio" id="star5" formControlName="rating" value="5" />
+        <label for="star5" title="5 stars">&#9733;</label>
+        <input type="radio" id="star4" formControlName="rating" value="4" />
+        <label for="star4" title="4 stars">&#9733;</label>
+        <input type="radio" id="star3" formControlName="rating" value="3" />
+        <label for="star3" title="3 stars">&#9733;</label>
+        <input type="radio" id="star2" formControlName="rating" value="2" />
+        <label for="star2" title="2 stars">&#9733;</label>
+        <input type="radio" id="star1" formControlName="rating" value="1" />
+        <label for="star1" title="1 star">&#9733;</label>
+      </div>
+      <p *ngIf="reviewForm.value.rating">
+        You rated: {{ reviewForm.value.rating }} stars
+      </p>
     </div>
 
     <div class="form-group">
-      <label for="description">Description</label>
+      <label for="description"
+        >Description <span style="color: red">*</span></label
+      >
       <textarea
         id="description"
         formControlName="description"
@@ -46,7 +63,7 @@
     </div>
 
     <div class="form-group">
-      <label for="trip_date">Trip Date</label>
+      <label for="trip_date">Trip Date <span style="color: red">*</span></label>
       <input
         type="date"
         id="trip_date"
@@ -56,7 +73,9 @@
     </div>
 
     <div class="form-group">
-      <label for="timeRecommend">Recommend Time</label>
+      <label for="timeRecommend"
+        >Recommend Time <span style="color: red">*</span></label
+      >
       <select
         id="timeRecommend"
         formControlName="timeRecommend"
@@ -71,7 +90,7 @@
     </div>
 
     <div class="form-group">
-      <label for="cost">Cost</label>
+      <label for="cost">Cost <span style="color: red">*</span></label>
       <input
         type="number"
         id="cost"
@@ -86,7 +105,7 @@
     <div formGroupName="placeId">
       <!-- Reference the 'placeId' formGroup -->
       <div class="form-group">
-        <label for="name">Place Name</label>
+        <label for="name">Place Name <span style="color: red">*</span></label>
         <input
           type="text"
           id="name"
@@ -97,7 +116,9 @@
       </div>
 
       <div class="form-group">
-        <label for="description">Place Description</label>
+        <label for="description"
+          >Place Description <span style="color: red">*</span></label
+        >
         <textarea
           id="description"
           formControlName="description"
@@ -106,15 +127,26 @@
       </div>
 
       <div class="form-group">
-        <label for="address">Address</label>
+        <label for="address">Address <span style="color: red">*</span></label>
         <input
           type="text"
           id="address"
           formControlName="address"
           class="form-control"
           placeholder="Enter address"
-        />
-      </div>
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="category">Category</label>
+          <input
+            type="text"
+            id="category"
+            formControlName="category"
+            class="form-control"
+            placeholder="Enter category"
+          />
+        </div>
 
       <div class="form-group">
         <label for="map">Select Location (Map Integration Placeholder)</label>
@@ -172,16 +204,6 @@
         />
       </div>
 
-      <div class="form-group">
-        <label for="category">Category</label>
-        <input
-          type="text"
-          id="category"
-          formControlName="category"
-          class="form-control"
-          placeholder="Enter category"
-        />
-      </div>
     </div>
     <!-- End of placeId FormGroup -->
 

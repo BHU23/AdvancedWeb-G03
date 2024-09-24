@@ -12,6 +12,7 @@ export class ReviewComponent {
   reviews: any[] = [];
   user: any | null = null;
   showMyReviews: boolean = false;
+  searchTerm: string = '';
   filteredReviews: any[] = [];
   constructor(
     private authService: AuthService,
@@ -60,6 +61,10 @@ export class ReviewComponent {
       // Filter to show only the user's reviews
       this.filteredReviews = this.reviews.filter(
         (review) => review.userID._id === this.user.id
+      );
+    } else if (this.searchTerm) {
+      this.filteredReviews = this.reviews.filter((review) =>
+        review.topic.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       // Show all reviews

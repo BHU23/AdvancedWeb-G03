@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { PlaceService } from '../../services/place/place.service';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 export interface PlanOntime {
   _id: string;
@@ -285,6 +286,13 @@ export class SubplanningformComponent implements OnInit {
     this.planontimeService.createSubPlanning(formData).subscribe({
       next: (response) => {
         this.dialogRef.close(response);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "บันทึกข้อมูลการวางแผนสำเร็จ",
+          showConfirmButton: false,
+          timer: 1500
+        });
       },
       error: (error) => {
         console.error('Error creating sub-planning:', error);

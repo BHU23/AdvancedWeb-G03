@@ -7,9 +7,19 @@
       <i class="bi bi-geo-alt-fill"></i>
       <span class="ms-1">{{ review.placeID.address }}</span>
     </div>
+    <!-- View on Map Button -->
+    <div class="mt-2">
+      <a
+        href="{{ review.placeID.googleMapsUrl }}"
+        target="_blank"
+        class="btn btn-outline-primary"
+      >
+        View on Map
+      </a>
+    </div>
   </header>
 
-  <div class="ratio ratio-16x9 overflow-hidden rounded-lg">
+  <div class="ratio ratio-16x9 overflow-hidden rounded-lg my-2">
     <img
       src="{{ review.image }}"
       alt="{{ review.topic }}"
@@ -17,7 +27,7 @@
     />
   </div>
 
-  <div class="d-flex justify-content-between align-items-center">
+  <div class="d-flex justify-content-between align-items-center my-2">
     <div class="d-flex align-items-center">
       <ng-container *ngFor="let star of [0, 1, 2, 3, 4]; let i = index">
         <i
@@ -28,11 +38,13 @@
           }"
         ></i>
       </ng-container>
-      <span class="ms-2 text-muted">{{ review.rating }} out of 5 stars</span>
+      <span class="ms-2 text-muted ml-2"
+        >{{ review.rating }} out of 5 stars</span
+      >
     </div>
     <div class="d-flex align-items-center space-x-2">
       <button
-        class="btn btn-outline-primary btn-sm"
+        class="btn btn-outline-primary btn-sm mr-2"
         (click)="likeReview(review._id)"
       >
         <i class="bi bi-hand-thumbs-up-fill me-2"></i>
@@ -46,134 +58,179 @@
   </div>
 
   <!-- Card for Review -->
-  <div class="card">
-    <div class="card-header d-flex align-items-center">
-      <div class="d-flex align-items-center space-x-4">
-        <img src="{{ review.userID.avatar }}" alt="" class="rounded-circle" />
+  <div class="card shadow-sm rounded-lg overflow-hidden">
+    <div class="card-header d-flex align-items-center border-bottom-0">
+      <div class="d-flex align-items-center space-x-3">
+        <img
+          src="{{ review.userID.avatar }}"
+          alt=""
+          class="rounded-circle border border-light"
+          style="width: 50px; height: 50px"
+        />
         <div>
-          <p class="fw-semibold mb-0">
+          <h5 class="fw-semibold mb-0">
             {{ review.userID.firstName }} {{ review.userID.lastName }}
-          </p>
+          </h5>
         </div>
       </div>
     </div>
     <div class="card-body">
-      <p class="text-muted">
+      <p class="text-muted mb-2">
         {{ review.description }}
       </p>
       <!-- Display Trip Date -->
       <p class="text-muted mb-1">
-        <strong>Trip Date:</strong> {{ formatDate(review.trip_date) }}
+        <strong>Trip Date:</strong>
+        <span class="text-dark"> {{ formatDate(review.trip_date) }}</span>
       </p>
       <!-- Display Time Recommendation -->
       <p class="text-muted mb-1">
-        <strong>Recommended Time:</strong> {{ review.timeRecommend }}
+        <strong>Recommended Time:</strong>
+        <span class="text-dark"> {{ review.timeRecommend }}</span>
       </p>
     </div>
-    <div class="card-footer">
-      <p class="text-muted mb-0">{{ formatDate(review.createdAt) }}</p>
+    <div
+      class="card-footer bg-light d-flex justify-content-between align-items-center border-top-0"
+    >
+      <span class="text-muted">{{ formatDate(review.createdAt) }}</span>
+      <a
+        href="{{ review.placeID.googleMapsUrl }}"
+        target="_blank"
+        class="btn btn-outline-primary btn-sm"
+      >
+        View on Map <i class="bi bi-map"></i>
+      </a>
     </div>
   </div>
 
   <hr />
 
   <!-- Comments Section -->
-  <div class="space-y-4">
+  <div class="comments-container space-y-4">
     <!-- Comment Card -->
-    <div *ngIf="organizedComments.length > 0" class="card">
-      <h2 class="h5 fw-semibold">Comments</h2>
-      <div *ngFor="let commentGroup of organizedComments" class="mb-4">
+    <div
+      *ngIf="organizedComments.length > 0"
+      class="comment-card p-4 shadow-sm"
+    >
+      <h2 class="comments-title h5 fw-semibold mb-4">Comments</h2>
+      <div
+        *ngFor="let commentGroup of organizedComments"
+        class="comment-group mb-4"
+      >
         <!-- Parent Comment -->
-        <div class="card-header d-flex align-items-center">
-          <div class="d-flex align-items-center space-x-4">
-            <img
-              src="{{ commentGroup.parent.userID.avatar }}"
-              alt=""
-              class="rounded-circle"
-            />
-            <div>
-              <p class="fw-semibold mb-0">
-                {{ commentGroup.parent.userID.firstName }}
-                {{ commentGroup.parent.userID.lastName }}
-              </p>
-              <p class="text-muted mb-0">
-                {{ formatDate(commentGroup.parent.createAt) }}
+        <div class="parent-comment d-flex align-items-center mb-3">
+          <img
+            src="{{ commentGroup.parent.userID.avatar }}"
+            alt="User Avatar"
+            class="user-avatar me-3"
+          />
+          <div class="comment-user-info">
+            <p class="user-name fw-semibold mb-1">
+              {{ commentGroup.parent.userID.firstName }}
+              {{ commentGroup.parent.userID.lastName }}
+            </p>
+            <p class="comment-date text-muted small mb-0">
+              {{ formatDate(commentGroup.parent.createAt) }}
+            </p>
+          </div>
+        </div>
+        <div class="comment-content comment-box mb-3 p-3">
+          <p class="comment-text text-muted mb-0">
+            {{ commentGroup.parent.userComments }}
+          </p>
+        </div>
+
+        <!-- Display Child Comments -->
+        <div
+          *ngIf="commentGroup.children.length > 0"
+          class="child-comments ms-4 mt-2"
+        >
+          <div
+            *ngFor="let childComment of commentGroup.children"
+            class="child-comment mb-3"
+          >
+            <div class="child-comment-header d-flex align-items-center mb-2">
+              <img
+                src="{{ childComment.userID.avatar }}"
+                alt="User Avatar"
+                class="user-avatar me-3"
+              />
+              <div class="comment-user-info">
+                <p class="user-name fw-semibold mb-1">
+                  {{ childComment.userID.firstName }}
+                  {{ childComment.userID.lastName }}
+                </p>
+                <p class="comment-date text-muted small mb-0">
+                  {{ formatDate(childComment.createAt) }}
+                </p>
+              </div>
+            </div>
+            <div class="comment-content comment-box mb-2 p-3">
+              <p class="comment-text text-muted mb-0">
+                {{ childComment.userComments }}
               </p>
             </div>
           </div>
         </div>
-        <div class="card-body">
-          <p class="text-muted">{{ commentGroup.parent.userComments }}</p>
-        </div>
-
-        <!-- Display Child Comments -->
-        <div *ngIf="commentGroup.children.length > 0" class="mt-2">
-            <div *ngFor="let childComment of commentGroup.children" class="mb-2 child-comment"> <!-- Add ms-4 for left margin -->
-                <div class="card-header d-flex align-items-center">
-                  <div class="d-flex align-items-center space-x-4">
-                    <img
-                      src="{{ childComment.userID.avatar }}"
-                      alt=""
-                      class="rounded-circle"
-                    />
-                    <div>
-                      <p class="fw-semibold mb-0">
-                        {{ childComment.userID.firstName }}
-                        {{ childComment.userID.lastName }}
-                      </p>
-                      <p class="text-muted mb-0">
-                        {{ formatDate(childComment.createAt) }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <p class="text-muted">{{ childComment.userComments }}</p>
-                </div>
-              </div>
-              
-        </div>
 
         <!-- Reply Section -->
-        <div class="reply-section mt-3">
-          <h4 class="h6">Reply</h4>
-          <div class="form-group">
-            <textarea
-              class="form-control"
-              placeholder="Write your reply here..."
-              [(ngModel)]="newReply[commentGroup.parent._id]"
-            ></textarea>
-          </div>
+        <div class="reply-section mt-4 p-3 bg-light rounded">
           <button
-            class="btn btn-primary ms-2"
-            (click)="submitReply(commentGroup.parent._id)"
+            class="btn btn-outline-secondary btn-sm"
+            (click)="toggleReply(commentGroup.parent._id)"
           >
-            Post Reply
+            {{
+              toggleReplyVisibility[commentGroup.parent._id]
+                ? "Cancel Reply"
+                : "Reply"
+            }}
           </button>
+
+          <div *ngIf="toggleReplyVisibility[commentGroup.parent._id]">
+            <h4 class="reply-title h6 my-3">Reply</h4>
+            <div class="form-group mb-3">
+              <textarea
+                class="reply-input form-control"
+                placeholder="Write your reply here..."
+                [(ngModel)]="newReply[commentGroup.parent._id]"
+                rows="3"
+              ></textarea>
+            </div>
+            <button
+              class="submit-reply-btn btn btn-primary"
+              (click)="submitReply(commentGroup.parent._id)"
+            >
+              Post Reply
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Add Comment Section -->
-    <div class="space-y-4">
-      <h2 class="h5 fw-semibold">Add a Comment</h2>
-      <div class="form-group">
+    <div class="comment-section space-y-4">
+      <h2 class="comment-section-title h5 fw-semibold">Add a Comment</h2>
+      <div class="comment-form-group">
         <textarea
-          class="form-control"
+          class="comment-input form-control"
           placeholder="Write your comment here..."
           [(ngModel)]="userComment"
         ></textarea>
       </div>
-      <div class="d-flex justify-content-between align-items-center">
+      <div
+        class="comment-action-group d-flex justify-content-between align-items-center"
+      >
         <input
           type="text"
           [placeholder]="user.firstName + ' ' + user.lastName"
-          class="form-control w-50"
+          class="comment-user-input form-control w-50"
           [disabled]="true"
         />
 
-        <button class="btn btn-primary ms-2" (click)="addComment()">
-          <!-- Bind click event -->
+        <button
+          class="post-comment-btn btn btn-primary ms-2"
+          (click)="addComment()"
+        >
           <i class="bi bi-send-fill me-2"></i>
           Post Comment
         </button>

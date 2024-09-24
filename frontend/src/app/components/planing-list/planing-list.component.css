@@ -16,11 +16,32 @@
 
 .filter {
   margin-left: auto;
-  margin-right: 10px;
 }
 
 .form-select {
-  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #007bff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-select:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-select option {
+  padding: 10px;
+}
+
+.form-select option {
+  color: #333;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .plan-list {

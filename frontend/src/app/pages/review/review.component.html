@@ -1,13 +1,12 @@
 <div class="container p-2">
   <div
-    class="d-flex justify-content-center position-relative align-items-center"
+    class="d-flex justify-content-center position-relative align-items-center mb-4"
   >
     <h1 class="text-center mb-0">Reviews</h1>
     <div class="position-absolute" style="right: 0">
       <button class="btn btn-secondary mr-2" (click)="toggleView()">
         {{ showMyReviews ? "Show All Reviews" : "Show My Reviews" }}
       </button>
-
       <button
         class="btn btn-primary"
         routerLink="/review/create"
@@ -17,6 +16,18 @@
       </button>
     </div>
   </div>
+
+  <!-- Search Bar -->
+  <div class="mb-4">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by name"
+      [(ngModel)]="searchTerm"
+      (input)="filterReviews()"
+    />
+  </div>
+
   <div class="row">
     <div *ngFor="let review of filteredReviews" class="col-md-3 mb-4">
       <a (click)="viewReview(review._id)" class="text-decoration-none">
@@ -35,11 +46,11 @@
                 }}</span>
               </div>
               <div class="d-flex justify-content-between text-dark">
-                <span class="views-count align-items-center mr-2"
-                  ><i class="fa-solid fa-eye"></i> {{ review.view }}
+                <span class="views-count align-items-center mr-2">
+                  <i class="fa-solid fa-eye"></i> {{ review.view }}
                 </span>
-                <span class="likes-count align-items-center"
-                  ><i class="fa-solid fa-thumbs-up"></i> {{ review.likeCount }}
+                <span class="likes-count align-items-center">
+                  <i class="fa-solid fa-thumbs-up"></i> {{ review.likeCount }}
                 </span>
               </div>
             </div>

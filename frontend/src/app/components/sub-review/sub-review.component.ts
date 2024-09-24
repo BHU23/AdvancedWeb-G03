@@ -16,6 +16,7 @@ export class SubReviewComponent {
   user: any | null = null;
   newReply: { [key: string]: string } = {};
   organizedComments: { parent: any; children: any[] }[] = [];
+  toggleReplyVisibility: { [key: string]: boolean } = {};
 
   constructor(
     private reviewService: ReviewService,
@@ -26,6 +27,11 @@ export class SubReviewComponent {
 
   formatDate(date: Date): string {
     return new Date(date).toLocaleDateString('th');
+  }
+
+  toggleReply(commentId: string) {
+    this.toggleReplyVisibility[commentId] =
+      !this.toggleReplyVisibility[commentId];
   }
 
   fetchComments(reviewId: string): void {
@@ -99,6 +105,7 @@ export class SubReviewComponent {
       this.commentService.addComment(replyData).subscribe((newComment) => {
         console.log('Reply added:', newComment);
         this.newReply[commentId] = ''; // Clear the reply input
+        this.toggleReply(commentId)
         this.fetchComments(this.review._id); // Refresh comments
       });
     }

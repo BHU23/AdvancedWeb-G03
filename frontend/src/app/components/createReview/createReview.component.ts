@@ -13,7 +13,7 @@ export class CreateReviewComponent implements OnInit {
   map: google.maps.Map | undefined;
   options: google.maps.MapOptions;
   markerPosition: { lat: number; lng: number } | null = null; // Initialize with null
-
+  fileName: string | null = null;
   constructor(
     private fb: FormBuilder,
     private placeService: PlaceService,
@@ -58,6 +58,24 @@ export class CreateReviewComponent implements OnInit {
     if (event.latLng) {
       const latitude = event.latLng.lat();
       const longitude = event.latLng.lng();
+      const latlng = { lat: latitude, lng: longitude };
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ location: latlng }, (results, status) => {
+        if (status === 'OK' && results && results[0]) {
+          // Get the formatted address (place name)
+          console.log(results);
+          const address = results[0].formatted_address;
+          this.reviewForm.get('placeId')?.patchValue({
+            // name: placeName,
+            address: address,
+          });
+        } else {
+          console.error(
+            'Geocode was not successful for the following reason:',
+            status
+          );
+        }
+      });
       console.log('Latitude:', latitude);
       console.log('Longitude:', longitude);
       this.markerPosition = { lat: latitude, lng: longitude };
@@ -65,6 +83,7 @@ export class CreateReviewComponent implements OnInit {
       this.reviewForm.get('placeId')?.patchValue({
         latitude: latitude,
         longitude: longitude,
+
         googleMapsUrl: `https://www.google.com/maps?q=${latitude},${longitude}`,
       });
       console.log(this.reviewForm.value);
@@ -74,7 +93,10 @@ export class CreateReviewComponent implements OnInit {
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
+      console.log(file)
+      this.fileName = file.name;
       const reader = new FileReader();
+
       reader.onload = () => {
         const base64String = reader.result as string; // base64 image
         this.reviewForm.patchValue({

@@ -26,3 +26,36 @@
   height: 1px;
   background-color: #6597f5; /* สีของเส้น */
 }
+
+ @keyframes slideFromRight {
+   0% {
+     transform: translateX(100%);
+     opacity: 0;
+   }
+
+   100% {
+     transform: translateX(0);
+     opacity: 1;
+   }
+ }
+
+.slide-right {
+  animation: slideFromRight 1.2s ease-in-out;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Apply the animation */
+.slide-left {
+  animation: slideFromLeft 1s ease-out forwards;
+}

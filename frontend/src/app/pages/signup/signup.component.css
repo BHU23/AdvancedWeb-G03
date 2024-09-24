@@ -46,3 +46,7 @@
 .slide-right {
     animation: slideFromRight 0.8s ease-in-out;
 }
+
+.gap{
+    padding-inline: 1rem;
+}

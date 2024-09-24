@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Planning } from '../../components/planing-form/planing-form.component';
 import { AuthService } from '../auth/auth.service';
 import { switchMap, catchError, tap, map } from 'rxjs/operators';
-import { PlanOntime } from '../../components/subplanningform/subplanningform.component';
+import { Place, PlanOntime } from '../../components/subplanningform/subplanningform.component';
 
 @Injectable({
   providedIn: 'root'
@@ -130,15 +130,15 @@ export class PlaningService {
           }
           return throwError(() => error);
       })
-  );
-}
+    );
+  }
 
 getLocationData(): Observable<any> {
   const headers = this.getHeaders();
   return this.http.get<any[]>(`${this.apiUrl}/places`, { headers })
     .pipe(catchError(this.handleError));
-  }
-  
+}
+
 getSubplannigByPlanningID(id: string): Observable<any> {
   const headers = this.getHeaders();
   return this.http.get<any[]>(`${this.apiUrl}/planontime/${id}`, { headers })
@@ -155,6 +155,30 @@ deletePlanOnTime(id: string): Observable<any> {
   const headers = this.getHeaders();
   return this.http.delete(`${this.apiUrl}/planontime/${id}`, { headers })
     .pipe(catchError(this.handleError));
+}
+
+
+searchPlaces(searchTerm: string): Observable<Place[]> {
+  const headers = this.getHeaders();
+  return this.http.get<Place[]>(`${this.apiUrl}/places/search` , { headers })
+    .pipe(catchError(this.handleError));
+}
+
+createPlace(place: Partial<any>): Observable<any> {
+  const headers = this.getHeaders();
+  const completeData = { ...place};
+
+  return this.http.post(`${this.apiUrl}/place`, completeData, { headers }).pipe(
+    tap(response => console.log('API Response:', response)),
+    catchError(error => {
+        console.error('Error from API:', error);
+        if (error instanceof HttpErrorResponse) {
+            console.error('Status:', error.status);
+            console.error('Error body:', error.error);
+        }
+        return throwError(() => error);
+    })
+  );
 }
 
   private handleError(error: HttpErrorResponse) {

@@ -4,137 +4,150 @@
   <form [formGroup]="subPlanningForm" class="subplanning-form">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>ชื่อแผนย่อย</mat-label>
-      <input
-        matInput
-        formControlName="planName"
-        placeholder="กรุณากรอกชื่อแผนย่อย"
-      />
-      <mat-error *ngIf="subPlanningForm.get('planName')?.errors?.['required']"
-        >กรุณากรอกชื่อแผนย่อย</mat-error
-      >
-      <mat-error *ngIf="subPlanningForm.get('planName')?.errors?.['minlength']"
-        >ชื่อแผนย่อยต้องมีความยาวอย่างน้อย 3 ตัวอักษร</mat-error
-      >
-      <mat-error *ngIf="subPlanningForm.get('planName')?.errors?.['maxlength']"
-        >ชื่อแผนย่อยต้องมีความยาวไม่เกิน 100 ตัวอักษร</mat-error
-      >
+      <input matInput formControlName="planName" placeholder="กรุณากรอกชื่อแผนย่อย" />
+      <mat-error *ngIf="subPlanningForm.get('planName')?.errors?.['required']">
+        กรุณากรอกชื่อแผนย่อย
+      </mat-error>
+      <mat-error *ngIf="subPlanningForm.get('planName')?.errors?.['minlength']">
+        ชื่อแผนย่อยต้องมีความยาวอย่างน้อย 3 ตัวอักษร
+      </mat-error>
+      <mat-error *ngIf="subPlanningForm.get('planName')?.errors?.['maxlength']">
+        ชื่อแผนย่อยต้องมีความยาวไม่เกิน 100 ตัวอักษร
+      </mat-error>
     </mat-form-field>
 
     <div class="form-row">
       <mat-form-field appearance="fill">
         <mat-label>วันและเวลาเริ่มต้น</mat-label>
-        <input
-          matInput
-          [matDatepicker]="startPicker"
-          formControlName="startTime"
-          placeholder="เลือกวันและเวลาเริ่มต้น"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="startPicker"
-        ></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="startPicker" formControlName="startTime" placeholder="เลือกวันและเวลาเริ่มต้น" />
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
-        <mat-error
-          *ngIf="subPlanningForm.get('startTime')?.errors?.['required']"
-          >กรุณาเลือกวันและเวลาเริ่มต้น</mat-error
-        >
+        <mat-error *ngIf="subPlanningForm.get('startTime')?.errors?.['required']">
+          กรุณาเลือกวันและเวลาเริ่มต้น
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>วันและเวลาสิ้นสุด</mat-label>
-        <input
-          matInput
-          [matDatepicker]="endPicker"
-          formControlName="endTime"
-          placeholder="เลือกวันและเวลาสิ้นสุด"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="endPicker"
-        ></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="endPicker" formControlName="endTime" placeholder="เลือกวันและเวลาสิ้นสุด" />
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
-        <mat-error *ngIf="subPlanningForm.get('endTime')?.errors?.['required']"
-          >กรุณาเลือกวันและเวลาสิ้นสุด</mat-error
-        >
+        <mat-error *ngIf="subPlanningForm.get('endTime')?.errors?.['required']">
+          กรุณาเลือกวันและเวลาสิ้นสุด
+        </mat-error>
       </mat-form-field>
     </div>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>งบประมาณ</mat-label>
-      <input
-        matInput
-        type="number"
-        formControlName="budget"
-        placeholder="กรอกงบประมาณ"
-      />
-      <mat-error *ngIf="subPlanningForm.get('budget')?.errors?.['required']"
-        >กรุณากรอกงบประมาณ</mat-error
-      >
-      <mat-error *ngIf="subPlanningForm.get('budget')?.errors?.['min']"
-        >งบประมาณต้องไม่ต่ำกว่า 0</mat-error
-      >
+      <input matInput type="number" formControlName="budget" placeholder="กรอกงบประมาณ" />
+      <mat-error *ngIf="subPlanningForm.get('budget')?.errors?.['required']">
+        กรุณากรอกงบประมาณ
+      </mat-error>
+      <mat-error *ngIf="subPlanningForm.get('budget')?.errors?.['min']">
+        งบประมาณต้องไม่ต่ำกว่า 0
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>รายละเอียด</mat-label>
-      <textarea
-        matInput
-        formControlName="description"
-        rows="3"
-        placeholder="กรอกรายละเอียดเพิ่มเติม (ถ้ามี)"
-      ></textarea>
-      <mat-error
-        *ngIf="subPlanningForm.get('description')?.errors?.['maxlength']"
-        >รายละเอียดต้องมีความยาวไม่เกิน 500 ตัวอักษร</mat-error
-      >
+      <textarea matInput formControlName="description" rows="3" placeholder="กรอกรายละเอียดเพิ่มเติม (ถ้ามี)"></textarea>
+      <mat-error *ngIf="subPlanningForm.get('description')?.errors?.['maxlength']">
+        รายละเอียดต้องมีความยาวไม่เกิน 500 ตัวอักษร
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>เลือกสถานที่</mat-label>
-      <mat-select
-        formControlName="placeID"
-        (selectionChange)="onPlaceSelected($event.value)"
-      >
-        <mat-option
-          *ngFor="let place of places$ | async"
-          [value]="place._id.toString()"
-        >
-          {{ place.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="subPlanningForm.get('placeID')?.errors?.['required']"
-        >กรุณาเลือกสถานที่</mat-error
-      >
-    </mat-form-field>
-
-    <div *ngIf="selectedPlace" class="place-details">
-      <h6>รายละเอียดสถานที่</h6>
-      <p><strong>ชื่อ:</strong> {{ selectedPlace.name }}</p>
-      <p><strong>ที่อยู่:</strong> {{ selectedPlace.address }}</p>
-      <p *ngIf="selectedPlace.description">
-        <strong>คำอธิบาย:</strong> {{ selectedPlace.description }}
-      </p>
-      <p>
-        <strong>พิกัด:</strong> {{ selectedPlace.latitude }},
-        {{ selectedPlace.longitude }}
-      </p>
-      <p *ngIf="selectedPlace.category">
-        <strong>หมวดหมู่:</strong> {{ selectedPlace.category }}
-      </p>
-      <p *ngIf="selectedPlace.rating">
-        <strong>คะแนน:</strong> {{ selectedPlace.rating }}
-      </p>
-      <a
-        *ngIf="selectedPlace.googleMapsUrl"
-        [href]="selectedPlace.googleMapsUrl"
-        target="_blank"
-        >ดูใน Google Maps</a
-      >
+    <!-- Place Selection Mode -->
+    <div class="form-group">
+      <mat-radio-group formControlName="placeSelection">
+        <mat-radio-button value="existing">เลือกสถานที่ที่มีอยู่</mat-radio-button>
+        <mat-radio-button value="new">กำหนดสถานที่เอง</mat-radio-button>
+      </mat-radio-group>
     </div>
 
-    <mat-error *ngIf="errorMessage" class="error-message">{{
-      errorMessage
-    }}</mat-error>
+    <!-- Existing Place Section -->
+    <div *ngIf="subPlanningForm.get('placeSelection')?.value === 'existing'">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>เลือกสถานที่</mat-label>
+        <mat-select formControlName="existingPlaceID" (selectionChange)="onPlaceSelected($event.value)">
+          <mat-option *ngFor="let place of places$ | async" [value]="place._id.toString()">
+            {{ place.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="subPlanningForm.get('existingPlaceID')?.errors?.['required']">
+          กรุณาเลือกสถานที่
+        </mat-error>
+      </mat-form-field>
+
+      <div *ngIf="selectedPlace" class="place-details">
+        <h6>รายละเอียดสถานที่</h6>
+        <p><strong>ชื่อ:</strong> {{ selectedPlace.name }}</p>
+        <p><strong>ที่อยู่:</strong> {{ selectedPlace.address }}</p>
+        <p *ngIf="selectedPlace.description">
+          <strong>คำอธิบาย:</strong> {{ selectedPlace.description }}
+        </p>
+        <p>
+          <strong>พิกัด:</strong> {{ selectedPlace.latitude }},
+          {{ selectedPlace.longitude }}
+        </p>
+        <p *ngIf="selectedPlace.category">
+          <strong>หมวดหมู่:</strong> {{ selectedPlace.category }}
+        </p>
+        <p *ngIf="selectedPlace.rating">
+          <strong>คะแนน:</strong> {{ selectedPlace.rating }}
+        </p>
+        <a *ngIf="selectedPlace.googleMapsUrl" [href]="selectedPlace.googleMapsUrl" target="_blank">ดูใน Google Maps</a>
+      </div>
+    </div>
+
+    <!-- New Place Section -->
+    <div *ngIf="subPlanningForm.get('placeSelection')?.value === 'new'" formGroupName="newPlace">
+      <h4>Select Location (Map Integration)</h4>
+      <div class="map-container" style="height: auto; background-color: #f0f0f0">
+        <google-map height="600px" width="100%" [options]="options" (mapClick)="onMapClick($event)">
+          <ng-container *ngIf="markerPosition">
+            <map-advanced-marker #markerElem="mapAdvancedMarker" [position]="markerPosition" />
+          </ng-container>
+        </google-map>
+      </div>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Place Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter place name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Category</mat-label>
+        <input matInput formControlName="category" placeholder="Enter category">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Place Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address" placeholder="Enter address">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Latitude</mat-label>
+        <input matInput formControlName="latitude" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Longitude</mat-label>
+        <input matInput formControlName="longitude" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Google Maps URL</mat-label>
+        <input matInput formControlName="googleMapsUrl" readonly>
+      </mat-form-field>
+    </div>
+
+    <mat-error *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-error>
   </form>
 </mat-dialog-content>
 
@@ -142,13 +155,7 @@
   <button mat-button class="btn-cancelEdit" color="warn" (click)="onCancel()">
     ยกเลิก
   </button>
-  <button
-    mat-raised-button
-    class="btn-submitEdit"
-    color="primary"
-    (click)="onSubmit()"
-    [disabled]="subPlanningForm.invalid || isSubmitting"
-  >
+  <button mat-raised-button class="btn-submitEdit" color="primary" (click)="onSubmit()" [disabled]="subPlanningForm.invalid || isSubmitting">
     บันทึก
   </button>
 </mat-dialog-actions>

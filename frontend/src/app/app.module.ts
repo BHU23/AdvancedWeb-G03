@@ -42,6 +42,9 @@ import { SubplanningformComponent } from './components/subplanningform/subplanni
 import { FilterPlanOntimesPipe } from './components/planing-table/filter-plan-ontimes.pipe';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +81,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatStepperModule,
     FormsModule,
     GoogleMapsModule,
+    MatAutocompleteModule,
+    MatRadioModule,
     HttpClientModule, // Ensure HttpClientModule is imported
     BrowserAnimationsModule,
   ],

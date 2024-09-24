@@ -48,7 +48,8 @@ console.log(payload)
     
     if (status) {
       const token = jwt.sign(
-  { 
+        { 
+    title: result.title,
     id: result._id,  
     email: result.email,
     firstName: result.firstName,

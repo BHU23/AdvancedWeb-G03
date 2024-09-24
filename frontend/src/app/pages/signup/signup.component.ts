@@ -11,7 +11,7 @@ import {
 } from '@angular/animations';
 import Swal from 'sweetalert2';
 
-@Component({ 
+@Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
@@ -29,6 +29,7 @@ export class SignupComponent implements OnInit {
 
   StrongPasswordRegx: RegExp =
     /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  StrongPhoneRegx: RegExp = /^[0-9]{10}$/;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +47,10 @@ export class SignupComponent implements OnInit {
       ],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: [
+        '',
+        [Validators.required, Validators.pattern(this.StrongPhoneRegx)], 
+      ],
       address: ['', Validators.required],
       gender: ['', Validators.required],
       avatar: [''],
@@ -101,5 +105,4 @@ export class SignupComponent implements OnInit {
       confirmButtonText: 'ตกลง',
     });
   }
-
 }

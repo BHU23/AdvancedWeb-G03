@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlaningService } from '../../services/planing/planing-service.service';
 import { Planning } from '../planing-form/planing-form.component';
 import { Service } from '../../services/shareServices/plannig-noti.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planing-list',
@@ -75,24 +76,46 @@ export class PlaningListComponent implements OnInit {
   }
 
   deletePlan(plan: Planning) {
-    if (
-      confirm(`คุณแน่ใจหรือไม่ว่าต้องการลบแผนการเดินทาง "${plan.tripName}"?`)
-    ) {
-      this.planingService.deletePlanning(plan._id).subscribe(
-        () => {
-          console.log('ลบแผนการเดินทางสำเร็จ');
-          this.travelPlans = this.travelPlans.filter((p) => p._id !== plan._id);
-          this.filterPlans();
-          this.planningNotificationService.notifyPlansUpdated();
-        },
-        (error) => {
-          console.error('เกิดข้อผิดพลาดในการลบแผนการเดินทาง:', error);
-          // จัดการข้อผิดพลาด (เช่น แสดงข้อความแจ้งเตือนให้ผู้ใช้)
-        }
-      );
-    }
+    Swal.fire({
+      title: "คุณแน่ใจหรือไม่?",
+      text: `คุณแน่ใจหรือไม่ว่าต้องการลบแผนการท่องเที่ยว "${plan.tripName}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Delete!",
+    }).then((result) => {
+      // If user confirmed deletion
+      if (result.isConfirmed) {
+        this.planingService.deletePlanning(plan._id).subscribe(
+          () => {
+            console.log('ลบแผนการเดินทางสำเร็จ');
+            // Remove the plan from the local array
+            this.travelPlans = this.travelPlans.filter((p) => p._id !== plan._id);
+            this.filterPlans();
+            this.planningNotificationService.notifyPlansUpdated();
+
+            // Show success message after deletion
+            Swal.fire({
+              title: "ลบแล้ว!",
+              text: "แผนการท่องเที่ยวของคุณได้ถูกลบแล้ว.",
+              icon: "success",
+            });
+          },
+          (error) => {
+            console.error('เกิดข้อผิดพลาดในการลบแผนการเดินทาง:', error);
+            // Handle error (e.g., show a notification message to the user)
+            Swal.fire({
+              title: "เกิดข้อผิดพลาด!",
+              text: "ไม่สามารถลบแผนการเดินทางได้. กรุณาลองใหม่ในภายหลัง.",
+              icon: "error",
+            });
+          }
+        );
+      }
+    });
   }
-  planningDetails: Planning | null = null;
+
 
   getStatusClass(status: string) {
     switch (status) {

@@ -1,6 +1,7 @@
 <h2 mat-dialog-title class="mat-dialog-title">EDIT PLANNING</h2>
 <mat-dialog-content>
   <form [formGroup]="editForm">
+    <!-- Trip Name Field -->
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Trip Title</mat-label>
       <input matInput formControlName="tripName" placeholder="กรุณากรอกชื่อทริป">
@@ -9,19 +10,22 @@
       <mat-error *ngIf="editForm.get('tripName')?.errors?.['maxlength']">ชื่อทริปต้องมีความยาวไม่เกิน 100 ตัวอักษร</mat-error>
     </mat-form-field>
 
+    <!-- Date Fields -->
     <div class="date-fields">
+      <!-- Start Date -->
       <mat-form-field appearance="fill">
         <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+        <input matInput [matDatepicker]="startPicker" formControlName="startDate" [min]="minDate">
         <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
         <mat-error *ngIf="editForm.get('startDate')?.errors?.['required']">กรุณาเลือกวันที่เริ่มต้น</mat-error>
         <mat-error *ngIf="editForm.get('startDate')?.errors?.['pastDate']">วันที่เริ่มต้นต้องไม่เป็นวันในอดีต</mat-error>
       </mat-form-field>
 
+      <!-- End Date -->
       <mat-form-field appearance="fill">
         <mat-label>End Date</mat-label>
-        <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+        <input matInput [matDatepicker]="endPicker" formControlName="endDate" [min]="editForm.get('startDate')?.value || minDate">
         <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
         <mat-error *ngIf="editForm.get('endDate')?.errors?.['required']">กรุณาเลือกวันที่สิ้นสุด</mat-error>
@@ -29,6 +33,11 @@
       </mat-form-field>
     </div>
 
+    <mat-error *ngIf="editForm.errors?.['dateRangeInvalid']">
+      วันที่สิ้นสุดต้องไม่น้อยกว่าวันที่เริ่มต้น
+    </mat-error>
+
+    <!-- Budget Field -->
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Budget</mat-label>
       <mat-select formControlName="budget">
@@ -43,16 +52,20 @@
       <mat-error *ngIf="editForm.get('budget')?.errors?.['required']">กรุณาเลือกช่วงงบประมาณ</mat-error>
     </mat-form-field>
 
+    <!-- Description Field -->
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Description</mat-label>
       <textarea matInput formControlName="description" rows="3" placeholder="กรอกรายละเอียดเพิ่มเติม (ถ้ามี)"></textarea>
       <mat-error *ngIf="editForm.get('description')?.errors?.['maxlength']">รายละเอียดต้องมีความยาวไม่เกิน 500 ตัวอักษร</mat-error>
     </mat-form-field>
 
+    <!-- Error Message -->
     <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
   </form>
 </mat-dialog-content>
+
+<!-- Dialog Actions -->
 <mat-dialog-actions align="end">
-  <button mat-button class="btn-cancelEdit " color="warn" (click)="onCancel()">ยกเลิก</button>
+  <button mat-button class="btn-cancelEdit" color="warn" (click)="onCancel()">ยกเลิก</button>
   <button mat-raised-button class="btn-submitEdit" color="primary" (click)="onSubmit()" [disabled]="editForm.invalid || isSubmitting">บันทึก</button>
 </mat-dialog-actions>

@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { PlaningService } from '../../services/planing/planing-service.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { PlaceService } from '../../services/place/place.service';
-
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export interface PlanOntime {
   _id: string;
@@ -51,6 +51,7 @@ export class SubplanningformComponent implements OnInit {
   options: google.maps.MapOptions;
   markerPosition: { lat: number; lng: number } | null = null;
   isCreatingNewPlace: boolean = false;
+  minDate: Date = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -77,22 +78,23 @@ export class SubplanningformComponent implements OnInit {
       startTime: ['', [Validators.required]],
       endTime: ['', [Validators.required]],
       description: ['', [Validators.maxLength(500)]],
-      budget: ['', [Validators.required, Validators.min(0)]],
-      status: ['Planned'],
-      placeSelection: ['existing'],
+      budget: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+      status: ['Planned', Validators.required],
+      placeSelection: ['existing', Validators.required],
       existingPlaceID: [''],
       newPlace: this.fb.group({
-        name: [''],
-        description: [''],
-        address: [''],
-        latitude: [null],
-        longitude: [null],
-        googleMapsUrl: [''],
-        category: [''],
-        rating: [null],
+        name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+        description: ['', Validators.maxLength(500)],
+        address: ['', [Validators.required, Validators.maxLength(200)]],
+        latitude: [null, [Validators.required, Validators.min(-90), Validators.max(90)]],
+        longitude: [null, [Validators.required, Validators.min(-180), Validators.max(180)]],
+        googleMapsUrl: ['', [Validators.pattern(/^https:\/\/.*$/)]],
+        category: ['', [Validators.required, Validators.maxLength(50)]],
+        rating: [null, [Validators.min(0), Validators.max(5)]],
       }),
       planningID: [this.data.planningID, Validators.required],
-    });
+    }, { validators: [this.dateRangeValidator] });
+
 
     this.subPlanningForm.get('placeSelection')?.valueChanges.subscribe(value => {
       if (value === 'existing') {
@@ -106,7 +108,26 @@ export class SubplanningformComponent implements OnInit {
       this.subPlanningForm.get('existingPlaceID')?.updateValueAndValidity();
       this.subPlanningForm.get('newPlace')?.updateValueAndValidity();
     });
+
   }
+
+  // Custom validator for date range
+  dateRangeValidator(formGroup: FormGroup): ValidationErrors | null {
+    const startTime = formGroup.get('startTime')?.value;
+    const endTime = formGroup.get('endTime')?.value;
+
+    if (startTime && endTime) {
+      const startDate = new Date(startTime);
+      const endDate = new Date(endTime);
+
+      if (startDate >= endDate) {
+        return { dateRange: 'End time must be after start time' };
+      }
+    }
+
+    return null;
+  }
+
 
   onMapClick(event: google.maps.MapMouseEvent) {
     if (event.latLng && this.subPlanningForm.get('placeSelection')?.value === 'new') {
@@ -179,7 +200,7 @@ export class SubplanningformComponent implements OnInit {
                 description: placeDescription,
                 googleMapsUrl: placeUrl
               });
-              
+
             } else {
               console.error('PlaceDetails request failed due to: ' + detailStatus);
             }

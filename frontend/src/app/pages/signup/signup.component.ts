@@ -11,7 +11,7 @@ import {
 } from '@angular/animations';
 import Swal from 'sweetalert2';
 
-@Component({
+@Component({ 
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],

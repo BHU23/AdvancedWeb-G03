@@ -1,13 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { PlaningComponent } from './pages/planing/planing.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { ReviewComponent } from './pages/review/review.component';
-import { CreateReviewComponent } from './components/createReview/createReview.component';
-import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
-import { SubReviewComponent } from './components/sub-review/sub-review.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 

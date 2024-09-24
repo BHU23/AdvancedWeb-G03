@@ -9,7 +9,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PlaningComponent, SubPlaningComponent],
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })

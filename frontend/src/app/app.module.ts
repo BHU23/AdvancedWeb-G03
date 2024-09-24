@@ -45,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubReviewComponent } from './components/sub-review/sub-review.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatRadioModule } from '@angular/material/radio';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { MatRadioModule } from '@angular/material/radio';
     SubplanningformComponent,
     FilterPlanOntimesPipe,
     GoogleMapsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

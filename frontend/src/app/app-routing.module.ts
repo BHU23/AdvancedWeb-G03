@@ -8,19 +8,31 @@ import { ReviewComponent } from './pages/review/review.component';
 import { CreateReviewComponent } from './components/createReview/createReview.component';
 import { SubPlaningComponent } from './pages/sub-planing/sub-planing.component';
 import { SubReviewComponent } from './components/sub-review/sub-review.component';
-
-// const routes: Routes = [];
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'review', component: ReviewComponent },
-  { path: 'review/create', component: CreateReviewComponent },
-  { path: 'review/:id', component: SubReviewComponent },
-  { path: 'planning', component: PlaningComponent },
+  { path: 'review', component: ReviewComponent, canActivate: [AuthGuard] }, 
+  {
+    path: 'review/create',
+    component: CreateReviewComponent,
+    canActivate: [AuthGuard],
+  }, 
+  {
+    path: 'review/:id',
+    component: SubReviewComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'planning', component: PlaningComponent, canActivate: [AuthGuard] }, 
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'planning/:id', component: SubPlaningComponent}
+  {
+    path: 'planning/:id',
+    component: SubPlaningComponent,
+    canActivate: [AuthGuard],
+  }, // Protect this route
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

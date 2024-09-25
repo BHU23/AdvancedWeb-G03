@@ -107,19 +107,21 @@ export class HomeComponent implements OnInit {
   }
 
   viewReviewDetails(reviewId: string): void {
+    // Check if user is logged in
     if (this.userData) {
       this.router.navigate(['/review', reviewId]);
     } else {
-      this.showLoginPopup();
+      this.showLoginPopup(); // Show login popup if not logged in
     }
   }
 
   handleClick(event: MouseEvent): void {
     if (!this.userData) {
-      event.preventDefault(); // Prevent default anchor action
+      event.preventDefault(); // Prevent default button click
       this.showLoginPopup(); // Show login popup
     }
   }
+
 
   private showLoginPopup(): void {
     Swal.fire({

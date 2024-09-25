@@ -1,14 +1,48 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service'; 
+import { AuthService } from '../../services/auth/auth.service';
 import { DecodedToken } from '../../services/auth/auth.service';
 import Swal from 'sweetalert2';
+import { ReviewService } from '../../services/review/review.service';
+import { Router } from '@angular/router';
 
-interface Destination {
-  id: number;
+interface Place {
+  _id: string;
   name: string;
   description: string;
-  imageUrl: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  googleMapsUrl: string;
+  category: string;
+  rating: number;
+  createAt: string;
+  updateAt: string;
+  placeID: number;
+  __v: number;
 }
+
+interface Review {
+  _id: string;
+  topic: string;
+  image: string;
+  rating: number;
+  description: string;
+  trip_date: string;
+  reviewDate: string;
+  timeRecommend: string;
+  cost: number;
+  likeCount: number;
+  view: number;
+  placeID: Place;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  createAt: string;
+  updateAt: string;
+  reviewID: number;
+  __v: number;
+}
+
 
 @Component({
   selector: 'app-home',
@@ -17,36 +51,7 @@ interface Destination {
 })
 export class HomeComponent implements OnInit {
   userData: DecodedToken | null = null;
-  featuredDestinations: Destination[] = [
-    {
-      id: 1,
-      name: 'เกาะสมุย',
-      description: 'เกาะสวรรค์แห่งอ่าวไทย',
-      imageUrl:
-        'https://blog.amari.com/wp-content/uploads/2017/08/shutterstock_169949093.jpg',
-    },
-    {
-      id: 2,
-      name: 'เชียงใหม่',
-      description: 'เมืองแห่งวัฒนธรรมล้านนา',
-      imageUrl:
-        'https://www.maehongsongreentravel.com/images/editor/Chiang%20Mai/%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88.jpg',
-    },
-    {
-      id: 3,
-      name: 'กรุงเทพมหานคร',
-      description: 'มหานครแห่งความหลากหลาย',
-      imageUrl:
-        'https://www.b2hotel.com/wp-content/uploads/2023/01/Bangkok-1024x683.jpg',
-    },
-    {
-      id: 4,
-      name: 'ภูเก็ต',
-      description: 'ไข่มุกแห่งอันดามัน',
-      imageUrl:
-        'https://blog.bangkokair.com/wp-content/uploads/2024/04/phuket-scaled.jpeg',
-    },
-  ];
+  topReviews: Review[] = [];
 
   carouselItems = [
     {
@@ -69,14 +74,46 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private reviewService: ReviewService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.authService.getUserdata().subscribe((data) => {
       this.userData = data;
       console.log('userData', this.userData);
     });
+    this.fetchTopReviews();
   }
+
+  fetchTopReviews(): void {
+    this.reviewService.getReviews().subscribe(
+      (reviews: Review[]) => {
+        // Sort reviews by popularity (likes + views)
+        const sortedReviews = reviews.sort((a, b) =>
+          (b.likeCount + b.view) - (a.likeCount + a.view)
+        );
+
+        // Get top 4 reviews
+        this.topReviews = sortedReviews.slice(0, 4);
+      },
+      (error) => {
+        console.error('Error fetching reviews:', error);
+        // Handle error (e.g., show error message to user)
+      }
+    );
+  }
+
+  viewReviewDetails(reviewId: string): void {
+    if (this.userData) {
+      this.router.navigate(['/review', reviewId]);
+    } else {
+      this.showLoginPopup();
+    }
+  }
+
   handleClick(event: MouseEvent): void {
     if (!this.userData) {
       event.preventDefault(); // Prevent default anchor action

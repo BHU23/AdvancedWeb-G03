@@ -68,12 +68,13 @@
     </div>
   </section>
 
+
   <section class="featured-destinations">
     <div class="container">
       <hr class="section-divider" />
       <div class="d-flex align-items-center mb-4">
         <h2 class="text-space-left2 mb-0 font-weight-bold">
-          สถานที่ท่องเที่ยวที่กำลังมาแรง
+          สถานที่ท่องเที่ยวยอดนิยม
         </h2>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -90,20 +91,21 @@
       </div>
       <br />
       <div class="row">
-        <div
-          class="col-md-3 mb-4"
-          *ngFor="let destination of featuredDestinations"
-        >
+        <div class="col-md-3 mb-4" *ngFor="let review of topReviews">
           <div class="card">
             <img
-              [src]="destination.imageUrl"
+              [src]="review.image"
               class="card-img-top"
-              [alt]="destination.name"
+              [alt]="review.placeID.name"
             />
             <div class="card-body">
-              <h5 class="card-title">{{ destination.name }}</h5>
-              <p class="card-text text-truncate">{{ destination.description }}</p>
-              <a href="/reivew/id" class="btn btn-outline-primary" (click)="handleClick($event)">ดูรายละเอียด</a>
+              <h5 class="card-title">{{ review.placeID.name }}</h5>
+              <p class="card-text text-truncate">{{ review.topic }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-heart-fill text-danger"></i> {{ review.likeCount }}</span>
+                <span><i class="bi bi-eye-fill"></i> {{ review.view }}</span>
+              </div>
+              <a class="btn btn-outline-primary mt-2" (click)="viewReviewDetails(review._id)">ดูรายละเอียด</a>
             </div>
           </div>
         </div>

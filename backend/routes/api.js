@@ -40,7 +40,7 @@ router.delete('/planning/:id', planningController.deletePlanning);
 router.get('/planontimes', planOntimeController.getAllPlanOntimes);
 router.get('/planontime/:id', planOntimeController.getPlanOntimeByPlanningID);
 router.post('/planontime', planOntimeController.createPlanOntime);
-router.put('/planontime/:id', planOntimeController.updatePlanOntime);
+// router.put('/planontime/:id', planOntimeController.updatePlanOntime);
 router.delete('/planontime/:id', planOntimeController.deletePlanOntime);
 
 // Review Routes

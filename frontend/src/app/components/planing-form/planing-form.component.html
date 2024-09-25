@@ -15,7 +15,7 @@
       </mat-form-field>
 
       <div fxLayout="row" class="date-fields-container" style="width: 100%;">
-        <mat-form-field appearance="outline" fxFlex="50" style="padding-right: 10px;">
+        <mat-form-field appearance="outline" fxFlex="50" class="custom-padding  w-100">
           <mat-label>Start Date</mat-label>
           <input matInput [matDatepicker]="startPicker" formControlName="startDate" [min]="minDate" [max]="maxDate">
           <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
@@ -24,7 +24,7 @@
           <mat-error *ngIf="endDate?.errors?.['dateOutOfRange']">วันที่เริ่มต้นต้องอยู่ในช่วงที่กำหนด</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" fxFlex="50" class="endDate">
+        <mat-form-field appearance="outline" fxFlex="50" class="endDate w-100">
           <mat-label>End Date</mat-label>
           <input matInput [matDatepicker]="endPicker" formControlName="endDate" [min]="minDate" [max]="maxDate">
           <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>

@@ -27,3 +27,24 @@
     height: 100%; /* ทำให้เต็มพื้นที่ */
     object-fit: cover; /* ทำให้รูปภาพไม่เสียสัดส่วน */
 }
+img.img-fluid.rounded-circle {
+    width: 200px; /* Width of the image */
+    height: 200px; /* Height of the image */
+    object-fit: cover; /* Ensure the image covers the circle */
+    border-radius: 50%; /* Makes the image circular */
+    margin-bottom: 10px; /* Space between image and button */
+  }
+  
+  .select-image-btn {
+    padding: 8px 15px; /* Padding to make the button smaller */
+    font-size: 14px; /* Smaller font size for the button text */
+    border-radius: 5px; /* Slightly rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    height: 40px; /* Set height to be shorter than before */
+    width: 130px; /* Set width to be smaller */
+    display: inline-block; /* To respect the width setting */
+  }
+  
+  .select-image-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }

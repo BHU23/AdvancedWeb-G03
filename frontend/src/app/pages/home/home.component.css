@@ -11,6 +11,34 @@
   transform: translateY(-5px);
 }
 
+.featured-destinations .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.featured-destinations .card-img-top {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.featured-destinations .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.featured-destinations .card-text {
+  flex-grow: 1;
+}
+
+.featured-destinations .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+
 .cta-section {
   background-color: hsl(0, 0%, 100%);
   width: 100%;

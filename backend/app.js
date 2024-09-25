@@ -32,6 +32,9 @@ app.use(express.urlencoded({ limit: "5mb", extended: true }));
 
 app.use("/auth", authRoutes);
 
+// Route ที่ไม่ต้องใช้ auth สำหรับ reviews
+app.use("/api/reviews", require('./routes/review'));
+
 app.use("/api", authMiddleware, apiRoutes);
 
 // Connect to MongoDB

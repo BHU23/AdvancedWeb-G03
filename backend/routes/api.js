@@ -44,7 +44,7 @@ router.post('/planontime', planOntimeController.createPlanOntime);
 router.delete('/planontime/:id', planOntimeController.deletePlanOntime);
 
 // Review Routes
-router.get('/reviews', reviewController.getAllReviews);
+// router.get('/reviews', reviewController.getAllReviews);
 router.get('/review/:id', reviewController.getReviewByID);
 router.get('/reviews/:id/comments', commentController.getCommentsByReviewId);
 router.post('/review', reviewController.createReview);

@@ -34,8 +34,18 @@
 
 .date-fields-container {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  /* Default gap */
 }
 
+@media (max-width: 960px) {
+  .date-fields-container {
+    gap: 0;
+    /* Set gap to 0 for screen widths below 960px */
+  }
+}
 .endDate {
   
 }
@@ -114,5 +124,16 @@ mat-card-title {
   .date-fields-container > * {
     width: 100%;
     margin-bottom: 20px;
+  }
+}
+
+/* In your component's CSS */
+.custom-padding {
+  padding-right: 10px;
+}
+
+@media (max-width: 960px) {
+  .custom-padding {
+    padding-right: 0;
   }
 }

@@ -8,11 +8,11 @@ const planOntimeController = require('../controllers/planOntime');
 const reviewController = require('../controllers/review');
 
 // customer route
-router.get('/customers', customerController.getAllCustomers);
+// router.get('/customers', customerController.getAllCustomers);
 router.get('/customer/:id', customerController.getCustomerByID);
 // router.post('/customer', customerController.createCustomer);
 router.put('/customer/:id', customerController.updateCustomer);
-router.delete('/customer/:id', customerController.deleteCustomer);
+// router.delete('/customer/:id', customerController.deleteCustomer);
 
 // comment route
 router.get('/comments', commentController.getAllComments);
@@ -52,6 +52,5 @@ router.put('/review/:id', reviewController.updateReview);
 router.patch('/review/:id/views', reviewController.incrementViewCount);
 router.patch('/review/:id/likes', reviewController.incrementLikeCount); 
 router.delete('/review/:id', reviewController.deleteReview);
-
 
 module.exports = router;
